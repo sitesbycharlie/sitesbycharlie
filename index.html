@@ -23,8 +23,8 @@
     a { color: inherit; text-decoration: none; }
     ul { list-style: none; }
     body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.03; pointer-events: none; z-index: 9999; }
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 5vw; transition: background 0.4s var(--ease); }
-    nav.scrolled { background: rgba(0,0,0,0.9); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(142,22,22,0.2); }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 5vw; transition: background 0.4s var(--ease); -webkit-transform: translateZ(0); transform: translateZ(0); }
+    nav.scrolled { background: rgba(0,0,0,0.9); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(142,22,22,0.2); }
     .nav-logo { font-family: var(--serif); font-size: 1.25rem; font-weight: bold; letter-spacing: 0.01em; color: var(--light); }
     .nav-logo span { color: var(--red); }
     .nav-links { display: flex; gap: 2.2rem; }
@@ -165,6 +165,26 @@
     .reveal-d1 { transition-delay: 0.12s; }
     .reveal-d2 { transition-delay: 0.24s; }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    #why { border-top: 1px solid rgba(238,238,238,0.07); background: linear-gradient(180deg, rgba(142,22,22,0.05) 0%, transparent 50%); }
+    .why-header { max-width: 620px; margin-bottom: 4rem; }
+    .why-intro { color: var(--muted); font-size: 0.97rem; margin-top: -0.8rem; }
+    .why-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; max-width: 1100px; margin-bottom: 4rem; }
+    .why-stat-card { border: 1px solid rgba(142,22,22,0.28); background: linear-gradient(145deg, rgba(142,22,22,0.1) 0%, rgba(0,0,0,0.4) 100%); padding: 2rem 1.6rem; position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s var(--ease); }
+    .why-stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--crimson), var(--red)); }
+    .why-stat-card:hover { border-color: rgba(216,64,64,0.5); transform: translateY(-3px); }
+    .why-stat-number { font-family: var(--serif); font-size: 3.6rem; font-weight: normal; color: var(--light); line-height: 1; display: block; margin-bottom: 0.7rem; }
+    .why-stat-symbol { font-size: 2rem; color: var(--red); }
+    .why-stat-label { font-size: 0.82rem; color: rgba(238,238,238,0.55); line-height: 1.55; }
+    .why-points { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; max-width: 1100px; }
+    .why-point { display: flex; gap: 1.4rem; align-items: flex-start; border: 1px solid rgba(238,238,238,0.08); padding: 1.8rem; transition: border-color 0.3s, transform 0.3s var(--ease); }
+    .why-point:hover { border-color: rgba(142,22,22,0.38); transform: translateY(-3px); }
+    .why-point-icon { width: 46px; height: 46px; border: 1px solid rgba(142,22,22,0.35); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.3s, border-color 0.3s; }
+    .why-point:hover .why-point-icon { background: var(--crimson); border-color: var(--crimson); }
+    .why-point:hover .why-point-icon svg { stroke: var(--light); }
+    .why-point-title { font-family: var(--serif); font-size: 1.15rem; color: var(--light); margin-bottom: 0.45rem; font-weight: normal; }
+    .why-point-desc { font-size: 0.88rem; color: rgba(238,238,238,0.52); line-height: 1.7; }
+    @media (max-width: 1000px) { .why-stats { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) { .why-stats { grid-template-columns: repeat(2, 1fr); } .why-points { grid-template-columns: 1fr; } }
     @media (max-width: 900px) { .pricing-grid { grid-template-columns: 1fr; max-width: 520px; } }
     @media (max-width: 768px) {
       .nav-links { display: none; }
@@ -186,6 +206,7 @@
       <li><a href="#about">About</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#why">Why a Website?</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Toggle menu">
@@ -197,6 +218,7 @@
     <a href="#about"    onclick="closeMenu()">About</a>
     <a href="#services" onclick="closeMenu()">Services</a>
     <a href="#pricing"  onclick="closeMenu()">Pricing</a>
+    <a href="#why"      onclick="closeMenu()">Why a Website?</a>
     <a href="#contact"  onclick="closeMenu()">Contact</a>
   </div>
 
@@ -383,6 +405,92 @@
     </div>
   </section>
 
+  <!-- WHY A WEBSITE -->
+  <section id="why">
+    <div class="why-header reveal">
+      <p class="section-tag">Why It Matters</p>
+      <h2 class="section-title">Why have your own<br><em>website?</em></h2>
+      <div class="divider"></div>
+      <p class="why-intro">In 2026, your website is your most powerful business tool — working for you 24/7, reaching customers you'd never find otherwise. The numbers speak for themselves.</p>
+    </div>
+
+    <div class="why-stats reveal">
+      <div class="why-stat-card">
+        <span class="why-stat-number">75<span class="why-stat-symbol">%</span></span>
+        <p class="why-stat-label">of users judge a business's credibility based on its website design</p>
+      </div>
+      <div class="why-stat-card">
+        <span class="why-stat-number">81<span class="why-stat-symbol">%</span></span>
+        <p class="why-stat-label">of consumers research a business online before making a purchase or visiting</p>
+      </div>
+      <div class="why-stat-card">
+        <span class="why-stat-number">57<span class="why-stat-symbol">%</span></span>
+        <p class="why-stat-label">of internet users won't recommend a business with a poorly designed mobile site</p>
+      </div>
+      <div class="why-stat-card">
+        <span class="why-stat-number">3<span class="why-stat-symbol">s</span></span>
+        <p class="why-stat-label">is all it takes — visitors leave if your site doesn't load within 3 seconds</p>
+      </div>
+    </div>
+
+    <div class="why-points reveal">
+      <div class="why-point">
+        <div class="why-point-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div>
+          <h4 class="why-point-title">Open for business, 24/7</h4>
+          <p class="why-point-desc">Unlike a shopfront or phone line, your website never sleeps. Customers can find you, browse your services, and get in touch at any hour — even while you're off the clock.</p>
+        </div>
+      </div>
+      <div class="why-point">
+        <div class="why-point-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div>
+          <h4 class="why-point-title">Build trust before they even call</h4>
+          <p class="why-point-desc">A professional website signals that you're legitimate, established, and serious about your business. It's often the difference between a lead choosing you or your competitor.</p>
+        </div>
+      </div>
+      <div class="why-point">
+        <div class="why-point-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </div>
+        <div>
+          <h4 class="why-point-title">Get found on Google</h4>
+          <p class="why-point-desc">When someone searches for your type of business in your area, a well-built website puts you on the map — literally. No website means handing those customers straight to a competitor who has one.</p>
+        </div>
+      </div>
+      <div class="why-point">
+        <div class="why-point-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div>
+          <h4 class="why-point-title">Own your corner of the internet</h4>
+          <p class="why-point-desc">Social media pages can be restricted, algorithms can bury you, and platforms can change overnight. Your own website is yours — fully in your control, forever.</p>
+        </div>
+      </div>
+      <div class="why-point">
+        <div class="why-point-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <div>
+          <h4 class="why-point-title">Tell your story, your way</h4>
+          <p class="why-point-desc">Your website lets you showcase your work, share your story, highlight reviews, and position your brand exactly how you want — no character limits, no templates, no compromise.</p>
+        </div>
+      </div>
+      <div class="why-point">
+        <div class="why-point-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div>
+          <h4 class="why-point-title">More value than any ad spend</h4>
+          <p class="why-point-desc">A quality website keeps delivering results for years. Compared to running paid ads or printing flyers, it's one of the highest-return investments a small business can make.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- FAQ -->
   <section id="faq">
     <div class="faq-header reveal">
@@ -511,7 +619,7 @@
   <!-- FOOTER -->
   <footer>
     <span class="footer-logo">Sites<span>By</span>Charlie</span>
-    <p class="footer-copy">&copy; 2026 Sites By Charlie · Dublin, Ireland</p>
+    <p class="footer-copy">&copy; 2026 Sites By Charlie</p>
     <div class="footer-social">
       <a href="https://www.instagram.com/sitesbycharlie/" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
