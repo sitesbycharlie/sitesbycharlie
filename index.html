@@ -120,12 +120,12 @@
     .pricing-subtitle { color: var(--muted); font-size: 0.95rem; margin-bottom: 4rem; max-width: 520px; }
     .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 960px; align-items: start; }
     .price-card { border: 1px solid rgba(238,238,238,0.1); padding: 2.8rem; position: relative; overflow: hidden; transition: border-color 0.35s, transform 0.35s var(--ease); }
-    .price-card:hover { border-color: rgba(142,22,22,0.45); transform: translateY(-4px); }
+    .price-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(142,22,22,0.09) 0%, transparent 60%); opacity: 0; transition: opacity 0.4s; }
+    .price-card:hover { border-color: rgba(142,22,22,0.5); transform: translateY(-4px); }
+    .price-card:hover::before { opacity: 1; }
     .price-card.featured { border-color: rgba(142,22,22,0.5); background: linear-gradient(145deg, rgba(142,22,22,0.12) 0%, rgba(0,0,0,0.6) 100%); }
-    .price-card.featured::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--crimson), var(--red)); }
+    .price-card.featured::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--crimson), var(--red)); }
     .price-card.featured:hover { border-color: var(--red); }
-    .price-badge { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.63rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.3rem 0.85rem; background: var(--crimson); color: var(--light); margin-bottom: 1.8rem; }
-    .price-badge-ghost { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.63rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.3rem 0.85rem; border: 1px solid rgba(238,238,238,0.15); color: rgba(238,238,238,0.4); margin-bottom: 1.8rem; }
     .price-name { font-family: var(--serif); font-size: 1.7rem; font-weight: normal; color: var(--light); margin-bottom: 0.5rem; line-height: 1.15; }
     .price-tagline { font-size: 0.82rem; color: rgba(238,238,238,0.42); margin-bottom: 2rem; }
     .price-amount { display: flex; align-items: flex-end; gap: 0.3rem; margin-bottom: 0.3rem; }
@@ -325,7 +325,24 @@
       <div class="divider"></div>
     </div>
     <div class="services-grid">
+      <!-- Change 6: Website Design moved first -->
       <div class="service-card reveal">
+        <div class="service-icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3 class="service-name">Website Design</h3>
+        <p class="service-desc">Want a professionally built website without the ongoing commitment? I design and build your site from scratch, then hand it over completely — all files, all code, ready to go. Clean, custom, and yours to keep. No monthly fees, no strings attached.</p>
+        <div class="service-features">
+          <span class="feature-pill">Custom Design</span>
+          <span class="feature-pill">Mobile Responsive</span>
+          <span class="feature-pill">Full Ownership</span>
+          <span class="feature-pill">Clean Handover</span>
+          <span class="feature-pill">Fast Turnaround</span>
+          <span class="feature-pill">No Monthly Fees</span>
+          <span class="feature-pill">Custom Domain</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-d1">
         <div class="service-icon-box">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
         </div>
@@ -340,21 +357,6 @@
           <span class="feature-pill">Domain &amp; Hosting</span>
         </div>
       </div>
-      <div class="service-card reveal reveal-d1">
-        <div class="service-icon-box">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-        </div>
-        <h3 class="service-name">Website Design</h3>
-        <p class="service-desc">Want a professionally built website without the ongoing commitment? I design and build your site from scratch, then hand it over completely — all files, all code, ready to go. Clean, custom, and yours to keep. No monthly fees, no strings attached.</p>
-        <div class="service-features">
-          <span class="feature-pill">Custom Design</span>
-          <span class="feature-pill">Mobile Responsive</span>
-          <span class="feature-pill">Full Ownership</span>
-          <span class="feature-pill">Clean Handover</span>
-          <span class="feature-pill">Fast Turnaround</span>
-          <span class="feature-pill">No Monthly Fees</span>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -367,8 +369,8 @@
     </div>
     <p class="pricing-subtitle reveal">Two straightforward options — whether you want to own your site outright or have me handle everything for you.</p>
     <div class="pricing-grid">
-      <div class="price-card reveal">
-        <div class="price-badge-ghost">&#x1F511; Once-Off</div>
+      <!-- Change 7: Own It Outright moved first; Change 4: badge removed; Change 5: same hover effect applied -->
+      <div class="price-card featured reveal">
         <h3 class="price-name">Own It Outright</h3>
         <p class="price-tagline">You own everything, forever. No strings attached.</p>
         <div class="price-amount">
@@ -380,20 +382,20 @@
         <ul class="price-includes">
           <li class="price-row"><span class="chk">✓</span><span>Fully custom website designed around your brand</span></li>
           <li class="price-row"><span class="chk">✓</span><span>Mobile-responsive, fast-loading build</span></li>
-          <li class="price-row"><span class="chk">✓</span><span>2-week testing &amp; refinement period before handover</span></li>
+          <li class="price-row"><span class="chk">✓</span><span>3–5 business days initial build + 2-week refinement period before handover</span></li>
           <li class="price-row"><span class="chk">✓</span><span><strong>Complete ownership</strong> — all files &amp; code handed over to you</span></li>
           <li class="price-row"><span class="chk">✓</span><span>Full handover with guidance included</span></li>
         </ul>
         <div class="comparison-nudge">
           <p>Prefer a hands-off approach? The Managed plan lets me handle all updates for just <strong>€50/month</strong> after a low setup fee.</p>
         </div>
-        <a href="#contact" class="btn btn-ghost btn-full">
+        <a href="#contact" class="btn btn-primary btn-full">
           <span>Get started</span>
           <svg class="ico ico-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
         </a>
       </div>
+      <!-- Change 4: "Most Popular" badge removed -->
       <div class="price-card featured reveal reveal-d1">
-        <div class="price-badge">&#x2605; Most Popular</div>
         <h3 class="price-name">Managed by Charlie</h3>
         <p class="price-tagline">I build it, I run it — you focus on your business.</p>
         <div class="price-amount">
@@ -403,7 +405,7 @@
         <p class="price-period">per month · after setup</p>
         <div class="price-setup-note">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-          <span><strong>€250 once-off build fee</strong> + 2-week testing, then €50/mo</span>
+          <span><strong>€250 once-off build fee</strong> + 3–5 business days build, 2-week refinement, then €50/mo</span>
         </div>
         <div class="price-rule"></div>
         <ul class="price-includes">
@@ -412,7 +414,7 @@
           <li class="price-row"><span class="chk">✓</span><span>Priority support — I'm easy to reach, always</span></li>
           <li class="price-row"><span class="chk">✓</span><span>Security updates, backups &amp; performance monitoring handled for you</span></li>
           <li class="price-row"><span class="chk">✓</span><span>Additional changes beyond 3/month at <strong>€50 per change</strong></span></li>
-          <li class="price-row"><span class="chk">✓</span><span>Cancel anytime — no lock-in, no hassle</span></li>
+          <li class="price-row"><span class="chk">✓</span><span><strong>6-month minimum term</strong>, then cancel anytime — no hassle</span></li>
         </ul>
         <div class="value-callout">
           <p>Think about it — a dedicated web professional on call for <strong>€50 a month</strong> is less than most business lunches. Your site stays fresh, fast, and professional while you get on with what you do best.</p>
@@ -519,9 +521,10 @@
       <div class="divider"></div>
     </div>
     <div class="faq-list reveal">
+      <!-- Change 2: Renamed FAQ question -->
       <div class="faq-item">
         <button class="faq-question" aria-expanded="false">
-          <span>Why choose me over a bigger agency?</span>
+          <span>Why choose me?</span>
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
@@ -530,6 +533,7 @@
           </div>
         </div>
       </div>
+      <!-- Change 1: Updated build time in FAQ -->
       <div class="faq-item">
         <button class="faq-question" aria-expanded="false">
           <span>How long does it take to build my website?</span>
@@ -537,7 +541,7 @@
         </button>
         <div class="faq-answer">
           <div class="faq-answer-inner">
-            Most websites are built and ready for review within <strong>1–2 weeks</strong> of receiving your content and brief. After the initial build, there's a dedicated <strong>2-week testing period</strong> where we refine everything together before going live. So from start to launch, you're typically looking at around 3–4 weeks — significantly faster than a traditional agency.
+            Most websites are built and ready for review within <strong>3–5 business days</strong> of receiving your content and brief. After the initial build, there's a dedicated <strong>2-week refinement period</strong> where we refine everything together before going live. So from start to launch, you're typically looking at around 3 weeks — significantly faster than a traditional agency.
           </div>
         </div>
       </div>
@@ -559,7 +563,7 @@
         </button>
         <div class="faq-answer">
           <div class="faq-answer-inner">
-            Simple — I accept payment via <strong>Revolut</strong>. Once we've agreed on the project, I'll send you a request directly. No fuss, no complicated invoicing.
+            Simple — I accept payment via <strong>Revolut</strong>. Once we've agreed on the project, I'll send you a request directly. No fuss, no complicated invoicing. <strong>Don't use Revolut? Not a problem</strong> — just let me know and we can sort out a custom arrangement via bank transfer or whatever works best for you.
           </div>
         </div>
       </div>
@@ -599,6 +603,7 @@
         </a>
       </div>
       <div class="reveal reveal-d1">
+        <!-- Change 3: Added mobile number field -->
         <form class="contact-form" id="contactForm" action="https://formspree.io/f/mwvrpyya" method="POST" novalidate>
           <div class="form-group">
             <label for="name">Your Name</label>
@@ -607,6 +612,10 @@
           <div class="form-group">
             <label for="email">Email Address</label>
             <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Mobile Number <span style="opacity:0.32">(optional)</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="e.g. 087 123 4567" />
           </div>
           <div class="form-group">
             <label for="plan">Interested In</label>
