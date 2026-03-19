@@ -6,7 +6,895 @@
   <title>Sites By Charlie — Web Design Ireland</title>
   <meta name="description" content="Affordable, custom web design for Irish businesses. Based in Dublin, working nationwide. Simple pricing, fast turnaround, no monthly fees." />
   <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.sitesbycharlie.ie/" /><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sites By Charlie — Web Design Ireland</title>
+  <meta name="description" content="Affordable, custom web design for Irish businesses. Based in Dublin, working nationwide. Simple pricing, fast turnaround, no monthly fees." />
+  <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://www.sitesbycharlie.ie/" />
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.sitesbycharlie.ie/" />
+  <meta property="og:title" content="Sites By Charlie — Web Design Ireland" />
+  <meta property="og:description" content="Affordable, custom web design for Irish businesses. Based in Dublin, working nationwide. Simple pricing, fast turnaround, no monthly fees." />
+  <meta property="og:image" content="https://www.sitesbycharlie.ie/favicon.png" />
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Sites By Charlie — Web Design Ireland" />
+  <meta name="twitter:description" content="Affordable, custom web design for Irish businesses. Based in Dublin, working nationwide. Simple pricing, fast turnaround, no monthly fees." />
+  <meta name="twitter:image" content="https://www.sitesbycharlie.ie/favicon.png" />
+
+  <link rel="icon" type="image/png" href="favicon.png" sizes="512x512" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Varela+Round&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black:   #000000;
+      --crimson: #8E1616;
+      --red:     #D84040;
+      --light:   #EEEEEE;
+      --muted:   rgba(238,238,238,0.55);
+      --serif:   'DM Sans', sans-serif;
+      --sans:    'Varela Round', sans-serif;
+      --ease:    cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--light); font-family: var(--sans); font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.03; pointer-events: none; z-index: 9999; }
+    nav { position: relative; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 5vw; }
+    nav.scrolled { background: transparent; border-bottom: none; }
+    .nav-logo { font-family: var(--serif); font-size: 1.25rem; font-weight: bold; letter-spacing: 0.01em; color: var(--light); }
+    .nav-logo span { color: var(--red); }
+    .nav-links { display: flex; gap: 2.2rem; }
+    .nav-links a { font-size: 0.73rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(238,238,238,0.5); transition: color 0.25s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -3px; width: 0; height: 1px; background: var(--red); transition: width 0.3s var(--ease); }
+    .nav-links a:hover { color: var(--light); }
+    .nav-links a:hover::after { width: 100%; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--light); transition: transform 0.3s var(--ease), opacity 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.97); z-index: 99; flex-direction: column; justify-content: center; align-items: center; gap: 2.5rem; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: var(--serif); font-size: 2.2rem; font-weight: normal; color: var(--light); letter-spacing: 0.04em; transition: color 0.25s; }
+    .mobile-menu a:hover { color: var(--red); }
+    #hero { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 0 5vw; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; }
+    .aurora-container { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    .aurora-container canvas { width: 100% !important; height: 100% !important; }
+    .hero-content { position: relative; max-width: 840px; }
+    .hero-eyebrow { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 1.5rem; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s var(--ease) 0.3s forwards; }
+    .hero-title { font-family: var(--serif); font-size: clamp(3rem, 7vw, 6.2rem); font-weight: normal; line-height: 1.05; color: var(--light); margin-bottom: 1.8rem; opacity: 0; transform: translateY(30px); animation: fadeUp 0.9s var(--ease) 0.5s forwards; }
+    .hero-title em { font-style: italic; color: var(--red); }
+    .hero-sub { font-size: 1rem; color: var(--muted); max-width: 460px; margin-bottom: 2.8rem; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s var(--ease) 0.7s forwards; }
+    .hero-cta-wrap { display: flex; gap: 1rem; flex-wrap: wrap; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s var(--ease) 0.9s forwards; }
+    .btn { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.85rem 2.2rem; font-family: var(--sans); font-size: 0.73rem; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; border: none; cursor: pointer; transition: all 0.3s var(--ease); position: relative; overflow: hidden; }
+    .btn-primary { background: var(--crimson); color: var(--light); }
+    .btn-primary::before { content: ''; position: absolute; inset: 0; background: var(--red); transform: translateX(-101%); transition: transform 0.35s var(--ease); }
+    .btn-primary:hover::before { transform: translateX(0); }
+    .btn-primary span, .btn-primary .ico { position: relative; z-index: 1; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(142,22,22,0.4); }
+    .btn-ghost { background: transparent; color: rgba(238,238,238,0.6); border: 1px solid rgba(238,238,238,0.18); }
+    .btn-ghost:hover { color: var(--light); border-color: rgba(238,238,238,0.45); transform: translateY(-2px); }
+    .btn-full { width: 100%; justify-content: center; }
+    .btn-full.btn-gradient span { width: 100%; }
+    .btn-gradient { background-image: linear-gradient(144deg, #5a0a0a, #8E1616 50%, #D84040); border: 0; border-radius: 8px; box-shadow: rgba(142,22,22,0.35) 0 15px 30px -5px; padding: 3px; min-width: 140px; white-space: nowrap; touch-action: manipulation; color: #ffffff; }
+    .btn-gradient span { background-color: #0a0000; padding: 16px 24px; border-radius: 6px; width: 100%; height: 100%; transition: background 300ms, color 300ms; display: flex; align-items: center; justify-content: center; gap: 0.6rem; color: #ffffff; }
+    .btn-gradient:hover span { background: none; color: #ffffff; }
+    .btn-gradient:hover span svg { stroke: #ffffff; }
+    .btn-gradient:hover { outline: 0; box-shadow: rgba(216,64,64,0.45) 0 15px 30px -5px; transform: translateY(-2px); }
+    .btn-gradient:active { transform: scale(0.95); outline: 0; }
+    .btn-glow { --btn-bg: linear-gradient(to left, #8E1616 0%, #D84040 100%); display: inline-flex; align-items: center; justify-content: center; padding: 4px; border-radius: 1rem; border: 0; background: var(--btn-bg); position: relative; z-index: 1; cursor: pointer; transition: transform 0.3s; width: 100%; }
+    .btn-glow::after { position: absolute; content: ''; top: 30px; left: 0; right: 0; z-index: -1; height: 100%; width: 100%; transform: scale(0.8); filter: blur(20px); background: var(--btn-bg); transition: opacity 0.5s; border-radius: 1rem; }
+    .btn-glow:hover::after { opacity: 0; }
+    .btn-glow:hover { transform: translateY(-2px); }
+    .btn-glow:active { transform: scale(0.95); }
+    .btn-glow span { background: #0d0000; color: #ffffff; display: flex; align-items: center; justify-content: center; gap: 0.6rem; width: 100%; padding: 14px 24px; border-radius: calc(1rem - 4px); font-family: var(--sans); font-size: 0.73rem; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; transition: color 0.5s; white-space: nowrap; }
+    .btn-glow:hover span { color: #D84040; }
+    .ico-arrow { width: 14px; height: 14px; display: inline-block; vertical-align: middle; }
+    .ico-plane { width: 14px; height: 14px; display: inline-block; vertical-align: middle; }
+    section { padding: 7rem 5vw; }
+    .section-tag { font-size: 0.67rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 1rem; }
+    .section-title { font-family: var(--serif); font-size: clamp(2.3rem, 4.5vw, 3.6rem); font-weight: normal; line-height: 1.1; color: var(--light); margin-bottom: 1.6rem; }
+    .section-title em { font-style: italic; color: var(--red); }
+    .divider { width: 44px; height: 1px; background: linear-gradient(90deg, var(--crimson), var(--red)); margin-bottom: 2.4rem; }
+    #about { border-top: 1px solid rgba(238,238,238,0.07); }
+    .about-grid { display: grid; grid-template-columns: 1fr; gap: 6vw; align-items: start; max-width: 700px; }
+    .about-text { padding-top: 0.4rem; }
+    .blurb { color: rgba(238,238,238,0.63); font-size: 0.97rem; margin-bottom: 1.1rem; }
+    .blurb strong { color: var(--light); font-weight: 600; }
+    .creds { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-top: 2rem; }
+    @media (max-width: 500px) { .creds { grid-template-columns: 1fr; } }
+    .cred-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 1.2rem; border: 1px solid rgba(238,238,238,0.07); transition: border-color 0.3s; }
+    .cred-item:hover { border-color: rgba(142,22,22,0.35); }
+    .cred-icon { color: var(--red); margin-top: 0.15rem; flex-shrink: 0; }
+    .cred-title { font-size: 0.88rem; color: var(--light); font-weight: 600; line-height: 1.3; }
+    .cred-sub { font-size: 0.76rem; color: rgba(238,238,238,0.38); margin-top: 0.18rem; }
+    #services { border-top: 1px solid rgba(238,238,238,0.07); background: linear-gradient(180deg, rgba(142,22,22,0.05) 0%, transparent 55%); }
+    .services-header { max-width: 500px; margin-bottom: 4rem; }
+    .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 1100px; }
+    .service-card { border: 1px solid rgba(238,238,238,0.09); padding: 3rem; position: relative; overflow: hidden; transition: border-color 0.35s, transform 0.35s var(--ease); }
+    .service-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(142,22,22,0.09) 0%, transparent 60%); opacity: 0; transition: opacity 0.4s; }
+    .service-card:hover { border-color: rgba(142,22,22,0.5); transform: translateY(-4px); }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon-box { width: 52px; height: 52px; border: 1px solid rgba(142,22,22,0.4); display: flex; align-items: center; justify-content: center; margin-bottom: 1.8rem; position: relative; z-index: 1; transition: background 0.3s, border-color 0.3s; }
+    .service-card:hover .service-icon-box { background: var(--crimson); border-color: var(--crimson); }
+    .service-icon-box svg { transition: stroke 0.3s; }
+    .service-card:hover .service-icon-box svg { stroke: var(--light); }
+    .service-name { font-family: var(--serif); font-size: 1.9rem; font-weight: normal; color: var(--light); margin-bottom: 1rem; position: relative; z-index: 1; }
+    .service-desc { color: rgba(238,238,238,0.55); font-size: 0.95rem; margin-bottom: 2rem; position: relative; z-index: 1; }
+    .service-features { display: flex; flex-wrap: wrap; gap: 0.65rem; position: relative; z-index: 1; }
+    .feature-pill { font-size: 0.68rem; letter-spacing: 0.09em; text-transform: uppercase; padding: 0.38rem 0.95rem; border: 1px solid rgba(238,238,238,0.1); color: rgba(238,238,238,0.48); transition: border-color 0.3s, color 0.3s; }
+    .service-card:hover .feature-pill { border-color: rgba(142,22,22,0.32); color: rgba(238,238,238,0.7); }
+    @media (max-width: 820px) { .services-grid { grid-template-columns: 1fr; max-width: 600px; } }
+    #pricing { border-top: 1px solid rgba(238,238,238,0.07); background: linear-gradient(180deg, rgba(142,22,22,0.04) 0%, transparent 60%); }
+    .pricing-header { max-width: 560px; margin-bottom: 1rem; }
+    .pricing-subtitle { color: var(--muted); font-size: 0.95rem; margin-bottom: 4rem; max-width: 520px; }
+    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 960px; align-items: start; }
+    .price-card { border: 1px solid rgba(238,238,238,0.1); padding: 2.8rem; position: relative; overflow: hidden; transition: border-color 0.35s, transform 0.35s var(--ease); background: #000; border-radius: 0.5rem; }
+    .price-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(142,22,22,0.09) 0%, transparent 60%); opacity: 0; transition: opacity 0.4s; pointer-events: none; }
+    .price-card:hover { border-color: rgba(142,22,22,0.5); transform: translateY(-4px); }
+    .price-card:hover::before { opacity: 1; }
+    .price-card.featured { border-color: rgba(142,22,22,0.5); background: linear-gradient(145deg, rgba(142,22,22,0.12) 0%, rgba(0,0,0,0.6) 100%); }
+    .price-card.featured::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--crimson), var(--red)); }
+    .price-name { font-family: var(--serif); font-size: 1.7rem; font-weight: normal; color: var(--light); margin-bottom: 0.5rem; line-height: 1.15; }
+    .price-tagline { font-size: 0.82rem; color: rgba(238,238,238,0.42); margin-bottom: 2rem; }
+    .price-amount { display: flex; align-items: flex-end; gap: 0.3rem; margin-bottom: 0.3rem; }
+    .price-currency { font-family: var(--serif); font-size: 1.8rem; font-weight: normal; color: rgba(238,238,238,0.5); line-height: 1; padding-bottom: 0.35rem; }
+    .price-number { font-family: var(--serif); font-size: 4.2rem; font-weight: normal; color: var(--light); line-height: 1; }
+    .price-period { font-size: 0.76rem; color: rgba(238,238,238,0.35); letter-spacing: 0.06em; margin-bottom: 0.5rem; }
+    .price-setup-note { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: rgba(238,238,238,0.5); padding: 0.5rem 0.9rem; border: 1px solid rgba(238,238,238,0.1); margin-bottom: 2rem; }
+    .price-setup-note strong { color: var(--light); font-weight: 600; }
+    .price-rule { width: 100%; height: 1px; background: rgba(238,238,238,0.08); margin-bottom: 2rem; }
+    .price-includes { display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 2.4rem; }
+    .price-row { display: flex; align-items: flex-start; gap: 0.85rem; font-size: 0.88rem; color: rgba(238,238,238,0.65); line-height: 1.45; }
+    .price-row .chk { color: var(--red); flex-shrink: 0; margin-top: 0.1rem; font-size: 0.8rem; font-weight: bold; }
+    .price-row strong { color: var(--light); font-weight: 600; }
+    .value-callout { background: rgba(142,22,22,0.13); border: 1px solid rgba(142,22,22,0.28); padding: 1.2rem 1.4rem; margin-bottom: 2.2rem; }
+    .value-callout p { font-size: 0.83rem; color: rgba(238,238,238,0.7); line-height: 1.6; }
+    .value-callout p strong { color: var(--light); font-weight: 600; }
+    .comparison-nudge { background: rgba(238,238,238,0.03); border: 1px solid rgba(238,238,238,0.07); padding: 1.2rem 1.4rem; margin-bottom: 2.2rem; }
+    .comparison-nudge p { font-size: 0.83rem; color: rgba(238,238,238,0.45); line-height: 1.6; }
+    .comparison-nudge p strong { color: rgba(238,238,238,0.7); font-weight: 600; }
+    #faq { border-top: 1px solid rgba(238,238,238,0.07); }
+    .faq-header { max-width: 480px; margin-bottom: 4rem; }
+    .faq-list { max-width: 760px; }
+    .faq-item { border-bottom: 1px solid rgba(238,238,238,0.08); overflow: hidden; }
+    .faq-item:first-child { border-top: 1px solid rgba(238,238,238,0.08); }
+    .faq-question { width: 100%; background: none; border: none; text-align: left; cursor: pointer; padding: 1.6rem 0; display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; color: var(--light); font-family: var(--sans); font-size: 0.98rem; font-weight: 400; transition: color 0.25s; }
+    .faq-question:hover { color: rgba(238,238,238,0.75); }
+    .faq-icon { width: 28px; height: 28px; border: 1px solid rgba(238,238,238,0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.2rem; line-height: 1; color: var(--red); font-weight: 300; transition: transform 0.35s var(--ease), background 0.3s, border-color 0.3s, color 0.3s; user-select: none; }
+    .faq-question.open .faq-icon { transform: rotate(45deg); background: var(--crimson); border-color: var(--crimson); color: var(--light); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.45s var(--ease); }
+    .faq-answer-inner { padding-bottom: 1.6rem; color: rgba(238,238,238,0.58); font-size: 0.93rem; line-height: 1.75; max-width: 640px; }
+    .faq-answer-inner strong { color: var(--light); font-weight: 600; }
+    #contact { border-top: 1px solid rgba(238,238,238,0.07); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 6vw; max-width: 1000px; }
+    .contact-intro { color: rgba(238,238,238,0.5); font-size: 0.95rem; margin-bottom: 2.5rem; }
+    .contact-detail { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; color: rgba(238,238,238,0.58); font-size: 0.9rem; transition: color 0.25s; }
+    .contact-detail:hover { color: var(--light); }
+    .contact-detail .cico { color: var(--red); flex-shrink: 0; }
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+    .form-group label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(238,238,238,0.36); }
+    .form-group input, .form-group textarea { background: rgba(238,238,238,0.03); border: 1px solid rgba(238,238,238,0.09); color: var(--light); font-family: var(--sans); font-size: 0.95rem; font-weight: 300; padding: 0.9rem 1.1rem; outline: none; width: 100%; transition: border-color 0.3s, background 0.3s; -webkit-appearance: none; border-radius: 0; }
+    .form-group input:focus, .form-group textarea:focus { border-color: rgba(142,22,22,0.65); background: rgba(142,22,22,0.05); }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(238,238,238,0.17); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-submit { margin-top: 0.4rem; }
+    .form-status { font-size: 0.83rem; margin-top: 0.8rem; min-height: 1.2em; color: var(--red); }
+    .form-status.success { color: #72c992; }
+    footer { border-top: 1px solid rgba(238,238,238,0.07); padding: 2.6rem 5vw; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.2rem; }
+    .footer-logo { font-family: var(--serif); font-size: 1.15rem; font-weight: bold; }
+    .footer-logo span { color: var(--red); }
+    .footer-copy { font-size: 0.74rem; color: rgba(238,238,238,0.26); letter-spacing: 0.04em; }
+    .footer-social { display: flex; gap: 1rem; }
+    .social-link { width: 40px; height: 40px; border: 1px solid rgba(238,238,238,0.1); display: flex; align-items: center; justify-content: center; color: rgba(238,238,238,0.42); transition: border-color 0.3s, color 0.3s, background 0.3s; }
+    .social-link:hover { border-color: var(--crimson); background: var(--crimson); color: var(--light); }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s var(--ease), transform 0.75s var(--ease); }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: 0.12s; }
+    .reveal-d2 { transition-delay: 0.24s; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+    /* ── Gradual Blur ── */
+    .gradual-blur { position: absolute; left: 0; right: 0; pointer-events: none; overflow: hidden; opacity: 0; transition: opacity 0.7s ease-out; isolation: isolate; }
+    .gradual-blur.visible { opacity: 1; }
+    .gradual-blur.blur-bottom { bottom: 0; height: 7rem; }
+    .gradual-blur.blur-top { top: 0; height: 5rem; }
+    .gradual-blur-inner { position: relative; width: 100%; height: 100%; }
+    .gradual-blur-inner > div { position: absolute; inset: 0; -webkit-backdrop-filter: inherit; backdrop-filter: inherit; }
+    @supports not (backdrop-filter: blur(1px)) {
+      .gradual-blur-inner > div { background: rgba(0,0,0,0.3); opacity: 0.5; }
+    }
+    #why { border-top: 1px solid rgba(238,238,238,0.07); background: linear-gradient(180deg, rgba(142,22,22,0.05) 0%, transparent 50%); }
+    .why-header { max-width: 620px; margin-bottom: 4rem; }
+    .why-intro { color: var(--muted); font-size: 0.97rem; margin-top: -0.8rem; }
+    .why-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; max-width: 1100px; margin-bottom: 4rem; }
+    .why-stat-card { border: 1px solid rgba(142,22,22,0.28); background: linear-gradient(145deg, rgba(142,22,22,0.1) 0%, rgba(0,0,0,0.4) 100%); padding: 2rem 1.6rem; position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s var(--ease); }
+    .why-stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--crimson), var(--red)); }
+    .why-stat-card:hover { border-color: rgba(216,64,64,0.5); transform: translateY(-3px); }
+    .why-stat-number { font-family: var(--serif); font-size: 3.6rem; font-weight: normal; color: var(--light); line-height: 1; display: block; margin-bottom: 0.7rem; }
+    .why-stat-symbol { font-size: 2rem; color: var(--red); }
+    .why-stat-label { font-size: 0.82rem; color: rgba(238,238,238,0.55); line-height: 1.55; }
+    .why-points { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; max-width: 1100px; }
+    .why-point { display: flex; gap: 1.4rem; align-items: flex-start; border: 1px solid rgba(238,238,238,0.08); padding: 1.8rem; transition: border-color 0.3s, transform 0.3s var(--ease); }
+    .why-point:hover { border-color: rgba(142,22,22,0.38); transform: translateY(-3px); }
+    .why-point-icon { width: 46px; height: 46px; border: 1px solid rgba(142,22,22,0.35); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.3s, border-color 0.3s; }
+    .why-point:hover .why-point-icon { background: var(--crimson); border-color: var(--crimson); }
+    .why-point:hover .why-point-icon svg { stroke: var(--light); }
+    .why-point-title { font-family: var(--serif); font-size: 1.15rem; color: var(--light); margin-bottom: 0.45rem; font-weight: normal; }
+    .why-point-desc { font-size: 0.88rem; color: rgba(238,238,238,0.52); line-height: 1.7; }
+    @media (max-width: 1000px) { .why-stats { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) { .why-stats { grid-template-columns: repeat(2, 1fr); } .why-points { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) { .pricing-grid { grid-template-columns: 1fr; max-width: 520px; } }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .creds { grid-template-columns: 1fr; }
+      section { padding: 5rem 5vw; }
+      .service-card, .price-card { padding: 1.8rem; }
+      footer { flex-direction: column; text-align: center; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">Sites<span>By</span>Charlie</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#why">Why a Website?</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about"    onclick="closeMenu()">About</a>
+    <a href="#services" onclick="closeMenu()">Services</a>
+    <a href="#pricing"  onclick="closeMenu()">Pricing</a>
+    <a href="#why"      onclick="closeMenu()">Why a Website?</a>
+    <a href="#contact"  onclick="closeMenu()">Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="aurora-container" id="auroraContainer"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Web Design in Ireland</p>
+      <h1 class="hero-title">
+        Helping businesses grow online,<br>
+        one website at a <em>time.</em>
+      </h1>
+      <p class="hero-sub">Clean, personalised websites built to help Irish businesses grow online and connect with their customers.</p>
+      <div class="hero-cta-wrap">
+        <a href="#contact" class="btn btn-gradient">
+          <span>Get in touch <svg class="ico ico-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+        <a href="#about" class="btn btn-gradient">
+          <span>About me</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" style="position:relative;">
+    <div class="about-grid">
+      <div class="about-text reveal reveal-d1">
+        <p class="section-tag">About Me</p>
+        <h2 class="section-title">Passion for<br>the <em>digital.</em></h2>
+        <div class="divider"></div>
+        <p class="blurb">Hi, I'm Charlie — a web designer based in <strong>Dublin, Ireland</strong> with a lifelong passion for everything digital.</p>
+        <p class="blurb">I hold a <strong>Bachelor's in Marketing &amp; Sales</strong> and a <strong>Master's in Digital Media</strong>, with dedicated modules in Web Design, JavaScript, and CSS. That mix of commercial thinking and technical skill shapes everything I build.</p>
+        <p class="blurb">I love helping businesses <strong>drive real engagement</strong> through personalised websites — because a great site isn't just a pretty page, it's your hardest-working team member.</p>
+        <div class="creds">
+          <div class="cred-item">
+            <span class="cred-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </span>
+            <div>
+              <div class="cred-title">BSc Marketing &amp; Sales</div>
+              <div class="cred-sub">Undergraduate Degree</div>
+            </div>
+          </div>
+          <div class="cred-item">
+            <span class="cred-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </span>
+            <div>
+              <div class="cred-title">MSc Digital Media</div>
+              <div class="cred-sub">Web Design · JavaScript · CSS</div>
+            </div>
+          </div>
+          <div class="cred-item">
+            <span class="cred-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </span>
+            <div>
+              <div class="cred-title">Professional Diploma</div>
+              <div class="cred-sub">AI &amp; Cybersecurity</div>
+            </div>
+          </div>
+          <div class="cred-item">
+            <span class="cred-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            </span>
+            <div>
+              <div class="cred-title">Based in Dublin, Ireland</div>
+              <div class="cred-sub">Working with clients nationwide</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" style="position:relative;">
+    <div class="services-header reveal">
+      <p class="section-tag">Services</p>
+      <h2 class="section-title">What I<br><em>offer.</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="services-grid">
+      <!-- Change 6: Website Design moved first -->
+      <div class="service-card reveal">
+        <div class="service-icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3 class="service-name">Website Design</h3>
+        <p class="service-desc">Want a professionally built website without the ongoing commitment? I design and build your site from scratch, then hand it over completely — all files, all code, ready to go. Clean, custom, and yours to keep. No monthly fees, no strings attached.</p>
+        <div class="service-features">
+          <span class="feature-pill">Custom Design</span>
+          <span class="feature-pill">Mobile Responsive</span>
+          <span class="feature-pill">Full Ownership</span>
+          <span class="feature-pill">Clean Handover</span>
+          <span class="feature-pill">Fast Turnaround</span>
+          <span class="feature-pill">No Monthly Fees</span>
+          <span class="feature-pill">Custom Domain</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-d1">
+        <div class="service-icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h3 class="service-name">Website Design &amp; Management</h3>
+        <p class="service-desc">From first concept to launch day — and everything that follows. I design and build fully custom websites shaped around your brand, then keep them running smoothly with ongoing management, updates, and support whenever you need it.</p>
+        <div class="service-features">
+          <span class="feature-pill">Custom Design</span>
+          <span class="feature-pill">Mobile Responsive</span>
+          <span class="feature-pill">Fast Loading</span>
+          <span class="feature-pill">Content Updates</span>
+          <span class="feature-pill">Ongoing Support</span>
+          <span class="feature-pill">Domain &amp; Hosting</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" style="position:relative;">
+    <div class="pricing-header reveal">
+      <p class="section-tag">Pricing</p>
+      <h2 class="section-title">Simple, honest<br><em>pricing.</em></h2>
+      <div class="divider"></div>
+    </div>
+    <p class="pricing-subtitle reveal">Two straightforward options — whether you want to own your site outright or have me handle everything for you.</p>
+    <div class="pricing-grid">
+      <!-- Change 7: Own It Outright moved first; Change 4: badge removed; Change 5: same hover effect applied -->
+      <div class="price-card featured reveal">
+        <h3 class="price-name">Own It Outright</h3>
+        <p class="price-tagline">You own everything, forever. No strings attached.</p>
+        <div class="price-amount">
+          <span class="price-currency">€</span>
+          <span class="price-number">500</span>
+        </div>
+        <p class="price-period">single payment · yours forever</p>
+        <div class="price-rule"></div>
+        <ul class="price-includes">
+          <li class="price-row"><span class="chk">✓</span><span>Fully custom website designed around your brand</span></li>
+          <li class="price-row"><span class="chk">✓</span><span>Mobile-responsive, fast-loading build</span></li>
+          <li class="price-row"><span class="chk">✓</span><span>3–5 business days initial build + 2-week refinement period before handover</span></li>
+          <li class="price-row"><span class="chk">✓</span><span><strong>Complete ownership</strong> — all files &amp; code handed over to you</span></li>
+          <li class="price-row"><span class="chk">✓</span><span>Full handover with guidance included</span></li>
+        </ul>
+        <div class="comparison-nudge">
+          <p>Prefer a hands-off approach? The Managed plan lets me handle all updates for just <strong>€50/month</strong> after a low setup fee.</p>
+        </div>
+        <a href="#contact" class="btn btn-gradient btn-full">
+          <span>Get started <svg class="ico ico-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+      </div>
+      <!-- Change 4: "Most Popular" badge removed -->
+      <div class="price-card featured reveal reveal-d1">
+        <h3 class="price-name">Managed by Charlie</h3>
+        <p class="price-tagline">I build it, I run it — you focus on your business.</p>
+        <div class="price-amount">
+          <span class="price-currency">€</span>
+          <span class="price-number">50</span>
+        </div>
+        <p class="price-period">per month · after setup</p>
+        <div class="price-setup-note">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          <span><strong>€250 once-off build fee</strong> + 3–5 business days build, 2-week refinement, then €50/mo</span>
+        </div>
+        <div class="price-rule"></div>
+        <ul class="price-includes">
+          <li class="price-row"><span class="chk">✓</span><span>Everything in Own It Outright, plus ongoing care</span></li>
+          <li class="price-row"><span class="chk">✓</span><span><strong>3 revisions per month</strong> included — text, images, layout tweaks &amp; more</span></li>
+          <li class="price-row"><span class="chk">✓</span><span>Priority support — I'm easy to reach, always</span></li>
+          <li class="price-row"><span class="chk">✓</span><span>Security updates, backups &amp; performance monitoring handled for you</span></li>
+          <li class="price-row"><span class="chk">✓</span><span>Additional changes beyond 3/month at <strong>€50 per change</strong></span></li>
+          <li class="price-row"><span class="chk">✓</span><span><strong>6-month minimum term</strong>, then cancel anytime — no hassle</span></li>
+        </ul>
+        <div class="value-callout">
+          <p>Think about it — a dedicated web professional on call for <strong>€50 a month</strong> is less than most business lunches. Your site stays fresh, fast, and professional while you get on with what you do best.</p>
+        </div>
+        <a href="#contact" class="btn btn-gradient btn-full">
+          <span>Get started <svg class="ico ico-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY A WEBSITE -->
+  <section id="why" style="position:relative;">
+    <div class="why-header reveal">
+      <p class="section-tag">Why It Matters</p>
+      <h2 class="section-title">Why have your own<br><em>website?</em></h2>
+      <div class="divider"></div>
+      <p class="why-intro">In 2026, your website is your most powerful business tool — working for you 24/7, reaching customers you'd never find otherwise. The numbers speak for themselves.</p>
+    </div>
+
+    <div class="why-stats reveal">
+      <div class="why-stat-card">
+        <span class="why-stat-number">75<span class="why-stat-symbol">%</span></span>
+        <p class="why-stat-label">of users judge a business's credibility based on its website design</p>
+      </div>
+      <div class="why-stat-card">
+        <span class="why-stat-number">81<span class="why-stat-symbol">%</span></span>
+        <p class="why-stat-label">of consumers research a business online before making a purchase or visiting</p>
+      </div>
+      <div class="why-stat-card">
+        <span class="why-stat-number">57<span class="why-stat-symbol">%</span></span>
+        <p class="why-stat-label">of internet users won't recommend a business with a poorly designed mobile site</p>
+      </div>
+      <div class="why-stat-card">
+        <span class="why-stat-number">3<span class="why-stat-symbol">s</span></span>
+        <p class="why-stat-label">is all it takes — visitors leave if your site doesn't load within 3 seconds</p>
+      </div>
+    </div>
+
+    <div class="why-points reveal">
+      <div class="why-point">
+        <div class="why-point-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div>
+          <h4 class="why-point-title">Open for business, 24/7</h4>
+          <p class="why-point-desc">Unlike a shopfront or phone line, your website never sleeps. Customers can find you, browse your services, and get in touch at any hour — even while you're off the clock.</p>
+        </div>
+      </div>
+      <div class="why-point">
+        <div class="why-point-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div>
+          <h4 class="why-point-title">Build trust before they even call</h4>
+          <p class="why-point-desc">A professional website signals that you're legitimate, established, and serious about your business. It's often the difference between a lead choosing you or your competitor.</p>
+        </div>
+      </div>
+      <div class="why-point">
+        <div class="why-point-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </div>
+        <div>
+          <h4 class="why-point-title">Get found on Google</h4>
+          <p class="why-point-desc">When someone searches for your type of business in your area, a well-built website puts you on the map — literally. No website means handing those customers straight to a competitor who has one.</p>
+        </div>
+      </div>
+      <div class="why-point">
+        <div class="why-point-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div>
+          <h4 class="why-point-title">Own your corner of the internet</h4>
+          <p class="why-point-desc">Social media pages can be restricted, algorithms can bury you, and platforms can change overnight. Your own website is yours — fully in your control, forever.</p>
+        </div>
+      </div>
+      <div class="why-point">
+        <div class="why-point-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <div>
+          <h4 class="why-point-title">Tell your story, your way</h4>
+          <p class="why-point-desc">Your website lets you showcase your work, share your story, highlight reviews, and position your brand exactly how you want — no character limits, no templates, no compromise.</p>
+        </div>
+      </div>
+      <div class="why-point">
+        <div class="why-point-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div>
+          <h4 class="why-point-title">More value than any ad spend</h4>
+          <p class="why-point-desc">A quality website keeps delivering results for years. Compared to running paid ads or printing flyers, it's one of the highest-return investments a small business can make.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" style="position:relative;">
+    <div class="faq-header reveal">
+      <p class="section-tag">FAQ</p>
+      <h2 class="section-title">Got<br><em>questions?</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="faq-list reveal">
+      <!-- Change 2: Renamed FAQ question -->
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Why choose me?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            That's a great question — what separates me from other agencies is actually pretty simple. I'm <strong>local, approachable, and genuinely invested in your success</strong>. You won't get passed around between account managers or lost in a queue — you deal directly with me, start to finish. I build sites fast without cutting corners, and every website is completely custom to your brand — not a recycled template with your logo dropped in. I'm here to actually help your business grow, not just take a payment and disappear. When you need something changed, you drop me a message. That's it.
+          </div>
+        </div>
+      </div>
+      <!-- Change 1: Updated build time in FAQ -->
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>How long does it take to build my website?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Most websites are built and ready for review within <strong>3–5 business days</strong> of receiving your content and brief. After the initial build, there's a dedicated <strong>2-week refinement period</strong> where we refine everything together before going live. So from start to launch, you're typically looking at around 3 weeks — significantly faster than a traditional agency.
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>What counts as a "revision" on the Managed plan?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            A revision is any reasonable update to your site — swapping out text or images, changing a colour, adding a new section, updating your opening hours, and so on. <strong>3 revisions per month</strong> is included in your €50 plan, which covers the vast majority of what most businesses need. If you need more than that in a given month, additional changes are just <strong>€50 each</strong> — no hidden costs, no surprises.
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>How do I pay?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Simple — I accept payment via <strong>Revolut</strong>. Once we've agreed on the project, I'll send you a request directly. No fuss, no complicated invoicing. <strong>Don't use Revolut? Not a problem</strong> — just let me know and we can sort out a custom arrangement via bank transfer or whatever works best for you.
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Can I upgrade from the Once-Off plan to Managed later?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Absolutely. If you start with the Once-Off plan and later decide you'd rather have someone handling your updates and maintenance, we can move you onto the <strong>Managed plan at any point</strong>. Just get in touch and we'll sort it out — no rebuild needed, no drama. Equally, if you're on the Managed plan and want to take over ownership, you can cancel at any time and the site is yours.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="position:relative;">
+    <div class="contact-grid">
+      <div class="reveal">
+        <p class="section-tag">Contact</p>
+        <h2 class="section-title">Let's build<br>something <em>great.</em></h2>
+        <div class="divider"></div>
+        <p class="contact-intro">Ready to get started, or just want to have a chat? Fill in the form and I'll get back to you as soon as possible.</p>
+        <a href="/cdn-cgi/l/email-protection#bdced4c9d8cedfc4ded5dccfd1d4d8fddad0dcd4d193ded2d0" class="contact-detail">
+          <svg class="cico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+          <span><span class="__cf_email__" data-cfemail="6a19031e0f19081309020b1806030f2a0d070b030644090507">[email&#160;protected]</span></span>
+        </a>
+        <div class="contact-detail">
+          <svg class="cico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          <span>Dublin, Ireland</span>
+        </div>
+        <a href="https://www.instagram.com/sitesbycharlie/" target="_blank" rel="noopener" class="contact-detail">
+          <svg class="cico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="var(--red)"/></svg>
+          <span>@sitesbycharlie</span>
+        </a>
+      </div>
+      <div class="reveal reveal-d1">
+        <!-- Change 3: Added mobile number field -->
+        <form class="contact-form" id="contactForm" action="https://formspree.io/f/mwvrpyya" method="POST" novalidate>
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="e.g. Aoife Murphy" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Mobile Number <span style="opacity:0.32">(optional)</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="e.g. 087 123 4567" />
+          </div>
+          <div class="form-group">
+            <label for="plan">Interested In</label>
+            <select id="plan" name="plan" style="background: rgba(238,238,238,0.03); border: 1px solid rgba(238,238,238,0.09); color: var(--light); font-family: var(--sans); font-size: 0.95rem; font-weight: 300; padding: 0.9rem 1.1rem; outline: none; width: 100%; transition: border-color 0.3s, background 0.3s; -webkit-appearance: none; border-radius: 0;">
+              <option value="" disabled selected style="background:#111;">Select a plan…</option>
+              <option value="Own It Outright" style="background:#111;">Own It Outright</option>
+              <option value="Managed By Charlie" style="background:#111;">Managed By Charlie</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message <span style="opacity:0.32">(optional)</span></label>
+            <textarea id="message" name="message" placeholder="Tell me a little about your project…"></textarea>
+          </div>
+          <div class="form-submit">
+            <button type="submit" class="btn btn-gradient">
+              <span>Send Message <svg class="ico ico-plane" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg></span>
+            </button>
+          </div>
+          <p class="form-status" id="formStatus"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">Sites<span>By</span>Charlie</span>
+    <p class="footer-copy">&copy; 2026 Sites By Charlie &nbsp;·&nbsp; <a href="/privacypolicy" style="color:inherit; text-decoration:underline; text-underline-offset:3px;">Privacy Policy</a></p>
+    <div class="footer-social">
+      <a href="https://www.instagram.com/charlie_garcia1/" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+      </a>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+    function closeMenu() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const isOpen = btn.classList.contains('open');
+        document.querySelectorAll('.faq-question').forEach(b => { b.classList.remove('open'); b.setAttribute('aria-expanded', 'false'); b.nextElementSibling.style.maxHeight = null; });
+        if (!isOpen) { btn.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); const answer = btn.nextElementSibling; answer.style.maxHeight = answer.scrollHeight + 'px'; }
+      });
+    });
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('formStatus');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      status.className = 'form-status';
+      if (!name || !email) { status.textContent = 'Please fill in your name and email address.'; return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { status.textContent = 'Please enter a valid email address.'; return; }
+      const btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.querySelector('span').textContent = 'Sending…';
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+        .then(res => {
+          if (res.ok) { status.textContent = "✓ Message received — I'll be in touch soon!"; status.className = 'form-status success'; form.reset(); }
+          else { status.textContent = 'Something went wrong — please try emailing me directly.'; }
+        })
+        .catch(() => { status.textContent = 'Something went wrong — please try emailing me directly.'; })
+        .finally(() => { btn.disabled = false; btn.querySelector('span').textContent = 'Send Message'; });
+    });
+  </script>
+
+  <!-- Gradual Blur -->
+  <script>
+    (function() {
+      const DIVS = 7;
+      const STRENGTH = 2;
+      const BLEND = 0.5;
+
+      function buildBlurLayers(el) {
+        if (el.querySelector('.gradual-blur-inner')) return;
+        const inner = document.createElement('div');
+        inner.className = 'gradual-blur-inner';
+        const isBottom = el.classList.contains('blur-bottom');
+        const direction = isBottom ? 'to bottom' : 'to top';
+        const increment = 100 / DIVS;
+
+        for (let i = 1; i <= DIVS; i++) {
+          const progress = i / DIVS;
+          const blurValue = (0.0625 * (progress * DIVS + 1) * STRENGTH).toFixed(3);
+          const p1 = Math.round((increment * i - increment) * 10) / 10;
+          const p2 = Math.round(increment * i * 10) / 10;
+          const p3 = Math.round((increment * i + increment) * 10) / 10;
+          const p4 = Math.round((increment * i + increment * 2) * 10) / 10;
+          let gradient = `transparent ${p1}%, black ${p2}%`;
+          if (p3 <= 100) gradient += `, black ${p3}%`;
+          if (p4 <= 100) gradient += `, transparent ${p4}%`;
+          const mask = `linear-gradient(${direction}, ${gradient})`;
+          const div = document.createElement('div');
+          div.style.cssText = `position:absolute;inset:0;mask-image:${mask};-webkit-mask-image:${mask};backdrop-filter:blur(${blurValue}rem);-webkit-backdrop-filter:blur(${blurValue}rem);opacity:${BLEND + 0.5};`;
+          inner.appendChild(div);
+        }
+        el.appendChild(inner);
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            buildBlurLayers(entry.target);
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.05 });
+
+      document.querySelectorAll('.gradual-blur').forEach(el => observer.observe(el));
+    })();
+  </script>
+
+  <!-- Aurora Background -->
+  <script type="module">
+    import { Renderer, Program, Mesh, Color, Triangle } from 'https://cdn.jsdelivr.net/npm/ogl@1.0.11/src/index.js';
+
+    const VERT = `#version 300 es
+in vec2 position;
+void main() {
+  gl_Position = vec4(position, 0.0, 1.0);
+}`;
+
+    const FRAG = `#version 300 es
+precision highp float;
+uniform float uTime;
+uniform float uAmplitude;
+uniform vec3 uColorStops[3];
+uniform vec2 uResolution;
+uniform float uBlend;
+out vec4 fragColor;
+
+vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x,289.0); }
+float snoise(vec2 v){
+  const vec4 C=vec4(0.211324865405187,0.366025403784439,-0.577350269189626,0.024390243902439);
+  vec2 i=floor(v+dot(v,C.yy));
+  vec2 x0=v-i+dot(i,C.xx);
+  vec2 i1=(x0.x>x0.y)?vec2(1.0,0.0):vec2(0.0,1.0);
+  vec4 x12=x0.xyxy+C.xxzz;
+  x12.xy-=i1;
+  i=mod(i,289.0);
+  vec3 p=permute(permute(i.y+vec3(0.0,i1.y,1.0))+i.x+vec3(0.0,i1.x,1.0));
+  vec3 m=max(0.5-vec3(dot(x0,x0),dot(x12.xy,x12.xy),dot(x12.zw,x12.zw)),0.0);
+  m=m*m; m=m*m;
+  vec3 x=2.0*fract(p*C.www)-1.0;
+  vec3 h=abs(x)-0.5;
+  vec3 ox=floor(x+0.5);
+  vec3 a0=x-ox;
+  m*=1.79284291400159-0.85373472095314*(a0*a0+h*h);
+  vec3 g;
+  g.x=a0.x*x0.x+h.x*x0.y;
+  g.yz=a0.yz*x12.xz+h.yz*x12.yw;
+  return 130.0*dot(m,g);
+}
+
+struct ColorStop { vec3 color; float position; };
+#define COLOR_RAMP(colors,factor,finalColor) {\
+  int index=0;\
+  for(int i=0;i<2;i++){\
+    ColorStop cc=colors[i];\
+    bool inBetween=cc.position<=factor;\
+    index=int(mix(float(index),float(i),float(inBetween)));}\
+  ColorStop cc=colors[index];\
+  ColorStop nc=colors[index+1];\
+  float range=nc.position-cc.position;\
+  float lf=(factor-cc.position)/range;\
+  finalColor=mix(cc.color,nc.color,lf);}
+
+void main(){
+  vec2 uv=gl_FragCoord.xy/uResolution;
+  ColorStop colors[3];
+  colors[0]=ColorStop(uColorStops[0],0.0);
+  colors[1]=ColorStop(uColorStops[1],0.5);
+  colors[2]=ColorStop(uColorStops[2],1.0);
+  vec3 rampColor;
+  COLOR_RAMP(colors,uv.x,rampColor);
+  float height=snoise(vec2(uv.x*2.0+uTime*0.1,uTime*0.25))*0.5*uAmplitude;
+  height=exp(height);
+  height=(uv.y*2.0-height+0.2);
+  float intensity=0.6*height;
+  float midPoint=0.20;
+  float auroraAlpha=smoothstep(midPoint-uBlend*0.5,midPoint+uBlend*0.5,intensity);
+  vec3 auroraColor=intensity*rampColor;
+  fragColor=vec4(auroraColor*auroraAlpha,auroraAlpha);
+}`;
+
+    const ctn = document.getElementById('auroraContainer');
+    const colorStops = ['#8E1616', '#D84040', '#8E1616'];
+    const amplitude = 1.0;
+    const blend = 0.5;
+
+    const renderer = new Renderer({ alpha: true, premultipliedAlpha: true, antialias: true });
+    const gl = renderer.gl;
+    gl.clearColor(0,0,0,0);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+    gl.canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;background:transparent;';
+
+    const geometry = new Triangle(gl);
+    if (geometry.attributes.uv) delete geometry.attributes.uv;
+
+    const toRgb = hex => { const c = new Color(hex); return [c.r, c.g, c.b]; };
+
+    const program = new Program(gl, {
+      vertex: VERT, fragment: FRAG,
+      uniforms: {
+        uTime: { value: 0 },
+        uAmplitude: { value: amplitude },
+        uColorStops: { value: colorStops.map(toRgb) },
+        uResolution: { value: [ctn.offsetWidth, ctn.offsetHeight] },
+        uBlend: { value: blend }
+      }
+    });
+
+    const mesh = new Mesh(gl, { geometry, program });
+    ctn.appendChild(gl.canvas);
+
+    function resize() {
+      renderer.setSize(ctn.offsetWidth, ctn.offsetHeight);
+      program.uniforms.uResolution.value = [ctn.offsetWidth, ctn.offsetHeight];
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    let t0 = null;
+    function update(ts) {
+      if (!t0) t0 = ts;
+      program.uniforms.uTime.value = (ts - t0) * 0.001 * 0.1;
+      renderer.render({ scene: mesh });
+      requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  </script>
+</body>
+</html>
 
   <!-- Open Graph / Social Sharing -->
   <meta property="og:type" content="website" />
