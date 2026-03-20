@@ -261,6 +261,27 @@
       section { padding: 5rem 5vw; }
       .service-card, .price-card { padding: 1.8rem; }
       footer { flex-direction: column; text-align: center; align-items: center; }
+      #hero { padding: 0 6vw; min-height: 100svh; }
+      .hero-title { font-size: clamp(2.4rem, 9vw, 4rem); }
+      .hero-sub { font-size: 0.95rem; }
+      .btn-gradient { min-width: unset; width: 100%; }
+      .hero-cta-wrap { flex-direction: column; }
+      .services-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 100%; }
+      .why-stats { grid-template-columns: 1fr 1fr; }
+      .why-points { grid-template-columns: 1fr; }
+      .faq-list { max-width: 100%; }
+      .contact-grid { gap: 3rem; }
+      .section-title { font-size: clamp(2rem, 7vw, 3rem); }
+    }
+    @media (max-width: 480px) {
+      .why-stats { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+      .why-stat-card { padding: 1.4rem 1rem; }
+      .why-stat-number { font-size: 2.8rem; }
+      .price-number { font-size: 3.2rem; }
+      .cred-item { padding: 0.85rem 1rem; }
+      section { padding: 4rem 5vw; }
+      .mobile-menu a { font-size: 1.8rem; }
     }
   </style>
 </head>
@@ -304,9 +325,6 @@
       <div class="hero-cta-wrap">
         <a href="#contact" class="btn btn-gradient">
           <span>Get in touch <svg class="ico ico-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
-        </a>
-        <a href="#about" class="btn btn-gradient">
-          <span>About me</span>
         </a>
       </div>
     </div>
@@ -629,9 +647,9 @@
         <h2 class="section-title">Let's build<br>something <em>great.</em></h2>
         <div class="divider"></div>
         <p class="contact-intro">Ready to get started, or just want to have a chat? Fill in the form and I'll get back to you as soon as possible.</p>
-        <a href="/cdn-cgi/l/email-protection#04576d706177467d476c6576686d61446369656d682a676b69" class="contact-detail">
+        <a href="mailto:sitesbycharlie@gmail.com" class="contact-detail">
           <svg class="cico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-          <span><span class="__cf_email__" data-cfemail="e0b389948593a299a38881928c8985a0878d81898cce838f8d">[email&#160;protected]</span></span>
+          <span>sitesbycharlie@gmail.com</span>
         </a>
         <div class="contact-detail">
           <svg class="cico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
@@ -690,7 +708,7 @@
     </div>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     hamburger.addEventListener('click', () => {
