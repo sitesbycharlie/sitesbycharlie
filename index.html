@@ -178,6 +178,22 @@
     .comparison-nudge { background: rgba(238,238,238,0.03); border: 1px solid rgba(238,238,238,0.07); padding: 1.2rem 1.4rem; margin-bottom: 2.2rem; }
     .comparison-nudge p { font-size: 0.83rem; color: rgba(238,238,238,0.45); line-height: 1.6; }
     .comparison-nudge p strong { color: rgba(238,238,238,0.7); font-weight: 600; }
+    #work { border-top: 1px solid rgba(238,238,238,0.07); }
+    .work-grid { max-width: 700px; display: flex; flex-direction: column; gap: 1rem; }
+    .work-card { display: block; border: 1px solid rgba(238,238,238,0.09); background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); transition: border-color 0.35s, transform 0.35s var(--ease); text-decoration: none; }
+    .work-card:hover { border-color: rgba(142,22,22,0.5); transform: translateY(-3px); }
+    .work-card-inner { display: flex; align-items: center; gap: 1.6rem; padding: 1.8rem 2rem; }
+    .work-icon { width: 52px; height: 52px; border: 1px solid rgba(142,22,22,0.4); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.3s, border-color 0.3s; }
+    .work-card:hover .work-icon { background: var(--crimson); border-color: var(--crimson); }
+    .work-card:hover .work-icon svg { stroke: var(--light); }
+    .work-info { flex: 1; }
+    .work-name { font-family: var(--serif); font-size: 1.2rem; font-weight: normal; color: var(--light); margin-bottom: 0.2rem; }
+    .work-url { font-size: 0.72rem; letter-spacing: 0.1em; color: var(--red); text-transform: uppercase; margin-bottom: 0.6rem; }
+    .work-desc { font-size: 0.88rem; color: rgba(238,238,238,0.5); line-height: 1.6; }
+    .work-arrow { color: rgba(238,238,238,0.3); flex-shrink: 0; transition: color 0.3s, transform 0.3s var(--ease); }
+    .work-card:hover .work-arrow { color: var(--red); transform: translateX(4px); }
+    @media (max-width: 768px) { .work-card-inner { padding: 1.4rem; gap: 1.2rem; } .work-icon { width: 42px; height: 42px; } }
+
     #faq { border-top: 1px solid rgba(238,238,238,0.07); }
     .faq-header { max-width: 480px; margin-bottom: 4rem; }
     .faq-list { max-width: 760px; }
@@ -296,7 +312,8 @@
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#services">Services</a></li>
-      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#pricing">Plans</a></li>
+      <li><a href="#work">Work</a></li>
       <li><a href="#why">Why a Website?</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -308,7 +325,8 @@
   <div class="mobile-menu" id="mobileMenu">
     <a href="#about"    onclick="closeMenu()">About</a>
     <a href="#services" onclick="closeMenu()">Services</a>
-    <a href="#pricing"  onclick="closeMenu()">Pricing</a>
+    <a href="#pricing"  onclick="closeMenu()">Plans</a>
+    <a href="#work"     onclick="closeMenu()">Work</a>
     <a href="#why"      onclick="closeMenu()">Why a Website?</a>
     <a href="#contact"  onclick="closeMenu()">Contact</a>
   </div>
@@ -427,8 +445,7 @@
   <!-- PRICING -->
   <section id="pricing" style="position:relative;">
     <div class="pricing-header reveal">
-      <p class="section-tag">Pricing</p>
-      <h2 class="section-title">Simple, honest<br><em>pricing.</em></h2>
+      <h2 class="section-title">Find the right<br><em>plan for you.</em></h2>
       <div class="divider"></div>
     </div>
     <p class="pricing-subtitle reveal">Two straightforward options — whether you want to own your site outright or have me handle everything for you.</p>
@@ -436,11 +453,6 @@
       <div class="price-card featured reveal">
         <h3 class="price-name">Own It Outright</h3>
         <p class="price-tagline">You own everything, forever. No strings attached.</p>
-        <div class="price-amount">
-          <span class="price-currency">€</span>
-          <span class="price-number">500</span>
-        </div>
-        <p class="price-period">single payment · yours forever</p>
         <div class="price-rule"></div>
         <ul class="price-includes">
           <li class="price-row"><span class="chk">✓</span><span>Fully custom website designed around your brand</span></li>
@@ -450,7 +462,7 @@
           <li class="price-row"><span class="chk">✓</span><span>Full handover with guidance included</span></li>
         </ul>
         <div class="comparison-nudge">
-          <p>Prefer a hands-off approach? The Managed plan lets me handle all updates for just <strong>€50/month</strong> after a low setup fee.</p>
+          <p>Prefer a hands-off approach? The Managed plan takes care of everything — updates, support, and ongoing maintenance.</p>
         </div>
         <a href="#contact" class="btn btn-gradient btn-full">
           <span>Get started <svg class="ico ico-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
@@ -459,26 +471,16 @@
       <div class="price-card featured reveal reveal-d1">
         <h3 class="price-name">Managed by Charlie</h3>
         <p class="price-tagline">I build it, I run it — you focus on your business.</p>
-        <div class="price-amount">
-          <span class="price-currency">€</span>
-          <span class="price-number">50</span>
-        </div>
-        <p class="price-period">per month · after setup</p>
-        <div class="price-setup-note">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-          <span><strong>€250 once-off build fee</strong> + 3–5 business days build, 2-week refinement, then €50/mo</span>
-        </div>
         <div class="price-rule"></div>
         <ul class="price-includes">
           <li class="price-row"><span class="chk">✓</span><span>Everything in Own It Outright, plus ongoing care</span></li>
           <li class="price-row"><span class="chk">✓</span><span><strong>3 revisions per month</strong> included — text, images, layout tweaks &amp; more</span></li>
           <li class="price-row"><span class="chk">✓</span><span>Priority support — I'm easy to reach, always</span></li>
           <li class="price-row"><span class="chk">✓</span><span>Security updates, backups &amp; performance monitoring handled for you</span></li>
-          <li class="price-row"><span class="chk">✓</span><span>Additional changes beyond 3/month at <strong>€50 per change</strong></span></li>
-          <li class="price-row"><span class="chk">✓</span><span><strong>6-month minimum term</strong>, then cancel anytime — no hassle</span></li>
+          <li class="price-row"><span class="chk">✓</span><span>Cancel anytime after initial term — no hassle</span></li>
         </ul>
         <div class="value-callout">
-          <p>Think about it — a dedicated web professional on call for <strong>€50 a month</strong> is less than most business lunches. Your site stays fresh, fast, and professional while you get on with what you do best.</p>
+          <p>A dedicated web professional handling everything for you — so you can focus on running your business while your site stays fresh, fast, and professional.</p>
         </div>
         <a href="#contact" class="btn btn-gradient btn-full">
           <span>Get started <svg class="ico ico-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
@@ -570,6 +572,32 @@
           <p class="why-point-desc">A quality website keeps delivering results for years. Compared to running paid ads or printing flyers, it's one of the highest-return investments a small business can make.</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work" style="position:relative;">
+    <div class="reveal">
+      <p class="section-tag">Work</p>
+      <h2 class="section-title">Sites I've<br><em>built.</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="work-grid reveal">
+      <a href="https://www.michaelroartyfitness.ie" target="_blank" rel="noopener" class="work-card">
+        <div class="work-card-inner">
+          <div class="work-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <div class="work-info">
+            <h3 class="work-name">Michael Roarty Fitness</h3>
+            <p class="work-url">michaelroartyfitness.ie</p>
+            <p class="work-desc">Personal training &amp; fitness coaching website built to attract and convert new clients online.</p>
+          </div>
+          <div class="work-arrow">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </div>
+        </div>
+      </a>
     </div>
   </section>
 
