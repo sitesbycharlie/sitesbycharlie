@@ -201,6 +201,8 @@
     #contact::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.75); pointer-events: none; z-index: 0; }
     #contact > * { position: relative; z-index: 1; }
     .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 6vw; max-width: 1000px; }
+    .contact-details-mobile { display: none; margin-top: 2rem; }
+    .contact-details-desktop { display: block; }
     .contact-intro { color: rgba(238,238,238,0.5); font-size: 0.95rem; margin-bottom: 2.5rem; }
     .contact-detail { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; color: rgba(238,238,238,0.58); font-size: 0.9rem; transition: color 0.25s; }
     .contact-detail:hover { color: var(--light); }
@@ -292,8 +294,8 @@
       .why-point-icon { width: 32px; height: 32px; }
       .why-point-icon svg { width: 14px; height: 14px; }
       .contact-grid { gap: 3rem; }
-      .contact-grid > div:first-child { order: 2; }
-      .contact-grid > div:last-child { order: 1; }
+      .contact-details-desktop { display: none; }
+      .contact-details-mobile { display: block; }
       .section-title { font-size: clamp(2rem, 7vw, 3rem); }
       .logo-grid { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
     }
@@ -585,18 +587,20 @@
         <h2 class="section-title">Your website<br><em>starts here.</em></h2>
         <div class="divider"></div>
         <p class="contact-intro">Ready to get started, or just want to have a chat? Fill in the form and I'll get back to you as soon as possible.</p>
-        <a href="mailto:sitesbycharlie@gmail.com" class="contact-detail">
-          <svg class="cico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-          <span>sitesbycharlie@gmail.com</span>
-        </a>
-        <div class="contact-detail">
-          <svg class="cico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-          <span>Dublin, Ireland</span>
+        <div class="contact-details-desktop">
+          <a href="mailto:sitesbycharlie@gmail.com" class="contact-detail">
+            <svg class="cico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+            <span>sitesbycharlie@gmail.com</span>
+          </a>
+          <div class="contact-detail">
+            <svg class="cico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            <span>Dublin, Ireland</span>
+          </div>
+          <a href="https://www.instagram.com/charlie_garcia1/" target="_blank" rel="noopener" class="contact-detail">
+            <svg class="cico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="var(--red)"/></svg>
+            <span>@Charlie_Garcia1</span>
+          </a>
         </div>
-        <a href="https://www.instagram.com/charlie_garcia1/" target="_blank" rel="noopener" class="contact-detail">
-          <svg class="cico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="var(--red)"/></svg>
-          <span>@Charlie_Garcia1</span>
-        </a>
       </div>
       <div class="reveal reveal-d1">
         <form class="contact-form" id="contactForm" action="https://formspree.io/f/mwvrpyya" method="POST" novalidate>
@@ -631,6 +635,20 @@
           </div>
           <p class="form-status" id="formStatus"></p>
         </form>
+        <div class="contact-details-mobile">
+          <a href="mailto:sitesbycharlie@gmail.com" class="contact-detail">
+            <svg class="cico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+            <span>sitesbycharlie@gmail.com</span>
+          </a>
+          <div class="contact-detail">
+            <svg class="cico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            <span>Dublin, Ireland</span>
+          </div>
+          <a href="https://www.instagram.com/charlie_garcia1/" target="_blank" rel="noopener" class="contact-detail">
+            <svg class="cico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="var(--red)"/></svg>
+            <span>@Charlie_Garcia1</span>
+          </a>
+        </div>
       </div>
     </div>
   </section>
