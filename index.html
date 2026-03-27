@@ -186,7 +186,7 @@
     .logo-card:hover .logo-face { opacity: 0; }
     .logo-img { width: 72px; height: 72px; object-fit: contain; border-radius: 50%; background: rgba(255,255,255,0.05); padding: 4px; }
     .logo-name { font-size: 0.82rem; font-weight: 600; color: var(--light); text-align: center; line-height: 1.3; padding: 0 0.5rem; word-break: break-word; }
-    .logo-url { font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--red); text-align: center; word-break: break-all; padding: 0 0.5rem; }
+    .logo-url { font-size: 0.6rem; letter-spacing: 0.03em; text-transform: uppercase; color: var(--red); text-align: center; word-break: normal; padding: 0 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
     .logo-plus { width: 48px; height: 48px; border-radius: 50%; border: 1px dashed rgba(238,238,238,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: rgba(238,238,238,0.2); }
     .logo-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.9); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.4rem; opacity: 0; transition: opacity 0.3s; }
     .logo-card:hover .logo-overlay { opacity: 1; }
@@ -679,6 +679,17 @@
       if (window.innerWidth > 768) return;
       flipReset();
     });
+
+    // Reset flip cards when scrolled out of view
+    const whySection = document.querySelector('.why-points');
+    if (whySection) {
+      const flipResetObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) flipReset();
+        });
+      }, { threshold: 0.1 });
+      flipResetObserver.observe(whySection);
+    }
     document.querySelectorAll('.faq-question').forEach(btn => {
       btn.addEventListener('click', () => {
         const isOpen = btn.classList.contains('open');
