@@ -180,9 +180,9 @@
     .comparison-nudge p strong { color: rgba(238,238,238,0.7); font-weight: 600; }
     #work { border-top: 1px solid rgba(238,238,238,0.07); }
     .logo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.2rem; max-width: 500px; width: 100%; }
-    .logo-card { position: relative; width: 100%; min-height: 200px; background-image: linear-gradient(163deg, #8E1616 0%, #D84040 100%); border-radius: 20px; transition: all 0.3s; text-decoration: none; display: block; }
+    .logo-card { position: relative; width: 100%; min-height: 200px; background-image: linear-gradient(163deg, #8E1616 0%, #D84040 100%); border-radius: 20px; transition: all 0.3s; text-decoration: none; display: block; padding: 2px; }
     .logo-card:hover { box-shadow: 0px 0px 30px 1px rgba(216,64,64,0.45); transform: none; }
-    .logo-card-inner { width: 100%; min-height: 200px; background: #0d0000; border-radius: 20px; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+    .logo-card-inner { width: 100%; min-height: 200px; background: #0d0000; border-radius: 18px; margin: 2px; width: calc(100% - 4px); transition: all 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; position: relative; }
     .logo-card:hover .logo-card-inner { transform: scale(0.97); border-radius: 20px; }
     .logo-face { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; padding: 1.5rem; transition: opacity 0.3s; width: 100%; }
     .logo-card:hover .logo-face { opacity: 0; }
