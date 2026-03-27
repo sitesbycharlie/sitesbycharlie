@@ -280,17 +280,17 @@
       .pricing-grid { grid-template-columns: 1fr; max-width: 100%; }
       .why-stats { grid-template-columns: 1fr 1fr; }
       .why-points { grid-template-columns: 1fr 1fr; }
-      .why-point { padding: 0; gap: 0; cursor: pointer; background: transparent; border: none; perspective: 800px; min-height: 120px; }
+      .why-point { padding: 0; gap: 0; cursor: pointer; background: transparent; border: none; perspective: 800px; min-height: 140px; height: 140px; }
       .why-point:hover { transform: none; border-color: transparent; }
-      .why-point-inner { position: relative; width: 100%; min-height: 120px; transform-style: preserve-3d; transition: transform 0.5s var(--ease); border: 1px solid rgba(238,238,238,0.08); border-radius: 4px; display: block; }
+      .why-point-inner { position: relative; width: 100%; height: 140px; transform-style: preserve-3d; transition: transform 0.5s var(--ease); border: 1px solid rgba(238,238,238,0.08); border-radius: 4px; display: block; }
       .why-point.flipped .why-point-inner { transform: rotateY(180deg); }
-      .why-point-front, .why-point-back { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.2rem 1rem; gap: 0.6rem; border-radius: 4px; }
+      .why-point-front, .why-point-back { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem 0.75rem; gap: 0.5rem; border-radius: 4px; overflow: hidden; }
       .why-point-front { background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
       .why-point-back { background: rgba(80,10,10,0.92); backdrop-filter: blur(4px); transform: rotateY(180deg); border: 1px solid rgba(216,64,64,0.4); }
-      .why-point-title { font-size: 0.88rem; margin-bottom: 0; }
-      .why-point-desc { font-size: 0.8rem; color: rgba(238,238,238,0.85); text-align: center; line-height: 1.6; }
-      .why-point-icon { width: 36px; height: 36px; }
-      .why-point-icon svg { width: 16px; height: 16px; }
+      .why-point-title { font-size: 0.8rem; margin-bottom: 0; line-height: 1.3; text-align: center; }
+      .why-point-desc { font-size: 0.72rem; color: rgba(238,238,238,0.85); text-align: center; line-height: 1.5; margin: 0; }
+      .why-point-icon { width: 32px; height: 32px; }
+      .why-point-icon svg { width: 14px; height: 14px; }
       .contact-grid { gap: 3rem; }
       .section-title { font-size: clamp(2rem, 7vw, 3rem); }
       .logo-grid { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
@@ -487,7 +487,7 @@
             <h4 class="why-point-title">Open for business, 24/7</h4>
           </div>
           <div class="why-point-back">
-            <p class="why-point-desc">Unlike a shopfront or phone line, your website never sleeps. Customers can find you, browse your services, and get in touch at any hour — even while you're off the clock.</p>
+            <p class="why-point-desc">Your site never sleeps — customers can find you and get in touch at any hour.</p>
           </div>
         </div>
       </div>
@@ -498,7 +498,7 @@
             <h4 class="why-point-title">Build trust before they even call</h4>
           </div>
           <div class="why-point-back">
-            <p class="why-point-desc">A professional website signals that you're legitimate, established, and serious about your business. It's often the difference between a lead choosing you or your competitor.</p>
+            <p class="why-point-desc">A professional site signals legitimacy — it's often the difference between a lead choosing you or a competitor.</p>
           </div>
         </div>
       </div>
@@ -509,7 +509,7 @@
             <h4 class="why-point-title">Get found on Google</h4>
           </div>
           <div class="why-point-back">
-            <p class="why-point-desc">When someone searches for your type of business in your area, a well-built website puts you on the map — literally. No website means handing those customers straight to a competitor who has one.</p>
+            <p class="why-point-desc">A well-built site puts you on the map when locals search for your type of business.</p>
           </div>
         </div>
       </div>
@@ -520,7 +520,7 @@
             <h4 class="why-point-title">Own your corner of the internet</h4>
           </div>
           <div class="why-point-back">
-            <p class="why-point-desc">Social media pages can be restricted, algorithms can bury you, and platforms can change overnight. Your own website is yours — fully in your control, forever.</p>
+            <p class="why-point-desc">Unlike social media, your website can't be restricted, buried, or taken away. It's yours forever.</p>
           </div>
         </div>
       </div>
@@ -531,7 +531,7 @@
             <h4 class="why-point-title">Tell your story, your way</h4>
           </div>
           <div class="why-point-back">
-            <p class="why-point-desc">Your website lets you showcase your work, share your story, highlight reviews, and position your brand exactly how you want — no character limits, no templates, no compromise.</p>
+            <p class="why-point-desc">Showcase your work, share your story, and position your brand exactly how you want — no limits.</p>
           </div>
         </div>
       </div>
@@ -542,7 +542,7 @@
             <h4 class="why-point-title">More value than any ad spend</h4>
           </div>
           <div class="why-point-back">
-            <p class="why-point-desc">A quality website keeps delivering results for years. Compared to running paid ads or printing flyers, it's one of the highest-return investments a small business can make.</p>
+            <p class="why-point-desc">A great website keeps delivering results for years — far better ROI than ads or flyers.</p>
           </div>
         </div>
       </div>
