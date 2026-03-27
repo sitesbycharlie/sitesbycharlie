@@ -180,34 +180,24 @@
     .comparison-nudge p strong { color: rgba(238,238,238,0.7); font-weight: 600; }
     #work { border-top: 1px solid rgba(238,238,238,0.07); }
     .logo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.2rem; max-width: 500px; width: 100%; }
-    .logo-card { position: relative; width: 100%; min-height: 200px; background-image: linear-gradient(163deg, #8E1616 0%, #D84040 100%); border-radius: 20px; transition: all 0.3s; text-decoration: none; display: block; padding: 2px; }
-    .logo-card:hover { box-shadow: 0px 0px 30px 1px rgba(216,64,64,0.45); transform: none; }
-    .logo-card-inner { width: 100%; min-height: 200px; background: #0d0000; border-radius: 18px; margin: 2px; width: calc(100% - 4px); transition: all 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; position: relative; }
-    .logo-card:hover .logo-card-inner { transform: scale(0.97); border-radius: 20px; }
+    .logo-card { position: relative; width: 100%; min-height: 200px; border: 1px solid rgba(238,238,238,0.1); background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); border-radius: 16px; transition: all 0.3s var(--ease); text-decoration: none; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .logo-card:hover { border-color: rgba(216,64,64,0.6); box-shadow: 0px 0px 30px 1px rgba(216,64,64,0.25); transform: translateY(-3px); }
+    .logo-card-inner { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
     .logo-face { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; padding: 1.5rem; transition: opacity 0.3s; width: 100%; }
     .logo-card:hover .logo-face { opacity: 0; }
     .logo-img { width: 72px; height: 72px; object-fit: contain; border-radius: 50%; background: rgba(255,255,255,0.05); padding: 4px; }
     .logo-name { font-size: 0.82rem; font-weight: 600; color: var(--light); text-align: center; line-height: 1.3; padding: 0 0.5rem; word-break: break-word; }
     .logo-url { font-size: 0.6rem; letter-spacing: 0.03em; text-transform: uppercase; color: var(--red); text-align: center; padding: 0 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
     .logo-plus { width: 48px; height: 48px; border-radius: 50%; border: 1px dashed rgba(238,238,238,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: rgba(238,238,238,0.2); }
-    .logo-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.88); border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.4rem; opacity: 0; transition: opacity 0.3s; }
-    .logo-card:hover .logo-overlay { opacity: 1; }
+    .logo-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.88); border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.4rem; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+    .logo-card:hover .logo-overlay { opacity: 1; pointer-events: auto; }
+    .logo-card.tapped .logo-face { opacity: 0; }
+    .logo-card.tapped .logo-overlay { opacity: 1; pointer-events: auto; }
     .overlay-desc { font-size: 0.8rem; color: rgba(238,238,238,0.7); text-align: center; line-height: 1.6; margin-bottom: 1rem; }
-    .overlay-btn { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); background: var(--crimson); border: none; padding: 0.5rem 1.2rem; border-radius: 6px; cursor: pointer; transition: background 0.2s; display: inline-block; }
-    .logo-card:hover .overlay-btn { background: var(--red); }
-    .logo-card--empty { background-image: none; border: 1px dashed rgba(238,238,238,0.1); border-radius: 20px; }
-    .logo-card--empty:hover { box-shadow: none; }
-    .logo-card--empty .logo-card-inner { background: transparent; }
-    .logo-card--empty:hover .logo-card-inner { transform: none; }
-    @media (max-width: 768px) {
-      .logo-card:hover .logo-face { opacity: 1; }
-      .logo-card:hover .logo-overlay { opacity: 0; }
-      .logo-card:hover .logo-card-inner { transform: none; }
-      .logo-card:hover { box-shadow: none; }
-      .logo-card.tapped .logo-face { opacity: 0; }
-      .logo-card.tapped .logo-overlay { opacity: 1; }
-      .logo-card.tapped { box-shadow: 0px 0px 30px 1px rgba(216,64,64,0.45); }
-    }
+    .overlay-btn { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); background: var(--crimson); border: none; padding: 0.5rem 1.2rem; border-radius: 6px; cursor: pointer; transition: background 0.2s; text-decoration: none; display: inline-block; }
+    .overlay-btn:hover { background: var(--red); }
+    .logo-card--empty { cursor: default; border-style: dashed; border-color: rgba(238,238,238,0.1); background: transparent; }
+    .logo-card--empty:hover { box-shadow: none; transform: none; border-color: rgba(238,238,238,0.1); }
     #contact { border-top: 1px solid rgba(238,238,238,0.07); }
     #contact::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.75); pointer-events: none; z-index: 0; }
     #contact > * { position: relative; z-index: 1; }
@@ -571,7 +561,7 @@
       <div class="divider"></div>
     </div>
     <div class="logo-grid reveal">
-      <a href="https://www.michaelroartyfitness.ie" target="_blank" rel="noopener" class="logo-card">
+      <div class="logo-card reveal">
         <div class="logo-card-inner">
           <div class="logo-face">
             <img src="michael-roarty-logo.png" alt="Michael Roarty Fitness" class="logo-img" />
@@ -583,7 +573,7 @@
             <a href="https://www.michaelroartyfitness.ie" target="_blank" rel="noopener" class="overlay-btn">Visit site →</a>
           </div>
         </div>
-      </a>
+      </div>
       <div class="logo-card logo-card--empty">
         <div class="logo-card-inner">
           <div class="logo-face">
@@ -719,7 +709,6 @@
       card.addEventListener('click', (e) => {
         if (window.innerWidth > 768) return;
         if (e.target.classList.contains('overlay-btn') || e.target.closest('.overlay-btn')) return;
-        e.preventDefault();
         const isTapped = card.classList.contains('tapped');
         document.querySelectorAll('.logo-card').forEach(c => c.classList.remove('tapped'));
         if (!isTapped) card.classList.add('tapped');
