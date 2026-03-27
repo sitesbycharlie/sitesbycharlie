@@ -277,11 +277,13 @@
       .pricing-grid { grid-template-columns: 1fr; max-width: 100%; }
       .why-stats { grid-template-columns: 1fr 1fr; }
       .why-points { grid-template-columns: 1fr 1fr; }
-      .why-point { padding: 1.2rem 1rem; gap: 0.6rem; }
+      .why-point { padding: 1.2rem 1rem; gap: 0.6rem; cursor: pointer; }
       .why-point-desc { display: none; }
+      .why-point-desc.expanded { display: block; font-size: 0.82rem; margin-top: 0.5rem; animation: fadeUp 0.3s var(--ease) forwards; }
       .why-point-title { font-size: 0.9rem; margin-bottom: 0; }
       .why-point-icon { width: 36px; height: 36px; }
       .why-point-icon svg { width: 16px; height: 16px; }
+      .why-point.expanded { border-color: rgba(142,22,22,0.5); }
       .contact-grid { gap: 3rem; }
       .section-title { font-size: clamp(2rem, 7vw, 3rem); }
       .logo-grid { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
@@ -641,6 +643,23 @@
       entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); } });
     }, { threshold: 0.08 });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Tap to expand why-points on mobile
+    document.querySelectorAll('.why-point').forEach(point => {
+      point.addEventListener('click', () => {
+        if (window.innerWidth > 768) return;
+        const desc = point.querySelector('.why-point-desc');
+        const isOpen = point.classList.contains('expanded');
+        document.querySelectorAll('.why-point').forEach(p => {
+          p.classList.remove('expanded');
+          p.querySelector('.why-point-desc').classList.remove('expanded');
+        });
+        if (!isOpen) {
+          point.classList.add('expanded');
+          desc.classList.add('expanded');
+        }
+      });
+    });
     document.querySelectorAll('.faq-question').forEach(btn => {
       btn.addEventListener('click', () => {
         const isOpen = btn.classList.contains('open');
