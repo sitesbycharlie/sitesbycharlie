@@ -922,21 +922,64 @@
       :root { --card-w: 88vw; }
       .nav-pill { display: none; }
       .hamburger { display: flex; }
-      .card-inner { padding: 1.6rem 1.6rem; }
-      .offer-grid { grid-template-columns: 1fr; }
-      .form-row { grid-template-columns: 1fr; }
-      .why-stats-grid { grid-template-columns: 1fr 1fr; }
-      .work-grid { grid-template-columns: 1fr 1fr; }
-      .card-hero-title { font-size: clamp(2.2rem, 8vw, 3.2rem); }
+
+      /* Tighter card padding on mobile */
+      .card-inner { padding: 1.4rem 1.4rem; }
+
+      /* Hero */
+      .card-hero-title { font-size: clamp(2rem, 7.5vw, 3rem); }
+      .card-eyebrow { margin-bottom: 1rem; }
+      .card-hero-sub { font-size: 0.88rem; margin-bottom: 1.5rem; }
+
+      /* Services — keep 2-col but compact */
+      .offer-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 1rem; }
+      .offer-item { padding: 1rem; }
+      .offer-icon { width: 30px; height: 30px; margin-bottom: 0.6rem; }
+      .offer-name { font-size: 0.85rem; }
+      .offer-desc { font-size: 0.73rem; }
+      .offer-pills { gap: 0.4rem; }
+      .pill { font-size: 0.58rem; padding: 0.25rem 0.6rem; }
+
+      /* Plans */
+      .plan-tab { font-size: 0.63rem; padding: 0.38rem 0.8rem; }
+      .plan-name { font-size: 1.3rem; }
+      .plan-rows { gap: 0.55rem; }
+      .plan-row { font-size: 0.78rem; }
+      .plan-callout { font-size: 0.75rem; padding: 0.8rem 1rem; margin-bottom: 1rem; }
+
+      /* Why */
+      .why-stats-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 1rem; }
+      .why-stat { padding: 0.9rem 0.6rem; }
+      .why-stat-num { font-size: 1.8rem; }
+      .why-stat-label { font-size: 0.65rem; }
+      .why-pt-title { font-size: 0.85rem; }
+      .why-pt-desc { font-size: 0.75rem; }
+
+      /* Work */
+      .work-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+      .work-card { min-height: 140px; }
+      .work-name { font-size: 0.72rem; }
+      .work-url { font-size: 0.57rem; }
+      .work-logo { width: 44px; height: 44px; }
+
+      /* Contact */
+      .form-row { grid-template-columns: 1fr; gap: 0.8rem; }
+      .contact-meta { margin-bottom: 1rem; gap: 0.4rem; }
+      .contact-meta-item { font-size: 0.78rem; }
+
+      /* Card titles */
+      .card-title { font-size: clamp(1.6rem, 5.5vw, 2.2rem); margin-bottom: 1rem; }
+      .card-tag { margin-bottom: 0.6rem; }
+      .plans-intro { font-size: 0.82rem; margin-bottom: 1rem; }
+
       footer { flex-direction: column; text-align: center; align-items: center; }
       .slider-nav { bottom: 1rem; left: 4vw; }
     }
-    @media (max-width: 480px) {
-      :root { --card-w: 90vw; }
-      .card-inner { padding: 1.6rem 1.4rem; }
-      .work-grid { grid-template-columns: 1fr 1fr; }
-      .why-stats-grid { grid-template-columns: 1fr 1fr; }
-      .why-stat-num { font-size: 2rem; }
+    @media (max-width: 390px) {
+      :root { --card-w: 91vw; }
+      .card-inner { padding: 1.2rem 1.1rem; }
+      .offer-grid { grid-template-columns: 1fr; gap: 0.5rem; }
+      .why-stat-num { font-size: 1.6rem; }
     }
   </style>
 </head>
