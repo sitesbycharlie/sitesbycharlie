@@ -2,687 +2,1401 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Sites By Charlie — Web Design Ireland</title>
   <meta name="description" content="Affordable, custom web design for Irish businesses. Based in Dublin, working nationwide. Simple pricing, fast turnaround, no monthly fees." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://www.sitesbycharlie.ie/" />
-
-  <!-- Open Graph / Social Sharing -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.sitesbycharlie.ie/" />
   <meta property="og:title" content="Sites By Charlie — Web Design Ireland" />
-  <meta property="og:description" content="Affordable, custom web design for Irish businesses. Based in Dublin, working nationwide. Simple pricing, fast turnaround, no monthly fees." />
+  <meta property="og:description" content="Affordable, custom web design for Irish businesses. Based in Dublin, working nationwide." />
   <meta property="og:image" content="https://www.sitesbycharlie.ie/favicon.png" />
-
-  <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Sites By Charlie — Web Design Ireland" />
-  <meta name="twitter:description" content="Affordable, custom web design for Irish businesses. Based in Dublin, working nationwide. Simple pricing, fast turnaround, no monthly fees." />
-  <meta name="twitter:image" content="https://www.sitesbycharlie.ie/favicon.png" />
-
   <link rel="icon" type="image/png" href="favicon.png" sizes="512x512" />
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Varela+Round&display=swap" rel="stylesheet" />
+
   <style>
     :root {
-      --black:   #000000;
+      --black:   #0a0a0a;
       --crimson: #8E1616;
       --red:     #D84040;
       --light:   #EEEEEE;
-      --muted:   rgba(238,238,238,0.55);
+      --muted:   rgba(238,238,238,0.5);
+      --border:  rgba(238,238,238,0.08);
       --serif:   'DM Sans', sans-serif;
       --sans:    'Varela Round', sans-serif;
       --ease:    cubic-bezier(0.16, 1, 0.3, 1);
+      --card-w:  min(88vw, 680px);
+      --card-gap: 20px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { background: var(--black); color: var(--light); font-family: var(--sans); font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+    body {
+      background: var(--black);
+      color: var(--light);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+      min-height: 100dvh;
+    }
     a { color: inherit; text-decoration: none; }
     ul { list-style: none; }
 
-    /* ── Global Aurora Background ── */
-    #aurora-bg {
+    /* ── Noise ── */
+    body::before {
+      content: '';
       position: fixed;
       inset: 0;
-      width: 100%;
-      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.03;
       pointer-events: none;
-      z-index: 0;
-    }
-    #aurora-bg canvas {
-      position: absolute;
-      inset: 0;
-      width: 100% !important;
-      height: 100% !important;
+      z-index: 9999;
     }
 
-    /* Noise overlay on top of everything */
-    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.03; pointer-events: none; z-index: 9999; }
+    /* ── Solid Background ── */
+    body { background: #0a0a0a; }
 
-    /* Ensure all content sits above aurora */
-    nav, .mobile-menu, section, footer { position: relative; z-index: 1; }
+    /* ── Progress Bar ── */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--crimson), var(--red));
+      z-index: 1000;
+      width: 0%;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 8px rgba(216,64,64,0.6);
+    }
 
-    nav { position: relative; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 5vw; }
-    nav.scrolled { background: transparent; border-bottom: none; }
-    .nav-logo { font-family: var(--serif); font-size: 1.25rem; font-weight: bold; letter-spacing: 0.01em; color: var(--light); }
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 5vw;
+      background: transparent;
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: var(--light);
+      position: relative;
+      z-index: 1;
+    }
     .nav-logo span { color: var(--red); }
-    .nav-links { display: flex; gap: 2.2rem; }
-    .nav-links a { font-size: 0.73rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(238,238,238,0.5); transition: color 0.25s; position: relative; }
-    .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -3px; width: 0; height: 1px; background: var(--red); transition: width 0.3s var(--ease); }
-    .nav-links a:hover { color: var(--light); }
-    .nav-links a:hover::after { width: 100%; }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
-    .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--light); transition: transform 0.3s var(--ease), opacity 0.3s; }
+    .nav-pill {
+      display: flex;
+      gap: 0.2rem;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      padding: 0.3rem 0.4rem;
+      border-radius: 100px;
+    }
+    .nav-pill a {
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(238,238,238,0.45);
+      padding: 0.38rem 0.85rem;
+      border-radius: 100px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-pill a:hover, .nav-pill a.active {
+      color: var(--light);
+      background: rgba(255,255,255,0.07);
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--light);
+      transition: transform 0.3s var(--ease), opacity 0.3s;
+    }
     .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-    .mobile-menu { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.97); z-index: 99; flex-direction: column; justify-content: center; align-items: center; gap: 1.6rem; }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a { font-family: var(--serif); font-size: 1.6rem; font-weight: normal; color: rgba(238,238,238,0.7); letter-spacing: 0.02em; transition: color 0.25s; }
-    .mobile-menu a:hover { color: var(--light); }
-    #hero { position: relative; min-height: 100svh; display: flex; align-items: center; justify-content: center; padding: 6rem 5vw 4rem; overflow: hidden; text-align: center; }
-    .hero-content { position: relative; max-width: 840px; display: flex; flex-direction: column; align-items: center; }
-    .hero-eyebrow { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 1.5rem; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s var(--ease) 0.3s forwards; text-align: center; }
-    .hero-title { font-family: var(--serif); font-size: clamp(3rem, 7vw, 6.2rem); font-weight: normal; line-height: 1.05; color: var(--light); margin-bottom: 1.8rem; opacity: 0; transform: translateY(30px); animation: fadeUp 0.9s var(--ease) 0.5s forwards; text-align: center; }
-    .hero-title em { font-style: italic; color: var(--red); }
-    .hero-sub { font-size: 1rem; color: var(--muted); max-width: 460px; margin-bottom: 2.8rem; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s var(--ease) 0.7s forwards; text-align: center; }
-    .hero-cta-wrap { display: flex; gap: 1rem; flex-wrap: wrap; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s var(--ease) 0.9s forwards; justify-content: center; }
-    .btn { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.85rem 2.2rem; font-family: var(--sans); font-size: 0.73rem; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; border: none; cursor: pointer; transition: all 0.3s var(--ease); position: relative; overflow: hidden; }
-    .btn-primary { background: var(--crimson); color: var(--light); }
-    .btn-primary::before { content: ''; position: absolute; inset: 0; background: var(--red); transform: translateX(-101%); transition: transform 0.35s var(--ease); }
-    .btn-primary:hover::before { transform: translateX(0); }
-    .btn-primary span, .btn-primary .ico { position: relative; z-index: 1; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(142,22,22,0.4); }
-    .btn-ghost { background: transparent; color: rgba(238,238,238,0.6); border: 1px solid rgba(238,238,238,0.18); }
-    .btn-ghost:hover { color: var(--light); border-color: rgba(238,238,238,0.45); transform: translateY(-2px); }
-    .btn-full { width: 100%; justify-content: center; }
-    .btn-full.btn-gradient span { width: 100%; }
-    .btn-gradient { background: #000000; border: 1px solid rgba(142,22,22,0.4); border-radius: 8px; padding: 0; min-width: 140px; white-space: nowrap; touch-action: manipulation; color: #ffffff; transition: background 300ms, border-color 300ms, box-shadow 300ms, transform 300ms; }
-    .btn-gradient span { background: transparent; padding: 16px 24px; border-radius: 7px; width: 100%; height: 100%; transition: color 300ms; display: flex; align-items: center; justify-content: center; gap: 0.6rem; color: #ffffff; }
-    .btn-gradient:hover { background: linear-gradient(144deg, #5a0a0a, #8E1616 50%, #D84040); border-color: transparent; box-shadow: rgba(216,64,64,0.45) 0 15px 30px -5px; transform: translateY(-2px); }
-    .btn-gradient:hover span { color: #ffffff; }
-    .btn-gradient:hover span svg { stroke: #ffffff; }
-    .btn-gradient:active { transform: scale(0.95); }
-    .btn-glow { --btn-bg: linear-gradient(to left, #8E1616 0%, #D84040 100%); display: inline-flex; align-items: center; justify-content: center; padding: 4px; border-radius: 1rem; border: 0; background: var(--btn-bg); position: relative; z-index: 1; cursor: pointer; transition: transform 0.3s; width: 100%; }
-    .btn-glow::after { position: absolute; content: ''; top: 30px; left: 0; right: 0; z-index: -1; height: 100%; width: 100%; transform: scale(0.8); filter: blur(20px); background: var(--btn-bg); transition: opacity 0.5s; border-radius: 1rem; }
-    .btn-glow:hover::after { opacity: 0; }
-    .btn-glow:hover { transform: translateY(-2px); }
-    .btn-glow:active { transform: scale(0.95); }
-    .btn-glow span { background: #0d0000; color: #ffffff; display: flex; align-items: center; justify-content: center; gap: 0.6rem; width: 100%; padding: 14px 24px; border-radius: calc(1rem - 4px); font-family: var(--sans); font-size: 0.73rem; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; transition: color 0.5s; white-space: nowrap; }
-    .btn-glow:hover span { color: #D84040; }
-    .ico-arrow { width: 14px; height: 14px; display: inline-block; vertical-align: middle; }
-    .ico-plane { width: 14px; height: 14px; display: inline-block; vertical-align: middle; }
-    section { padding: 7rem 5vw; display: flex; flex-direction: column; align-items: center; }
-    .section-tag { font-size: 0.67rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 1rem; text-align: center; }
-    .section-title { font-family: var(--serif); font-size: clamp(2.3rem, 4.5vw, 3.6rem); font-weight: normal; line-height: 1.1; color: var(--light); margin-bottom: 1.6rem; text-align: center; }
-    .section-title em { font-style: italic; color: var(--red); }
-    .divider { width: 44px; height: 1px; background: linear-gradient(90deg, var(--crimson), var(--red)); margin: 0 auto 2.4rem; }
-    #about { border-top: 1px solid rgba(238,238,238,0.07); }
-    .about-grid { display: grid; grid-template-columns: 1fr; gap: 6vw; align-items: start; max-width: 640px; width: 100%; }
-    .about-text { padding-top: 0.4rem; text-align: center; }
-    .blurb { color: rgba(238,238,238,0.63); font-size: 0.97rem; margin-bottom: 1.1rem; }
-    .blurb strong { color: var(--light); font-weight: 600; }
-    .creds { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-top: 2rem; }
-    @media (max-width: 500px) { .creds { grid-template-columns: 1fr; } }
-    .cred-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 1.2rem; border: 1px solid rgba(238,238,238,0.07); transition: border-color 0.3s; }
-    .cred-item:hover { border-color: rgba(142,22,22,0.35); }
-    .cred-icon { color: var(--red); margin-top: 0.15rem; flex-shrink: 0; }
-    .cred-title { font-size: 0.88rem; color: var(--light); font-weight: 600; line-height: 1.3; }
-    .cred-sub { font-size: 0.76rem; color: rgba(238,238,238,0.38); margin-top: 0.18rem; }
-    #services { border-top: 1px solid rgba(238,238,238,0.07); }
-    .services-header { max-width: 500px; margin-bottom: 4rem; text-align: center; width: 100%; }
-    .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 1000px; width: 100%; }
-    .service-card { border: 1px solid rgba(238,238,238,0.09); padding: 3rem; position: relative; overflow: hidden; transition: border-color 0.35s, transform 0.35s var(--ease); background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); text-align: center; }
-    .service-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(142,22,22,0.09) 0%, transparent 60%); opacity: 0; transition: opacity 0.4s; }
-    .service-card:hover { border-color: rgba(142,22,22,0.5); transform: translateY(-4px); }
-    .service-card:hover::before { opacity: 1; }
-    .service-icon-box { width: 52px; height: 52px; border: 1px solid rgba(142,22,22,0.4); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.8rem; position: relative; z-index: 1; transition: background 0.3s, border-color 0.3s; }
-    .service-card:hover .service-icon-box { background: var(--crimson); border-color: var(--crimson); }
-    .service-icon-box svg { transition: stroke 0.3s; }
-    .service-card:hover .service-icon-box svg { stroke: var(--light); }
-    .service-name { font-family: var(--serif); font-size: 1.9rem; font-weight: normal; color: var(--light); margin-bottom: 1rem; position: relative; z-index: 1; }
-    .service-desc { color: rgba(238,238,238,0.55); font-size: 0.95rem; margin-bottom: 2rem; position: relative; z-index: 1; }
-    .service-features { display: flex; flex-wrap: wrap; gap: 0.65rem; position: relative; z-index: 1; justify-content: center; }
-    .feature-pill { font-size: 0.68rem; letter-spacing: 0.09em; text-transform: uppercase; padding: 0.38rem 0.95rem; border: 1px solid rgba(238,238,238,0.1); color: rgba(238,238,238,0.48); transition: border-color 0.3s, color 0.3s; }
-    .service-card:hover .feature-pill { border-color: rgba(142,22,22,0.32); color: rgba(238,238,238,0.7); }
-    @media (max-width: 820px) { .services-grid { grid-template-columns: 1fr; max-width: 560px; } }
-    #pricing { border-top: 1px solid rgba(238,238,238,0.07); }
-    .pricing-header { max-width: 560px; margin-bottom: 1rem; text-align: center; width: 100%; }
-    .pricing-subtitle { color: var(--muted); font-size: 0.95rem; margin-bottom: 4rem; max-width: 520px; text-align: center; }
-    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 900px; align-items: start; width: 100%; }
-    .price-card { border: 1px solid rgba(238,238,238,0.08); padding: 2.8rem; position: relative; overflow: hidden; transition: border-color 0.35s, transform 0.35s var(--ease); background: rgba(0,0,0,0.82); backdrop-filter: blur(12px); border-radius: 0.5rem; }
-    .price-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(142,22,22,0.06) 0%, transparent 60%); opacity: 0; transition: opacity 0.4s; pointer-events: none; }
-    .price-card:hover { border-color: rgba(142,22,22,0.4); transform: translateY(-4px); }
-    .price-card:hover::before { opacity: 1; }
-    .price-card.featured { border-color: rgba(142,22,22,0.3); background: rgba(5,0,0,0.88); backdrop-filter: blur(12px); }
-    .price-card.featured::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--crimson), var(--red)); }
-    .price-name { font-family: var(--serif); font-size: 1.7rem; font-weight: normal; color: var(--light); margin-bottom: 0.5rem; line-height: 1.15; }
-    .price-tagline { font-size: 0.82rem; color: rgba(238,238,238,0.42); margin-bottom: 2rem; }
-    .price-amount { display: flex; align-items: flex-end; gap: 0.3rem; margin-bottom: 0.3rem; }
-    .price-currency { font-family: var(--serif); font-size: 1.8rem; font-weight: normal; color: rgba(238,238,238,0.5); line-height: 1; padding-bottom: 0.35rem; }
-    .price-number { font-family: var(--serif); font-size: 4.2rem; font-weight: normal; color: var(--light); line-height: 1; }
-    .price-period { font-size: 0.76rem; color: rgba(238,238,238,0.35); letter-spacing: 0.06em; margin-bottom: 0.5rem; }
-    .price-setup-note { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: rgba(238,238,238,0.5); padding: 0.5rem 0.9rem; border: 1px solid rgba(238,238,238,0.1); margin-bottom: 2rem; }
-    .price-setup-note strong { color: var(--light); font-weight: 600; }
-    .price-rule { width: 100%; height: 1px; background: rgba(238,238,238,0.08); margin-bottom: 2rem; }
-    .price-includes { display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 2.4rem; }
-    .price-row { display: flex; align-items: flex-start; gap: 0.85rem; font-size: 0.88rem; color: rgba(238,238,238,0.65); line-height: 1.45; }
-    .price-row .chk { color: var(--red); flex-shrink: 0; margin-top: 0.1rem; font-size: 0.8rem; font-weight: bold; }
-    .price-row strong { color: var(--light); font-weight: 600; }
-    .value-callout { background: rgba(142,22,22,0.13); border: 1px solid rgba(142,22,22,0.28); padding: 1.2rem 1.4rem; margin-bottom: 2.2rem; }
-    .value-callout p { font-size: 0.83rem; color: rgba(238,238,238,0.7); line-height: 1.6; }
-    .value-callout p strong { color: var(--light); font-weight: 600; }
-    .comparison-nudge { background: rgba(238,238,238,0.03); border: 1px solid rgba(238,238,238,0.07); padding: 1.2rem 1.4rem; margin-bottom: 2.2rem; }
-    .comparison-nudge p { font-size: 0.83rem; color: rgba(238,238,238,0.45); line-height: 1.6; }
-    .comparison-nudge p strong { color: rgba(238,238,238,0.7); font-weight: 600; }
-    #work { border-top: 1px solid rgba(238,238,238,0.07); }
-    .logo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.2rem; max-width: 500px; width: 100%; }
-    .logo-card { position: relative; width: 100%; min-height: 200px; border: 1px solid rgba(238,238,238,0.1); background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); border-radius: 16px; transition: all 0.3s var(--ease); text-decoration: none; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-    .logo-card:hover { border-color: rgba(216,64,64,0.6); box-shadow: 0px 0px 30px 1px rgba(216,64,64,0.25); transform: translateY(-3px); }
-    .logo-card-inner { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
-    .logo-face { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; padding: 1.5rem; transition: opacity 0.3s; width: 100%; }
-    .logo-card:hover .logo-face { opacity: 0; }
-    .logo-img { width: 72px; height: 72px; object-fit: contain; border-radius: 50%; background: rgba(255,255,255,0.05); padding: 4px; }
-    .logo-name { font-size: 0.82rem; font-weight: 600; color: var(--light); text-align: center; line-height: 1.3; padding: 0 0.5rem; word-break: break-word; }
-    .logo-url { font-size: 0.62rem; letter-spacing: 0; text-transform: none; color: var(--red); text-align: center; padding: 0 0.5rem; overflow: hidden; text-overflow: ellipsis; max-width: 100%; white-space: nowrap; }
-    .logo-plus { width: 48px; height: 48px; border-radius: 50%; border: 1px dashed rgba(238,238,238,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: rgba(238,238,238,0.2); }
-    .logo-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.88); border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.4rem; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
-    .logo-card:hover .logo-overlay { opacity: 1; pointer-events: auto; }
-    .logo-card.tapped .logo-face { opacity: 0; }
-    .logo-card.tapped .logo-overlay { opacity: 1; pointer-events: auto; }
-    .overlay-desc { font-size: 0.8rem; color: rgba(238,238,238,0.7); text-align: center; line-height: 1.6; margin-bottom: 1rem; }
-    .overlay-btn { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); background: var(--crimson); border: none; padding: 0.5rem 1.2rem; border-radius: 6px; cursor: pointer; transition: background 0.2s; text-decoration: none; display: inline-block; }
-    .overlay-btn:hover { background: var(--red); }
-    .logo-card--empty { cursor: default; border-style: dashed; border-color: rgba(238,238,238,0.1); background: transparent; }
-    .logo-card--empty:hover { box-shadow: none; transform: none; border-color: rgba(238,238,238,0.1); }
-    #contact { border-top: 1px solid rgba(238,238,238,0.07); }
-    #contact::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.75); pointer-events: none; z-index: 0; }
-    #contact > * { position: relative; z-index: 1; }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 6vw; max-width: 1000px; }
-    .contact-details-mobile { display: none; margin-top: 2rem; }
-    .contact-details-desktop { display: block; }
-    .contact-intro { color: rgba(238,238,238,0.5); font-size: 0.95rem; margin-bottom: 2.5rem; }
-    .contact-detail { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; color: rgba(238,238,238,0.58); font-size: 0.9rem; transition: color 0.25s; }
-    .contact-detail:hover { color: var(--light); }
-    .contact-detail .cico { color: var(--red); flex-shrink: 0; }
-    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
-    .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
-    .form-group label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(238,238,238,0.36); }
-    .form-group input, .form-group textarea { background: rgba(238,238,238,0.03); border: 1px solid rgba(238,238,238,0.09); color: var(--light); font-family: var(--sans); font-size: 0.95rem; font-weight: 300; padding: 0.9rem 1.1rem; outline: none; width: 100%; transition: border-color 0.3s, background 0.3s; -webkit-appearance: none; border-radius: 0; }
-    .form-group input:focus, .form-group textarea:focus { border-color: rgba(142,22,22,0.65); background: rgba(142,22,22,0.05); }
-    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(238,238,238,0.17); }
-    .form-group textarea { resize: vertical; min-height: 110px; }
-    .form-submit { margin-top: 0.4rem; }
-    .form-status { font-size: 0.83rem; margin-top: 0.8rem; min-height: 1.2em; color: var(--red); }
-    .form-status.success { color: #72c992; }
-    footer { border-top: 1px solid rgba(238,238,238,0.07); padding: 2.6rem 5vw; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.2rem; }
-    .footer-logo { font-family: var(--serif); font-size: 1.15rem; font-weight: bold; }
-    .footer-logo span { color: var(--red); }
-    .footer-copy { font-size: 0.74rem; color: rgba(238,238,238,0.26); letter-spacing: 0.04em; }
-    .footer-social { display: flex; gap: 1rem; }
-    .social-link { width: 40px; height: 40px; border: 1px solid rgba(238,238,238,0.1); display: flex; align-items: center; justify-content: center; color: rgba(238,238,238,0.42); transition: border-color 0.3s, color 0.3s, background 0.3s; }
-    .social-link:hover { border-color: var(--crimson); background: var(--crimson); color: var(--light); }
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s var(--ease), transform 0.75s var(--ease); }
-    .reveal.visible { opacity: 1; transform: none; }
-    .reveal-d1 { transition-delay: 0.12s; }
-    .reveal-d2 { transition-delay: 0.24s; }
-    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-
-    /* ── Gradual Blur ── */
-    .gradual-blur { position: absolute; left: 0; right: 0; pointer-events: none; overflow: hidden; opacity: 0; transition: opacity 0.7s ease-out; isolation: isolate; }
-    .gradual-blur.visible { opacity: 1; }
-    .gradual-blur.blur-bottom { bottom: 0; height: 7rem; }
-    .gradual-blur.blur-top { top: 0; height: 5rem; }
-    .gradual-blur-inner { position: relative; width: 100%; height: 100%; }
-    .gradual-blur-inner > div { position: absolute; inset: 0; -webkit-backdrop-filter: inherit; backdrop-filter: inherit; }
-    @supports not (backdrop-filter: blur(1px)) {
-      .gradual-blur-inner > div { background: rgba(0,0,0,0.3); opacity: 0.5; }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.97);
+      z-index: 499;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1.6rem;
     }
-    #why { border-top: 1px solid rgba(238,238,238,0.07); }
-    .why-header { max-width: 620px; margin-bottom: 4rem; text-align: center; width: 100%; }
-    .why-intro { color: var(--muted); font-size: 0.97rem; margin-top: -0.8rem; }
-    .why-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; max-width: 1000px; margin-bottom: 4rem; width: 100%; }
-    .why-stat-card { border: 1px solid rgba(142,22,22,0.28); background: rgba(0,0,0,0.45); backdrop-filter: blur(6px); padding: 2rem 1.6rem; position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s var(--ease); text-align: center; }
-    .why-stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--crimson), var(--red)); }
-    .why-stat-card:hover { border-color: rgba(216,64,64,0.5); transform: translateY(-3px); }
-    .why-stat-number { font-family: var(--serif); font-size: 3.6rem; font-weight: normal; color: var(--light); line-height: 1; display: block; margin-bottom: 0.7rem; }
-    .why-stat-symbol { font-size: 2rem; color: var(--red); }
-    .why-stat-label { font-size: 0.82rem; color: rgba(238,238,238,0.55); line-height: 1.55; }
-    .why-points { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; max-width: 1000px; width: 100%; }
-    .why-point { display: flex; flex-direction: column; gap: 1rem; align-items: center; text-align: center; border: 1px solid rgba(238,238,238,0.08); transition: border-color 0.3s, transform 0.3s var(--ease); background: rgba(0,0,0,0.35); backdrop-filter: blur(4px); padding: 2rem 1.8rem; }
-    .why-point:hover { border-color: rgba(142,22,22,0.38); transform: translateY(-3px); }
-    .why-point-inner { display: flex; flex-direction: column; align-items: center; gap: 1rem; width: 100%; }
-    .why-point-front { display: flex; flex-direction: column; align-items: center; gap: 1rem; width: 100%; }
-    .why-point-back { display: flex; flex-direction: column; align-items: center; width: 100%; }
-    .why-point-icon { width: 46px; height: 46px; border: 1px solid rgba(142,22,22,0.35); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.3s, border-color 0.3s; }
-    .why-point:hover .why-point-icon { background: var(--crimson); border-color: var(--crimson); }
-    .why-point:hover .why-point-icon svg { stroke: var(--light); }
-    .why-point-title { font-family: var(--serif); font-size: 1.15rem; color: var(--light); margin-bottom: 0.45rem; font-weight: normal; text-align: center; }
-    .why-point-desc { font-size: 0.88rem; color: rgba(238,238,238,0.52); line-height: 1.7; text-align: center; }
-    @media (max-width: 1000px) { .why-stats { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 768px) { .why-stats { grid-template-columns: repeat(2, 1fr); } .why-points { grid-template-columns: 1fr; } }
-    @media (max-width: 480px) { .why-stats { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; } }
-    @media (max-width: 900px) { .pricing-grid { grid-template-columns: 1fr; max-width: 520px; } }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      color: rgba(238,238,238,0.6);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--light); }
+
+    /* ── Slider Container ── */
+    #slider-section {
+      position: relative;
+      z-index: 1;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 0 0;
+    }
+
+    /* Slide counter */
+
+
+    /* Navigation arrows */
+    .slider-nav {
+      position: fixed;
+      bottom: 2rem;
+      left: 5vw;
+      display: flex;
+      gap: 0.6rem;
+      z-index: 200;
+    }
+    .slider-arrow {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(238,238,238,0.12);
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: rgba(238,238,238,0.4);
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .slider-arrow:hover {
+      border-color: rgba(216,64,64,0.5);
+      color: var(--light);
+      background: rgba(142,22,22,0.2);
+    }
+    .slider-arrow:disabled {
+      opacity: 0.25;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    /* ── Track ── */
+    .slider-track-wrap {
+      overflow-x: scroll;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 2rem 0 4rem;
+      cursor: grab;
+      perspective: 1200px;
+    }
+    .slider-track-wrap:active { cursor: grabbing; }
+    .slider-track-wrap::-webkit-scrollbar { display: none; }
+    .slider-track {
+      display: flex;
+      gap: var(--card-gap);
+      padding: 0 calc((100vw - var(--card-w)) / 2);
+      width: max-content;
+    }
+
+    /* ── Cards ── */
+    .slide-card {
+      flex-shrink: 0;
+      width: var(--card-w);
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
+      border: 1px solid rgba(238,238,238,0.07);
+      background: rgba(14,14,14,0.85);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease), opacity 0.4s var(--ease), transform 0.4s var(--ease);
+      position: relative;
+      will-change: transform, opacity;
+    }
+    .slide-card:not(.active) {
+      opacity: 0.38;
+      transform: scale(0.96) translateY(6px);
+      box-shadow: none;
+    }
+    .slide-card.active {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      border-color: rgba(216,64,64,0.25);
+      box-shadow:
+        0 0 0 1px rgba(216,64,64,0.12),
+        0 0 40px rgba(180,30,30,0.18),
+        0 0 80px rgba(142,22,22,0.10),
+        0 20px 60px rgba(0,0,0,0.5);
+    }
+    /* Top edge glow line */
+    .slide-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 10%; right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(216,64,64,0.55), transparent);
+      opacity: 0;
+      transition: opacity 0.4s var(--ease);
+      z-index: 2;
+    }
+    .slide-card.active::before { opacity: 1; }
+
+    /* Card inner padding */
+    .card-inner {
+      padding: 3rem 3.5rem;
+    }
+
+    /* ── Card 1: Hero ── */
+    .card-hero .card-inner {
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card-eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 2.5rem;
+    }
+    .card-hero-title {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 5.5vw, 5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--light);
+      margin-bottom: 1.5rem;
+    }
+    .card-hero-title em {
+      font-style: italic;
+      color: var(--red);
+    }
+    .card-hero-sub {
+      font-size: 0.97rem;
+      color: var(--muted);
+      max-width: 420px;
+      margin-bottom: 2.5rem;
+    }
+    .card-hero-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .card-hero-meta {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: rgba(238,238,238,0.25);
+      text-transform: uppercase;
+    }
+
+    /* ── Card 2: About / What I Offer ── */
+    .card-about .card-inner {
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card-tag {
+      font-size: 0.63rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1.2rem;
+    }
+    .card-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--light);
+      margin-bottom: 1.8rem;
+    }
+    .card-title em { font-style: italic; color: var(--red); }
+    .offer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .offer-item {
+      border: 1px solid var(--border);
+      padding: 1.4rem 1.4rem 1.4rem;
+      border-radius: 12px;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .offer-item:hover {
+      border-color: rgba(142,22,22,0.4);
+      background: rgba(142,22,22,0.04);
+    }
+    .offer-icon {
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(142,22,22,0.3);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.9rem;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .offer-item:hover .offer-icon {
+      background: var(--crimson);
+      border-color: var(--crimson);
+    }
+    .offer-name {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--light);
+      margin-bottom: 0.4rem;
+    }
+    .offer-desc {
+      font-size: 0.8rem;
+      color: rgba(238,238,238,0.48);
+      line-height: 1.55;
+    }
+    .offer-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .pill {
+      font-size: 0.63rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border: 1px solid rgba(238,238,238,0.08);
+      border-radius: 100px;
+      color: rgba(238,238,238,0.4);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .pill:hover {
+      border-color: rgba(216,64,64,0.35);
+      color: rgba(238,238,238,0.7);
+    }
+
+    /* ── Card 3: Plans (Expandable) ── */
+    .card-plans .card-inner {
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+    }
+    .plans-intro {
+      font-size: 0.93rem;
+      color: var(--muted);
+      margin-bottom: 1.8rem;
+    }
+    .plan-toggles {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .plan-tab {
+      padding: 0.45rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(238,238,238,0.4);
+      cursor: pointer;
+      transition: all 0.25s;
+      background: transparent;
+      font-family: var(--sans);
+    }
+    .plan-tab.active {
+      background: var(--crimson);
+      border-color: var(--crimson);
+      color: var(--light);
+    }
+    .plan-tab:hover:not(.active) {
+      border-color: rgba(142,22,22,0.4);
+      color: rgba(238,238,238,0.7);
+    }
+    .plan-panels {
+      position: relative;
+      flex: 1;
+    }
+    .plan-panel {
+      display: none;
+      animation: fadeIn 0.3s var(--ease);
+    }
+    .plan-panel.visible { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    .plan-name {
+      font-family: var(--serif);
+      font-size: 1.7rem;
+      font-weight: 300;
+      color: var(--light);
+      margin-bottom: 0.4rem;
+    }
+    .plan-tagline {
+      font-size: 0.82rem;
+      color: rgba(238,238,238,0.38);
+      margin-bottom: 1.5rem;
+    }
+    .plan-rule {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 1.4rem;
+    }
+    .plan-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1.6rem;
+    }
+    .plan-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.86rem;
+      color: rgba(238,238,238,0.6);
+      line-height: 1.5;
+    }
+    .plan-row .chk {
+      color: var(--red);
+      flex-shrink: 0;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-top: 0.15rem;
+    }
+    .plan-row strong { color: var(--light); font-weight: 600; }
+    .plan-callout {
+      background: rgba(142,22,22,0.1);
+      border: 1px solid rgba(142,22,22,0.22);
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+      font-size: 0.82rem;
+      color: rgba(238,238,238,0.65);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .plan-callout strong { color: var(--light); }
+
+    /* ── Card 4: Why a Website (Expandable) ── */
+    .card-why .card-inner {
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+    }
+    .why-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+      margin-bottom: 1.6rem;
+    }
+    .why-stat {
+      border: 1px solid rgba(142,22,22,0.2);
+      border-radius: 10px;
+      padding: 1.2rem 1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .why-stat::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--crimson), var(--red));
+    }
+    .why-stat:hover {
+      border-color: rgba(216,64,64,0.45);
+      transform: translateY(-2px);
+    }
+    .why-stat-num {
+      font-family: var(--serif);
+      font-size: 2.4rem;
+      font-weight: 300;
+      color: var(--light);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .why-stat-num sup {
+      font-size: 1.2rem;
+      color: var(--red);
+    }
+    .why-stat-label {
+      font-size: 0.74rem;
+      color: rgba(238,238,238,0.48);
+      line-height: 1.45;
+    }
+    .why-points-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      flex: 1;
+    }
+    .why-point-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.2s;
+      border-radius: 0;
+    }
+    .why-point-item:last-child { border-bottom: none; }
+    .why-point-item:hover .why-pt-title { color: var(--light); }
+    .why-pt-icon {
+      width: 32px;
+      height: 32px;
+      border: 1px solid rgba(142,22,22,0.3);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .why-point-item:hover .why-pt-icon {
+      background: var(--crimson);
+      border-color: var(--crimson);
+    }
+    .why-pt-content { flex: 1; }
+    .why-pt-title {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      color: rgba(238,238,238,0.8);
+      font-weight: 600;
+      margin-bottom: 0;
+      transition: color 0.2s;
+    }
+    .why-pt-desc {
+      font-size: 0.8rem;
+      color: rgba(238,238,238,0.45);
+      line-height: 1.55;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s var(--ease), margin 0.3s, opacity 0.3s;
+      opacity: 0;
+    }
+    .why-point-item.open .why-pt-desc {
+      max-height: 60px;
+      margin-top: 0.3rem;
+      opacity: 1;
+    }
+    .why-pt-arrow {
+      color: rgba(238,238,238,0.2);
+      transition: transform 0.25s var(--ease), color 0.2s;
+      margin-top: 0.2rem;
+      flex-shrink: 0;
+    }
+    .why-point-item.open .why-pt-arrow {
+      transform: rotate(90deg);
+      color: var(--red);
+    }
+
+    /* ── Card 5: Work ── */
+    .card-work .card-inner {
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+    }
+    .work-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      flex: 1;
+      align-content: start;
+    }
+    .work-card {
+      border: 1px solid rgba(238,238,238,0.08);
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      min-height: 200px;
+      cursor: pointer;
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s var(--ease);
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .work-card:hover {
+      border-color: rgba(216,64,64,0.5);
+      box-shadow: 0 0 28px rgba(216,64,64,0.18);
+      transform: translateY(-3px);
+    }
+    .work-face {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 1.5rem;
+      transition: opacity 0.3s;
+      text-align: center;
+      width: 100%;
+    }
+    .work-card:hover .work-face,
+    .work-card.tapped .work-face { opacity: 0; }
+    .work-logo {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      padding: 4px;
+    }
+    .work-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--light);
+      line-height: 1.3;
+    }
+    .work-url {
+      font-size: 0.62rem;
+      color: var(--red);
+      letter-spacing: 0;
+    }
+    .work-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(5,0,0,0.92);
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.2rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      text-align: center;
+    }
+    .work-card:hover .work-overlay,
+    .work-card.tapped .work-overlay {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .work-overlay-desc {
+      font-size: 0.78rem;
+      color: rgba(238,238,238,0.68);
+      line-height: 1.55;
+      margin-bottom: 0.9rem;
+    }
+    .work-overlay-btn {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--light);
+      background: var(--crimson);
+      border: none;
+      padding: 0.45rem 1.1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .work-overlay-btn:hover { background: var(--red); }
+    .work-card--empty {
+      border-style: dashed;
+      border-color: rgba(238,238,238,0.07);
+      cursor: default;
+    }
+    .work-card--empty:hover {
+      border-color: rgba(238,238,238,0.07);
+      box-shadow: none;
+      transform: none;
+    }
+    .work-plus {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px dashed rgba(238,238,238,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: rgba(238,238,238,0.15);
+      margin-bottom: 0.5rem;
+    }
+    .work-soon { font-size: 0.75rem; color: rgba(238,238,238,0.18); }
+
+    /* ── Card 6: Contact ── */
+    .card-contact .card-inner {
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+    }
+    .contact-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-bottom: 1.8rem;
+    }
+    .contact-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 0.85rem;
+      color: rgba(238,238,238,0.45);
+      transition: color 0.2s;
+    }
+    .contact-meta-item:hover { color: var(--light); }
+    .contact-meta-item svg { flex-shrink: 0; color: var(--red); }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      flex: 1;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .form-group label {
+      font-size: 0.63rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(238,238,238,0.3);
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: rgba(238,238,238,0.03);
+      border: 1px solid rgba(238,238,238,0.08);
+      color: var(--light);
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      font-weight: 300;
+      padding: 0.75rem 1rem;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.25s, background 0.25s;
+      -webkit-appearance: none;
+      border-radius: 8px;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: rgba(142,22,22,0.6);
+      background: rgba(142,22,22,0.04);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(238,238,238,0.15); }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .form-group select option { background: #111; }
+    .form-status {
+      font-size: 0.8rem;
+      margin-top: 0.4rem;
+      color: var(--red);
+      min-height: 1.2em;
+    }
+    .form-status.success { color: #72c992; }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.8rem 2rem;
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s var(--ease);
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    .btn-primary {
+      background: var(--crimson);
+      color: var(--light);
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--red);
+      transform: translateX(-101%);
+      transition: transform 0.3s var(--ease);
+    }
+    .btn-primary:hover::before { transform: translateX(0); }
+    .btn-primary span, .btn-primary svg { position: relative; z-index: 1; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(142,22,22,0.35); }
+
+    .btn-ghost {
+      background: transparent;
+      color: rgba(238,238,238,0.55);
+      border: 1px solid rgba(238,238,238,0.12);
+    }
+    .btn-ghost:hover {
+      color: var(--light);
+      border-color: rgba(238,238,238,0.3);
+      transform: translateY(-2px);
+    }
+    .btn-full { width: 100%; justify-content: center; }
+
+    /* ── Footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2rem 5vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 700; }
+    .footer-logo span { color: var(--red); }
+    .footer-copy { font-size: 0.72rem; color: rgba(238,238,238,0.22); letter-spacing: 0.04em; }
+    .footer-social { display: flex; gap: 0.8rem; }
+    .social-link {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(238,238,238,0.08);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(238,238,238,0.35);
+      transition: border-color 0.25s, color 0.25s, background 0.25s;
+    }
+    .social-link:hover {
+      border-color: var(--crimson);
+      background: var(--crimson);
+      color: var(--light);
+    }
+
+    /* ── Responsive ── */
     @media (max-width: 768px) {
-      .nav-links { display: none; }
+      :root { --card-w: 88vw; }
+      .nav-pill { display: none; }
       .hamburger { display: flex; }
-      .about-grid, .contact-grid { grid-template-columns: 1fr; }
-      .creds { grid-template-columns: 1fr; }
-      section { padding: 5rem 5vw; }
-      .service-card, .price-card { padding: 1.8rem; }
+      .card-inner { padding: 2rem 1.8rem; }
+      .offer-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .why-stats-grid { grid-template-columns: 1fr 1fr; }
+      .work-grid { grid-template-columns: 1fr 1fr; }
+      .card-hero-title { font-size: clamp(2.2rem, 8vw, 3.2rem); }
       footer { flex-direction: column; text-align: center; align-items: center; }
-      #hero { padding: 6rem 6vw 4rem; min-height: 100svh; }
-      .hero-title { font-size: clamp(2.4rem, 9vw, 4rem); }
-      .hero-sub { font-size: 0.95rem; }
-      .btn-gradient { min-width: unset; width: 100%; }
-      .hero-cta-wrap { flex-direction: column; align-items: center; }
-      .services-grid { grid-template-columns: 1fr; }
-      .pricing-grid { grid-template-columns: 1fr; max-width: 100%; }
-      .why-stats { grid-template-columns: 1fr 1fr; }
-      .why-points { grid-template-columns: 1fr 1fr; }
-      .why-point { padding: 0; gap: 0; cursor: pointer; background: transparent; border: none; perspective: 800px; min-height: 140px; height: 140px; }
-      .why-point:hover { transform: none; border-color: transparent; }
-      .why-point-inner { position: relative; width: 100%; height: 140px; transform-style: preserve-3d; transition: transform 0.5s var(--ease); border: 1px solid rgba(238,238,238,0.08); border-radius: 4px; display: block; }
-      .why-point.flipped .why-point-inner { transform: rotateY(180deg); }
-      .why-point-front, .why-point-back { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem 0.75rem; gap: 0.5rem; border-radius: 4px; overflow: hidden; }
-      .why-point-front { background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
-      .why-point-back { background: rgba(80,10,10,0.92); backdrop-filter: blur(4px); transform: rotateY(180deg); border: 1px solid rgba(216,64,64,0.4); }
-      .why-point-title { font-size: 0.8rem; margin-bottom: 0; line-height: 1.3; text-align: center; }
-      .why-point-desc { font-size: 0.72rem; color: rgba(238,238,238,0.85); text-align: center; line-height: 1.5; margin: 0; }
-      .why-point-icon { width: 32px; height: 32px; }
-      .why-point-icon svg { width: 14px; height: 14px; }
-      .contact-grid { gap: 3rem; }
-      .contact-details-desktop { display: none; }
-      .contact-details-mobile { display: block; }
-      .section-title { font-size: clamp(2rem, 7vw, 3rem); }
-      .logo-grid { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
+      .slide-counter { bottom: 1.2rem; right: 4vw; }
+      .slider-nav { bottom: 1.2rem; left: 4vw; }
     }
     @media (max-width: 480px) {
-      .why-stats { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
-      .why-stat-card { padding: 1.4rem 1rem; }
-      .why-stat-number { font-size: 2.8rem; }
-      .price-number { font-size: 3.2rem; }
-      .cred-item { padding: 0.85rem 1rem; }
-      section { padding: 4rem 5vw; }
+      :root { --card-w: 90vw; }
+      .card-inner { padding: 1.6rem 1.4rem; }
+      .work-grid { grid-template-columns: 1fr 1fr; }
+      .why-stats-grid { grid-template-columns: 1fr 1fr; }
+      .why-stat-num { font-size: 2rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- GLOBAL AURORA BACKGROUND -->
-  <div id="aurora-bg"></div>
+  <!-- Progress Bar -->
+  <div id="progress-bar"></div>
 
-  <!-- NAV -->
+
+
+  <!-- Nav -->
   <nav id="navbar">
-    <a href="#hero" class="nav-logo">Sites<span>By</span>Charlie</a>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#pricing">Plans</a></li>
-      <li><a href="#work">Work</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+    <a href="#" class="nav-logo">Sites<span>By</span>Charlie</a>
+    <div class="nav-pill">
+      <a href="#" data-slide="0">Home</a>
+      <a href="#" data-slide="1">Services</a>
+      <a href="#" data-slide="2">Plans</a>
+      <a href="#" data-slide="3">Why</a>
+      <a href="#" data-slide="4">Work</a>
+      <a href="#" data-slide="5">Contact</a>
+    </div>
     <button class="hamburger" id="hamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
   </nav>
 
   <div class="mobile-menu" id="mobileMenu">
-    <a href="#about"    onclick="closeMenu()">About</a>
-    <a href="#services" onclick="closeMenu()">Services</a>
-    <a href="#pricing"  onclick="closeMenu()">Plans</a>
-    <a href="#work"     onclick="closeMenu()">Work</a>
-    <a href="#contact"  onclick="closeMenu()">Contact</a>
+    <a href="#" data-slide="0" onclick="goToSlide(0);closeMenu();">Home</a>
+    <a href="#" data-slide="1" onclick="goToSlide(1);closeMenu();">Services</a>
+    <a href="#" data-slide="2" onclick="goToSlide(2);closeMenu();">Plans</a>
+    <a href="#" data-slide="3" onclick="goToSlide(3);closeMenu();">Why</a>
+    <a href="#" data-slide="4" onclick="goToSlide(4);closeMenu();">Work</a>
+    <a href="#" data-slide="5" onclick="goToSlide(5);closeMenu();">Contact</a>
   </div>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-content">
-      <p class="hero-eyebrow">Web Design in Ireland</p>
-      <h1 class="hero-title">
-        Helping businesses grow online,<br>
-        one website at a <em>time.</em>
-      </h1>
-      <p class="hero-sub">Clean, personalised websites built to help Irish businesses grow online and connect with their customers.</p>
-      <div class="hero-cta-wrap">
-        <a href="#contact" class="btn btn-gradient">
-          <span>Get in touch <svg class="ico ico-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
-        </a>
-      </div>
-    </div>
+  <!-- Slider -->
+  <section id="slider-section">
+    <div class="slider-track-wrap" id="sliderWrap">
+      <div class="slider-track" id="sliderTrack">
+
+        <!-- CARD 1: HERO -->
+        <div class="slide-card card-hero active" data-index="0">
+          <div class="card-inner">
+            <div>
+              <p class="card-eyebrow">Web Design in Ireland</p>
+              <h1 class="card-hero-title">
+                Helping businesses<br>grow online, one<br>website at a <em>time.</em>
+              </h1>
+              <p class="card-hero-sub">Clean, personal websites built to help Irish businesses connect with customers and grow online.</p>
+            </div>
+            <div class="card-hero-bottom">
+              <div style="display:flex;gap:0.8rem;flex-wrap:wrap;">
+                <button class="btn btn-primary" onclick="goToSlide(5)">
+                  <span>Get in touch</span>
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+                </button>
+                <button class="btn btn-ghost" onclick="goToSlide(1)">
+                  <span>See my work</span>
+                </button>
+              </div>
+              <span class="card-hero-meta">Dublin · Ireland</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2: WHAT I OFFER -->
+        <div class="slide-card card-about" data-index="1">
+          <div class="card-inner">
+            <div>
+              <p class="card-tag">Services</p>
+              <h2 class="card-title">What I<br><em>offer.</em></h2>
+              <div class="offer-grid">
+                <div class="offer-item">
+                  <div class="offer-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                  </div>
+                  <p class="offer-name">Website Design</p>
+                  <p class="offer-desc">Fully custom site, handed over to you completely. No monthly fees, no strings — all yours.</p>
+                </div>
+                <div class="offer-item">
+                  <div class="offer-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                  </div>
+                  <p class="offer-name">Design & Management</p>
+                  <p class="offer-desc">I build it and keep it running — updates, support, and everything in between.</p>
+                </div>
+              </div>
+            </div>
+            <div class="offer-pills">
+              <span class="pill">Custom Design</span>
+              <span class="pill">Mobile Responsive</span>
+              <span class="pill">Fast Turnaround</span>
+              <span class="pill">Full Ownership</span>
+              <span class="pill">Ongoing Support</span>
+              <span class="pill">3–5 Days Build</span>
+              <span class="pill">No Templates</span>
+              <span class="pill">Clean Code</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3: PLANS -->
+        <div class="slide-card card-plans" data-index="2">
+          <div class="card-inner">
+            <p class="card-tag">Plans</p>
+            <h2 class="card-title">Find the right<br><em>plan for you.</em></h2>
+            <p class="plans-intro">Two clear options — own it outright or have me handle everything.</p>
+            <div class="plan-toggles">
+              <button class="plan-tab active" data-plan="own">Own It Outright</button>
+              <button class="plan-tab" data-plan="managed">Managed by Charlie</button>
+            </div>
+            <div class="plan-panels">
+              <div class="plan-panel visible" id="plan-own">
+                <p class="plan-name">Own It Outright</p>
+                <p class="plan-tagline">You own everything, forever. No strings attached.</p>
+                <div class="plan-rule"></div>
+                <ul class="plan-rows">
+                  <li class="plan-row"><span class="chk">✓</span><span>Fully custom website designed around your brand</span></li>
+                  <li class="plan-row"><span class="chk">✓</span><span>Mobile-responsive, fast-loading build</span></li>
+                  <li class="plan-row"><span class="chk">✓</span><span>3–5 business days build + 2-week refinement period</span></li>
+                  <li class="plan-row"><span class="chk">✓</span><span><strong>Complete ownership</strong> — all files &amp; code handed over</span></li>
+                  <li class="plan-row"><span class="chk">✓</span><span>Full handover with guidance included</span></li>
+                </ul>
+                <div class="plan-callout">
+                  Prefer a hands-off approach? The <strong>Managed plan</strong> takes care of everything — updates, support, and ongoing maintenance.
+                </div>
+                <button class="btn btn-primary btn-full" onclick="goToSlide(5)">
+                  <span>Get started</span>
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+                </button>
+              </div>
+              <div class="plan-panel" id="plan-managed">
+                <p class="plan-name">Managed by Charlie</p>
+                <p class="plan-tagline">I build it, I run it — you focus on your business.</p>
+                <div class="plan-rule"></div>
+                <ul class="plan-rows">
+                  <li class="plan-row"><span class="chk">✓</span><span>Everything in Own It Outright, plus ongoing care</span></li>
+                  <li class="plan-row"><span class="chk">✓</span><span><strong>3 revisions per month</strong> — text, images, layout tweaks &amp; more</span></li>
+                  <li class="plan-row"><span class="chk">✓</span><span>Priority support — easy to reach, always</span></li>
+                  <li class="plan-row"><span class="chk">✓</span><span>Security updates, backups &amp; performance monitoring</span></li>
+                  <li class="plan-row"><span class="chk">✓</span><span>Cancel anytime after initial term — no hassle</span></li>
+                </ul>
+                <div class="plan-callout">
+                  A dedicated web professional handling everything — so your site stays <strong>fresh, fast, and professional</strong> while you run your business.
+                </div>
+                <button class="btn btn-primary btn-full" onclick="goToSlide(5)">
+                  <span>Get started</span>
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 4: WHY A WEBSITE -->
+        <div class="slide-card card-why" data-index="3">
+          <div class="card-inner">
+            <p class="card-tag">The value</p>
+            <h2 class="card-title">Why have your<br>own <em>website?</em></h2>
+            <div class="why-stats-grid">
+              <div class="why-stat">
+                <div class="why-stat-num">75<sup>%</sup></div>
+                <p class="why-stat-label">of users judge credibility by website design</p>
+              </div>
+              <div class="why-stat">
+                <div class="why-stat-num">81<sup>%</sup></div>
+                <p class="why-stat-label">of consumers research online before buying</p>
+              </div>
+              <div class="why-stat">
+                <div class="why-stat-num">57<sup>%</sup></div>
+                <p class="why-stat-label">won't recommend a business with a poor mobile site</p>
+              </div>
+              <div class="why-stat">
+                <div class="why-stat-num">62<sup>%</sup></div>
+                <p class="why-stat-label">spend more time on a well-designed site</p>
+              </div>
+            </div>
+            <div class="why-points-list">
+              <div class="why-point-item">
+                <div class="why-pt-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                </div>
+                <div class="why-pt-content">
+                  <p class="why-pt-title">Open for business, 24/7</p>
+                  <p class="why-pt-desc">Your site never sleeps — customers can find you and get in touch at any hour.</p>
+                </div>
+                <svg class="why-pt-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
+              </div>
+              <div class="why-point-item">
+                <div class="why-pt-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                </div>
+                <div class="why-pt-content">
+                  <p class="why-pt-title">Build trust before they even call</p>
+                  <p class="why-pt-desc">A professional site signals legitimacy — often the difference between a lead choosing you or a competitor.</p>
+                </div>
+                <svg class="why-pt-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
+              </div>
+              <div class="why-point-item">
+                <div class="why-pt-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                </div>
+                <div class="why-pt-content">
+                  <p class="why-pt-title">Get found on Google</p>
+                  <p class="why-pt-desc">A well-built site puts you on the map when locals search for your type of business.</p>
+                </div>
+                <svg class="why-pt-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
+              </div>
+              <div class="why-point-item">
+                <div class="why-pt-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <div class="why-pt-content">
+                  <p class="why-pt-title">Better ROI than any ad spend</p>
+                  <p class="why-pt-desc">A great website keeps delivering results for years — far better ROI than ads or flyers.</p>
+                </div>
+                <svg class="why-pt-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 5: WORK -->
+        <div class="slide-card card-work" data-index="4">
+          <div class="card-inner">
+            <p class="card-tag">Portfolio</p>
+            <h2 class="card-title">Sites I've<br><em>built.</em></h2>
+            <div class="work-grid">
+              <div class="work-card">
+                <div class="work-face">
+                  <img src="michael-roarty-logo.png" alt="Michael Roarty Fitness" class="work-logo" />
+                  <p class="work-name">Michael Roarty Fitness</p>
+                  <p class="work-url">michaelroartyfitness.ie</p>
+                </div>
+                <div class="work-overlay">
+                  <p class="work-overlay-desc">Personal training &amp; fitness coaching — built to attract and convert new clients online.</p>
+                  <a href="https://www.michaelroartyfitness.ie" target="_blank" rel="noopener" class="work-overlay-btn">Visit site →</a>
+                </div>
+              </div>
+              <div class="work-card">
+                <div class="work-face">
+                  <img src="blueberry-logo.png" alt="The Blueberry Tearooms" class="work-logo" />
+                  <p class="work-name">The Blueberry Tearooms</p>
+                  <p class="work-url">theblueberrytearooms.ie</p>
+                </div>
+                <div class="work-overlay">
+                  <p class="work-overlay-desc">A warm, welcoming café with a beautiful online home to match.</p>
+                  <a href="https://theblueberrytearooms.ie" target="_blank" rel="noopener" class="work-overlay-btn">Visit site →</a>
+                </div>
+              </div>
+              <div class="work-card work-card--empty">
+                <div class="work-face">
+                  <div class="work-plus">+</div>
+                  <p class="work-soon">More coming soon</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 6: CONTACT -->
+        <div class="slide-card card-contact" data-index="5">
+          <div class="card-inner">
+            <p class="card-tag">Get in touch</p>
+            <h2 class="card-title">Your website<br><em>starts here.</em></h2>
+            <div class="contact-meta">
+              <a href="mailto:sitesbycharlie@gmail.com" class="contact-meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+                sitesbycharlie@gmail.com
+              </a>
+              <a href="https://www.instagram.com/charlie_garcia1/" target="_blank" rel="noopener" class="contact-meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+                @Charlie_Garcia1
+              </a>
+            </div>
+            <form class="contact-form" id="contactForm" action="https://formspree.io/f/mwvrpyya" method="POST" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name">Your Name</label>
+                  <input type="text" id="name" name="name" placeholder="e.g. Aoife Murphy" required />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email Address</label>
+                  <input type="email" id="email" name="email" placeholder="you@example.com" required />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="phone">Mobile <span style="opacity:0.35">(optional)</span></label>
+                  <input type="tel" id="phone" name="phone" placeholder="087 123 4567" />
+                </div>
+                <div class="form-group">
+                  <label for="plan">Interested In</label>
+                  <select id="plan" name="plan">
+                    <option value="" disabled selected>Select a plan…</option>
+                    <option value="Own It Outright">Own It Outright</option>
+                    <option value="Managed By Charlie">Managed By Charlie</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="message">Message <span style="opacity:0.35">(optional)</span></label>
+                <textarea id="message" name="message" placeholder="Tell me a little about your project…"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-full">
+                <span>Send Message</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+              </button>
+              <p class="form-status" id="formStatus"></p>
+            </form>
+          </div>
+        </div>
+
+      </div><!-- /slider-track -->
+    </div><!-- /slider-track-wrap -->
   </section>
 
-  <!-- ABOUT -->
-  <section id="about" style="position:relative;">
-    <div class="about-grid">
-      <div class="about-text reveal reveal-d1">
-        <h2 class="section-title">Hi, I'm<br><em>Charlie.</em></h2>
-        <div class="divider"></div>
-        <p class="blurb">I'm a web designer based in <strong>Dublin</strong> — and I started Sites By Charlie because I kept seeing the same problem: small Irish businesses with so much to offer, but nothing online that did them justice.</p>
-        <p class="blurb">A lot of agencies are slow, expensive, and hand you off to someone who's never met you. I work differently. You deal directly with me from the first message to the final launch — and beyond if you want.</p>
-        <p class="blurb">I build sites that are fast, clean, and actually reflect who you are. No bloated templates, no unnecessary complexity. Just something that works and makes you proud to share it.</p>
-        <p class="blurb" style="color:rgba(238,238,238,0.45); font-size:0.88rem;">Based in Dublin · Working with clients all across Ireland</p>
-      </div>
-    </div>
-  </section>
+  <!-- Slider Nav -->
+  <div class="slider-nav">
+    <button class="slider-arrow" id="btnPrev" aria-label="Previous" disabled>
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4L6 8l4 4"/></svg>
+    </button>
+    <button class="slider-arrow" id="btnNext" aria-label="Next">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
+    </button>
+  </div>
 
-  <!-- SERVICES -->
-  <section id="services" style="position:relative;">
-    <div class="services-header reveal">
-      <h2 class="section-title">What I<br><em>offer.</em></h2>
-      <div class="divider"></div>
-    </div>
-    <div class="services-grid">
-      <div class="service-card reveal">
-        <div class="service-icon-box">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-        </div>
-        <h3 class="service-name">Website Design</h3>
-        <p class="service-desc">Want a professionally built website without the ongoing commitment? I design and build your site from scratch, then hand it over completely — all files, all code, ready to go. Clean, custom, and yours to keep. No monthly fees, no strings attached.</p>
-        <div class="service-features">
-          <span class="feature-pill">Custom Design</span>
-          <span class="feature-pill">Mobile Responsive</span>
-          <span class="feature-pill">Full Ownership</span>
-          <span class="feature-pill">Clean Handover</span>
-          <span class="feature-pill">Fast Turnaround</span>
-          <span class="feature-pill">No Monthly Fees</span>
-          <span class="feature-pill">Custom Domain</span>
-        </div>
-      </div>
-      <div class="service-card reveal reveal-d1">
-        <div class="service-icon-box">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-        </div>
-        <h3 class="service-name">Website Design &amp; Management</h3>
-        <p class="service-desc">From first concept to launch day — and everything that follows. I design and build fully custom websites shaped around your brand, then keep them running smoothly with ongoing management, updates, and support whenever you need it.</p>
-        <div class="service-features">
-          <span class="feature-pill">Custom Design</span>
-          <span class="feature-pill">Mobile Responsive</span>
-          <span class="feature-pill">Fast Loading</span>
-          <span class="feature-pill">Content Updates</span>
-          <span class="feature-pill">Ongoing Support</span>
-          <span class="feature-pill">Domain &amp; Hosting</span>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- PRICING -->
-  <section id="pricing" style="position:relative;">
-    <div class="pricing-header reveal">
-      <h2 class="section-title">Find the right<br><em>plan for you.</em></h2>
-      <div class="divider"></div>
-    </div>
-    <p class="pricing-subtitle reveal">Two straightforward options — whether you want to own your site outright or have me handle everything for you.</p>
-    <div class="pricing-grid">
-      <div class="price-card featured reveal">
-        <h3 class="price-name">Own It Outright</h3>
-        <p class="price-tagline">You own everything, forever. No strings attached.</p>
-        <div class="price-rule"></div>
-        <ul class="price-includes">
-          <li class="price-row"><span class="chk">✓</span><span>Fully custom website designed around your brand</span></li>
-          <li class="price-row"><span class="chk">✓</span><span>Mobile-responsive, fast-loading build</span></li>
-          <li class="price-row"><span class="chk">✓</span><span>3–5 business days initial build + 2-week refinement period before handover</span></li>
-          <li class="price-row"><span class="chk">✓</span><span><strong>Complete ownership</strong> — all files &amp; code handed over to you</span></li>
-          <li class="price-row"><span class="chk">✓</span><span>Full handover with guidance included</span></li>
-        </ul>
-        <div class="comparison-nudge">
-          <p>Prefer a hands-off approach? The Managed plan takes care of everything — updates, support, and ongoing maintenance.</p>
-        </div>
-        <a href="#contact" class="btn btn-gradient btn-full">
-          <span>Get started <svg class="ico ico-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
-        </a>
-      </div>
-      <div class="price-card featured reveal reveal-d1">
-        <h3 class="price-name">Managed by Charlie</h3>
-        <p class="price-tagline">I build it, I run it — you focus on your business.</p>
-        <div class="price-rule"></div>
-        <ul class="price-includes">
-          <li class="price-row"><span class="chk">✓</span><span>Everything in Own It Outright, plus ongoing care</span></li>
-          <li class="price-row"><span class="chk">✓</span><span><strong>3 revisions per month</strong> included — text, images, layout tweaks &amp; more</span></li>
-          <li class="price-row"><span class="chk">✓</span><span>Priority support — I'm easy to reach, always</span></li>
-          <li class="price-row"><span class="chk">✓</span><span>Security updates, backups &amp; performance monitoring handled for you</span></li>
-          <li class="price-row"><span class="chk">✓</span><span>Cancel anytime after initial term — no hassle</span></li>
-        </ul>
-        <div class="value-callout">
-          <p>A dedicated web professional handling everything for you — so you can focus on running your business while your site stays fresh, fast, and professional.</p>
-        </div>
-        <a href="#contact" class="btn btn-gradient btn-full">
-          <span>Get started <svg class="ico ico-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- WHY A WEBSITE -->
-  <section id="why" style="position:relative;">
-    <div class="why-header reveal">
-      <h2 class="section-title">Why have your own<br><em>website?</em></h2>
-      <div class="divider"></div>
-      <p class="why-intro">In 2026, your website is your most powerful business tool — working for you 24/7, reaching customers you'd never find otherwise. The numbers speak for themselves.</p>
-    </div>
-
-    <div class="why-stats reveal">
-      <div class="why-stat-card">
-        <span class="why-stat-number">75<span class="why-stat-symbol">%</span></span>
-        <p class="why-stat-label">of users judge a business's credibility based on its website design</p>
-      </div>
-      <div class="why-stat-card">
-        <span class="why-stat-number">81<span class="why-stat-symbol">%</span></span>
-        <p class="why-stat-label">of consumers research a business online before making a purchase or visiting</p>
-      </div>
-      <div class="why-stat-card">
-        <span class="why-stat-number">57<span class="why-stat-symbol">%</span></span>
-        <p class="why-stat-label">of internet users won't recommend a business with a poorly designed mobile site</p>
-      </div>
-      <div class="why-stat-card">
-        <span class="why-stat-number">62<span class="why-stat-symbol">%</span></span>
-        <p class="why-stat-label">of people spend more time on a well-designed site — give them a reason to stay</p>
-      </div>
-    </div>
-
-    <div class="why-points reveal">
-      <div class="why-point">
-        <div class="why-point-inner">
-          <div class="why-point-front">
-            <div class="why-point-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-            <h4 class="why-point-title">Open for business, 24/7</h4>
-          </div>
-          <div class="why-point-back">
-            <p class="why-point-desc">Your site never sleeps — customers can find you and get in touch at any hour.</p>
-          </div>
-        </div>
-      </div>
-      <div class="why-point">
-        <div class="why-point-inner">
-          <div class="why-point-front">
-            <div class="why-point-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-            <h4 class="why-point-title">Build trust before they even call</h4>
-          </div>
-          <div class="why-point-back">
-            <p class="why-point-desc">A professional site signals legitimacy — it's often the difference between a lead choosing you or a competitor.</p>
-          </div>
-        </div>
-      </div>
-      <div class="why-point">
-        <div class="why-point-inner">
-          <div class="why-point-front">
-            <div class="why-point-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
-            <h4 class="why-point-title">Get found on Google</h4>
-          </div>
-          <div class="why-point-back">
-            <p class="why-point-desc">A well-built site puts you on the map when locals search for your type of business.</p>
-          </div>
-        </div>
-      </div>
-      <div class="why-point">
-        <div class="why-point-inner">
-          <div class="why-point-front">
-            <div class="why-point-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-            <h4 class="why-point-title">Own your corner of the internet</h4>
-          </div>
-          <div class="why-point-back">
-            <p class="why-point-desc">Unlike social media, your website can't be restricted, buried, or taken away. It's yours forever.</p>
-          </div>
-        </div>
-      </div>
-      <div class="why-point">
-        <div class="why-point-inner">
-          <div class="why-point-front">
-            <div class="why-point-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
-            <h4 class="why-point-title">Tell your story, your way</h4>
-          </div>
-          <div class="why-point-back">
-            <p class="why-point-desc">Showcase your work, share your story, and position your brand exactly how you want — no limits.</p>
-          </div>
-        </div>
-      </div>
-      <div class="why-point">
-        <div class="why-point-inner">
-          <div class="why-point-front">
-            <div class="why-point-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-            <h4 class="why-point-title">More value than any ad spend</h4>
-          </div>
-          <div class="why-point-back">
-            <p class="why-point-desc">A great website keeps delivering results for years — far better ROI than ads or flyers.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WORK -->
-  <section id="work" style="position:relative;">
-    <div class="reveal">
-      <h2 class="section-title">Sites I've<br><em>built.</em></h2>
-      <div class="divider"></div>
-    </div>
-    <div class="logo-grid reveal">
-      <div class="logo-card reveal">
-        <div class="logo-card-inner">
-          <div class="logo-face">
-            <img src="michael-roarty-logo.png" alt="Michael Roarty Fitness" class="logo-img" />
-            <p class="logo-name">Michael Roarty Fitness</p>
-            <p class="logo-url">michaelroartyfitness.ie</p>
-          </div>
-          <div class="logo-overlay">
-            <p class="overlay-desc">Personal training &amp; fitness coaching — built to attract and convert new clients online.</p>
-            <a href="https://www.michaelroartyfitness.ie" target="_blank" rel="noopener" class="overlay-btn">Visit site →</a>
-          </div>
-        </div>
-      </div>
-      <div class="logo-card reveal reveal-d1">
-        <div class="logo-card-inner">
-          <div class="logo-face">
-            <img src="blueberry-logo.png" alt="The Blueberry Tearooms" class="logo-img" />
-            <p class="logo-name">The Blueberry Tearooms</p>
-            <p class="logo-url">theblueberrytearooms.ie</p>
-          </div>
-          <div class="logo-overlay">
-            <p class="overlay-desc">A warm, welcoming café with great food, friendly staff and a beautiful online home to match.</p>
-            <a href="https://theblueberrytearooms.ie" target="_blank" rel="noopener" class="overlay-btn">Visit site →</a>
-          </div>
-        </div>
-      </div>
-      <div class="logo-card logo-card--empty">
-        <div class="logo-card-inner">
-          <div class="logo-face">
-            <div class="logo-plus">+</div>
-            <p class="logo-name" style="color:rgba(238,238,238,0.2);">More coming soon</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" style="position:relative;">
-    <div class="contact-grid">
-      <div class="reveal">
-        <h2 class="section-title">Your website<br><em>starts here.</em></h2>
-        <div class="divider"></div>
-        <p class="contact-intro">Ready to get started, or just want to have a chat? Fill in the form and I'll get back to you as soon as possible.</p>
-        <div class="contact-details-desktop">
-          <a href="mailto:sitesbycharlie@gmail.com" class="contact-detail">
-            <svg class="cico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-            <span>sitesbycharlie@gmail.com</span>
-          </a>
-          <div class="contact-detail">
-            <svg class="cico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-            <span>Dublin, Ireland</span>
-          </div>
-          <a href="https://www.instagram.com/charlie_garcia1/" target="_blank" rel="noopener" class="contact-detail">
-            <svg class="cico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="var(--red)"/></svg>
-            <span>@Charlie_Garcia1</span>
-          </a>
-        </div>
-      </div>
-      <div class="reveal reveal-d1">
-        <form class="contact-form" id="contactForm" action="https://formspree.io/f/mwvrpyya" method="POST" novalidate>
-          <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" name="name" placeholder="e.g. Aoife Murphy" required />
-          </div>
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="you@example.com" required />
-          </div>
-          <div class="form-group">
-            <label for="phone">Mobile Number <span style="opacity:0.32">(optional)</span></label>
-            <input type="tel" id="phone" name="phone" placeholder="e.g. 087 123 4567" />
-          </div>
-          <div class="form-group">
-            <label for="plan">Interested In</label>
-            <select id="plan" name="plan" style="background: rgba(238,238,238,0.03); border: 1px solid rgba(238,238,238,0.09); color: var(--light); font-family: var(--sans); font-size: 0.95rem; font-weight: 300; padding: 0.9rem 1.1rem; outline: none; width: 100%; transition: border-color 0.3s, background 0.3s; -webkit-appearance: none; border-radius: 0;">
-              <option value="" disabled selected style="background:#111;">Select a plan…</option>
-              <option value="Own It Outright" style="background:#111;">Own It Outright</option>
-              <option value="Managed By Charlie" style="background:#111;">Managed By Charlie</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="message">Message <span style="opacity:0.32">(optional)</span></label>
-            <textarea id="message" name="message" placeholder="Tell me a little about your project…"></textarea>
-          </div>
-          <div class="form-submit">
-            <button type="submit" class="btn btn-gradient">
-              <span>Send <svg class="ico ico-plane" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg></span>
-            </button>
-          </div>
-          <p class="form-status" id="formStatus"></p>
-        </form>
-        <div class="contact-details-mobile">
-          <a href="mailto:sitesbycharlie@gmail.com" class="contact-detail">
-            <svg class="cico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-            <span>sitesbycharlie@gmail.com</span>
-          </a>
-          <div class="contact-detail">
-            <svg class="cico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-            <span>Dublin, Ireland</span>
-          </div>
-          <a href="https://www.instagram.com/charlie_garcia1/" target="_blank" rel="noopener" class="contact-detail">
-            <svg class="cico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="var(--red)"/></svg>
-            <span>@Charlie_Garcia1</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
+  <!-- Footer -->
   <footer>
-    <a href="#hero" class="footer-logo">Sites<span>By</span>Charlie</a>
-    <p class="footer-copy">&copy; 2026 Sites By Charlie &nbsp;·&nbsp; <a href="/privacypolicy" style="color:inherit; text-decoration:underline; text-underline-offset:3px;">Privacy Policy</a></p>
+    <a href="#" class="footer-logo">Sites<span>By</span>Charlie</a>
+    <p class="footer-copy">&copy; 2026 Sites By Charlie &nbsp;·&nbsp; <a href="/privacypolicy" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">Privacy Policy</a></p>
     <div class="footer-social">
       <a href="https://www.instagram.com/charlie_garcia1/" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
       </a>
     </div>
   </footer>
 
   <script>
+    /* ── SLIDER — native scroll-snap ──
+       The browser handles all trackpad momentum, touch swipe,
+       and fling physics natively. JS just syncs the UI.
+    ── */
+    const TOTAL = 6;
+    const wrap  = document.getElementById('sliderWrap');
+    const btnPrev = document.getElementById('btnPrev');
+    const btnNext  = document.getElementById('btnNext');
+    const counterCurrent = document.getElementById('counterCurrent');
+    const counterTotal   = document.getElementById('counterTotal');
+    if (counterTotal) counterTotal.textContent = TOTAL;
+    const progressBar    = document.getElementById('progress-bar');
+    const cards = document.querySelectorAll('.slide-card');
+
+    // counterTotal handled above
+
+    function cardWidth() {
+      // card width + gap
+      return cards[0].offsetWidth + 20;
+    }
+
+    function currentIndex() {
+      return Math.round(wrap.scrollLeft / cardWidth());
+    }
+
+    function updateUI() {
+      const idx = currentIndex();
+      btnPrev.disabled = idx === 0;
+      btnNext.disabled = idx === TOTAL - 1;
+      if (counterCurrent) counterCurrent.textContent = idx + 1;
+      cards.forEach((c, i) => c.classList.toggle('active', i === idx));
+      document.querySelectorAll('.nav-pill a').forEach((a, i) => a.classList.toggle('active', i === idx));
+      const pct = (wrap.scrollLeft / ((TOTAL - 1) * cardWidth())) * 100;
+      progressBar.style.width = Math.max(0, Math.min(100, pct)) + '%';
+    }
+
+    // Sync UI on every scroll frame — native scroll fires this at display refresh rate
+    wrap.addEventListener('scroll', updateUI, { passive: true });
+
+    function goToSlide(n) {
+      const idx = Math.max(0, Math.min(TOTAL - 1, n));
+      wrap.scrollTo({ left: idx * cardWidth(), behavior: 'smooth' });
+    }
+    window.goToSlide = goToSlide;
+
+    btnPrev.addEventListener('click', () => goToSlide(currentIndex() - 1));
+    btnNext.addEventListener('click', () => goToSlide(currentIndex() + 1));
+
+    document.querySelectorAll('.nav-pill a').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        goToSlide(parseInt(a.dataset.slide));
+      });
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') goToSlide(currentIndex() + 1);
+      if (e.key === 'ArrowLeft')  goToSlide(currentIndex() - 1);
+    });
+
+    // Re-anchor on resize so snap position stays correct
+    window.addEventListener('resize', () => {
+      const idx = currentIndex();
+      wrap.scrollTo({ left: idx * cardWidth(), behavior: 'instant' });
+    });
+
+    updateUI(); // init
+
+    /* ── Scroll-driven card parallax ──
+       As the track scrolls, each card gets a subtle
+       translateY and rotateY nudge based on its distance
+       from centre — gives a natural depth feel. */
+    function applyParallax() {
+      const wrapRect  = wrap.getBoundingClientRect();
+      const wrapCx    = wrapRect.left + wrapRect.width / 2;
+
+      cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const cardCx = rect.left + rect.width / 2;
+        const dist   = (cardCx - wrapCx) / wrapRect.width; // -1 to 1
+
+        // Inactive cards drift down slightly and rotate; active stays flat
+        const isActive = card.classList.contains('active');
+        if (!isActive) {
+          const ty = Math.abs(dist) * 10;        // up to 10px down
+          const ry = dist * 4;                   // up to 4deg rotation
+          card.style.transform = `scale(0.96) translateY(${6 + ty}px) rotateY(${ry}deg)`;
+        } else {
+          card.style.transform = 'scale(1) translateY(0) rotateY(0deg)';
+        }
+      });
+    }
+
+    wrap.addEventListener('scroll', applyParallax, { passive: true });
+    applyParallax();
+
+    /* ── Plan Tabs ── */
+    document.querySelectorAll('.plan-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.plan-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.plan-panel').forEach(p => p.classList.remove('visible'));
+        tab.classList.add('active');
+        document.getElementById('plan-' + tab.dataset.plan).classList.add('visible');
+      });
+    });
+
+    /* ── Why accordion ── */
+    document.querySelectorAll('.why-point-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.why-point-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    /* ── Work card tap (mobile) ── */
+    document.querySelectorAll('.work-card:not(.work-card--empty)').forEach(card => {
+      card.addEventListener('click', e => {
+        if (window.innerWidth > 768) return;
+        if (e.target.closest('.work-overlay-btn')) return;
+        const isTapped = card.classList.contains('tapped');
+        document.querySelectorAll('.work-card').forEach(c => c.classList.remove('tapped'));
+        if (!isTapped) card.classList.add('tapped');
+      });
+    });
+
+    /* ── Mobile Menu ── */
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     hamburger.addEventListener('click', () => {
@@ -695,244 +1409,42 @@
       mobileMenu.classList.remove('open');
       document.body.style.overflow = '';
     }
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); } });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    window.closeMenu = closeMenu;
 
-    // Flip cards on mobile
-    const whyPoints = document.querySelectorAll('.why-point');
-    function flipReset() { whyPoints.forEach(p => p.classList.remove('flipped')); }
-    whyPoints.forEach(point => {
-      point.addEventListener('click', (e) => {
-        if (window.innerWidth > 768) return;
-        e.stopPropagation();
-        const isFlipped = point.classList.contains('flipped');
-        flipReset();
-        if (!isFlipped) point.classList.add('flipped');
-      });
-    });
-    document.addEventListener('click', () => {
-      if (window.innerWidth > 768) return;
-      flipReset();
-    });
-
-    // Tap to reveal overlay on logo cards (mobile)
-    document.querySelectorAll('.logo-card:not(.logo-card--empty)').forEach(card => {
-      card.addEventListener('click', (e) => {
-        if (window.innerWidth > 768) return;
-        if (e.target.classList.contains('overlay-btn') || e.target.closest('.overlay-btn')) return;
-        const isTapped = card.classList.contains('tapped');
-        document.querySelectorAll('.logo-card').forEach(c => c.classList.remove('tapped'));
-        if (!isTapped) card.classList.add('tapped');
-      });
-    });
-    document.addEventListener('click', (e) => {
-      if (window.innerWidth > 768) return;
-      if (!e.target.closest('.logo-card')) {
-        document.querySelectorAll('.logo-card').forEach(c => c.classList.remove('tapped'));
-      }
-    });
-    const whySection = document.querySelector('.why-points');
-    if (whySection) {
-      const flipResetObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) flipReset();
-        });
-      }, { threshold: 0.1 });
-      flipResetObserver.observe(whySection);
-    }
-    document.querySelectorAll('.faq-question').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const isOpen = btn.classList.contains('open');
-        document.querySelectorAll('.faq-question').forEach(b => { b.classList.remove('open'); b.setAttribute('aria-expanded', 'false'); b.nextElementSibling.style.maxHeight = null; });
-        if (!isOpen) { btn.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); const answer = btn.nextElementSibling; answer.style.maxHeight = answer.scrollHeight + 'px'; }
-      });
-    });
+    /* ── Contact Form ── */
     const form = document.getElementById('contactForm');
     const status = document.getElementById('formStatus');
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', e => {
       e.preventDefault();
       const name = form.name.value.trim();
       const email = form.email.value.trim();
       status.className = 'form-status';
-      if (!name || !email) { status.textContent = 'Please fill in your name and email address.'; return; }
+      if (!name || !email) { status.textContent = 'Please fill in your name and email.'; return; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { status.textContent = 'Please enter a valid email address.'; return; }
       const btn = form.querySelector('button[type="submit"]');
       btn.disabled = true;
       btn.querySelector('span').textContent = 'Sending…';
       fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
         .then(res => {
-          if (res.ok) { status.textContent = "✓ Message received — I'll be in touch soon!"; status.className = 'form-status success'; form.reset(); }
-          else { status.textContent = 'Something went wrong — please try emailing me directly.'; }
-        })
-        .catch(() => { status.textContent = 'Something went wrong — please try emailing me directly.'; })
-        .finally(() => { btn.disabled = false; btn.querySelector('span').textContent = 'Send Message'; });
-    });
-  </script>
-
-  <!-- Gradual Blur -->
-  <script>
-    (function() {
-      const DIVS = 7;
-      const STRENGTH = 2;
-      const BLEND = 0.5;
-      function buildBlurLayers(el) {
-        if (el.querySelector('.gradual-blur-inner')) return;
-        const inner = document.createElement('div');
-        inner.className = 'gradual-blur-inner';
-        const isBottom = el.classList.contains('blur-bottom');
-        const direction = isBottom ? 'to bottom' : 'to top';
-        const increment = 100 / DIVS;
-        for (let i = 1; i <= DIVS; i++) {
-          const progress = i / DIVS;
-          const blurValue = (0.0625 * (progress * DIVS + 1) * STRENGTH).toFixed(3);
-          const p1 = Math.round((increment * i - increment) * 10) / 10;
-          const p2 = Math.round(increment * i * 10) / 10;
-          const p3 = Math.round((increment * i + increment) * 10) / 10;
-          const p4 = Math.round((increment * i + increment * 2) * 10) / 10;
-          let gradient = `transparent ${p1}%, black ${p2}%`;
-          if (p3 <= 100) gradient += `, black ${p3}%`;
-          if (p4 <= 100) gradient += `, transparent ${p4}%`;
-          const mask = `linear-gradient(${direction}, ${gradient})`;
-          const div = document.createElement('div');
-          div.style.cssText = `position:absolute;inset:0;mask-image:${mask};-webkit-mask-image:${mask};backdrop-filter:blur(${blurValue}rem);-webkit-backdrop-filter:blur(${blurValue}rem);opacity:${BLEND + 0.5};`;
-          inner.appendChild(div);
-        }
-        el.appendChild(inner);
-      }
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            buildBlurLayers(entry.target);
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
+          if (res.ok) {
+            status.textContent = "✓ Message received — I'll be in touch soon!";
+            status.className = 'form-status success';
+            form.reset();
+          } else {
+            status.textContent = 'Something went wrong — please email me directly.';
           }
+        })
+        .catch(() => { status.textContent = 'Something went wrong — please email me directly.'; })
+        .finally(() => {
+          btn.disabled = false;
+          btn.querySelector('span').textContent = 'Send Message';
         });
-      }, { threshold: 0.05 });
-      document.querySelectorAll('.gradual-blur').forEach(el => observer.observe(el));
-    })();
-  </script>
-
-  <!-- Global Aurora Background -->
-  <script type="module">
-    import { Renderer, Program, Mesh, Color, Triangle } from 'https://cdn.jsdelivr.net/npm/ogl@1.0.11/src/index.js';
-
-    const VERT = `#version 300 es
-in vec2 position;
-void main() {
-  gl_Position = vec4(position, 0.0, 1.0);
-}`;
-
-    const FRAG = `#version 300 es
-precision highp float;
-uniform float uTime;
-uniform float uAmplitude;
-uniform vec3 uColorStops[3];
-uniform vec2 uResolution;
-uniform float uBlend;
-out vec4 fragColor;
-
-vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x,289.0); }
-float snoise(vec2 v){
-  const vec4 C=vec4(0.211324865405187,0.366025403784439,-0.577350269189626,0.024390243902439);
-  vec2 i=floor(v+dot(v,C.yy));
-  vec2 x0=v-i+dot(i,C.xx);
-  vec2 i1=(x0.x>x0.y)?vec2(1.0,0.0):vec2(0.0,1.0);
-  vec4 x12=x0.xyxy+C.xxzz;
-  x12.xy-=i1;
-  i=mod(i,289.0);
-  vec3 p=permute(permute(i.y+vec3(0.0,i1.y,1.0))+i.x+vec3(0.0,i1.x,1.0));
-  vec3 m=max(0.5-vec3(dot(x0,x0),dot(x12.xy,x12.xy),dot(x12.zw,x12.zw)),0.0);
-  m=m*m; m=m*m;
-  vec3 x=2.0*fract(p*C.www)-1.0;
-  vec3 h=abs(x)-0.5;
-  vec3 ox=floor(x+0.5);
-  vec3 a0=x-ox;
-  m*=1.79284291400159-0.85373472095314*(a0*a0+h*h);
-  vec3 g;
-  g.x=a0.x*x0.x+h.x*x0.y;
-  g.yz=a0.yz*x12.xz+h.yz*x12.yw;
-  return 130.0*dot(m,g);
-}
-
-struct ColorStop { vec3 color; float position; };
-#define COLOR_RAMP(colors,factor,finalColor) {\
-  int index=0;\
-  for(int i=0;i<2;i++){\
-    ColorStop cc=colors[i];\
-    bool inBetween=cc.position<=factor;\
-    index=int(mix(float(index),float(i),float(inBetween)));}\
-  ColorStop cc=colors[index];\
-  ColorStop nc=colors[index+1];\
-  float range=nc.position-cc.position;\
-  float lf=(factor-cc.position)/range;\
-  finalColor=mix(cc.color,nc.color,lf);}
-
-void main(){
-  vec2 uv=gl_FragCoord.xy/uResolution;
-  ColorStop colors[3];
-  colors[0]=ColorStop(uColorStops[0],0.0);
-  colors[1]=ColorStop(uColorStops[1],0.5);
-  colors[2]=ColorStop(uColorStops[2],1.0);
-  vec3 rampColor;
-  COLOR_RAMP(colors,uv.x,rampColor);
-  float height=snoise(vec2(uv.x*1.5+uTime*0.04,uTime*0.09))*0.5*uAmplitude;
-  height=exp(height);
-  height=(uv.y*2.0-height+0.2);
-  float intensity=0.6*height;
-  float midPoint=0.20;
-  float auroraAlpha=smoothstep(midPoint-uBlend*0.5,midPoint+uBlend*0.5,intensity);
-  vec3 auroraColor=intensity*rampColor;
-  fragColor=vec4(auroraColor*auroraAlpha,auroraAlpha);
-}`;
-
-    const ctn = document.getElementById('aurora-bg');
-    const colorStops = ['#8E1616', '#D84040', '#8E1616'];
-    const amplitude = 0.7;
-    const blend = 0.6;
-
-    const renderer = new Renderer({ alpha: true, premultipliedAlpha: true, antialias: true });
-    const gl = renderer.gl;
-    gl.clearColor(0,0,0,0);
-    gl.enable(gl.BLEND);
-    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
-    gl.canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;background:transparent;';
-
-    const geometry = new Triangle(gl);
-    if (geometry.attributes.uv) delete geometry.attributes.uv;
-
-    const toRgb = hex => { const c = new Color(hex); return [c.r, c.g, c.b]; };
-
-    const program = new Program(gl, {
-      vertex: VERT, fragment: FRAG,
-      uniforms: {
-        uTime: { value: 0 },
-        uAmplitude: { value: amplitude },
-        uColorStops: { value: colorStops.map(toRgb) },
-        uResolution: { value: [ctn.offsetWidth, ctn.offsetHeight] },
-        uBlend: { value: blend }
-      }
     });
 
-    const mesh = new Mesh(gl, { geometry, program });
-    ctn.appendChild(gl.canvas);
 
-    function resize() {
-      renderer.setSize(ctn.offsetWidth, ctn.offsetHeight);
-      program.uniforms.uResolution.value = [ctn.offsetWidth, ctn.offsetHeight];
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    let t0 = performance.now();
-    function loop() {
-      program.uniforms.uTime.value = (performance.now() - t0) / 1000;
-      renderer.render({ scene: mesh });
-      requestAnimationFrame(loop);
-    }
-    loop();
   </script>
+
+
 
 </body>
 </html>
