@@ -162,11 +162,12 @@
     #slider-section {
       position: relative;
       z-index: 1;
-      min-height: 100dvh;
+      height: 100dvh;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 80px 0 0;
+      padding: 70px 0 0;
+      overflow: hidden;
     }
 
     /* Slide counter */
@@ -213,9 +214,12 @@
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
-      padding: 2rem 0 4rem;
+      padding: 1rem 0 4rem;
       cursor: grab;
       perspective: 1200px;
+      flex: 1;
+      display: flex;
+      align-items: center;
     }
     .slider-track-wrap:active { cursor: grabbing; }
     .slider-track-wrap::-webkit-scrollbar { display: none; }
@@ -224,12 +228,14 @@
       gap: var(--card-gap);
       padding: 0 calc((100vw - var(--card-w)) / 2);
       width: max-content;
+      align-items: stretch;
     }
 
     /* ── Cards ── */
     .slide-card {
       flex-shrink: 0;
       width: var(--card-w);
+      height: calc(100dvh - 160px);
       scroll-snap-align: center;
       scroll-snap-stop: always;
       border: 1px solid rgba(238,238,238,0.07);
@@ -272,11 +278,17 @@
     /* Card inner padding */
     .card-inner {
       padding: 3rem 3.5rem;
+      height: 100%;
+      overflow-y: auto;
+      scrollbar-width: none;
+      display: flex;
+      flex-direction: column;
     }
+    .card-inner::-webkit-scrollbar { display: none; }
 
     /* ── Card 1: Hero ── */
     .card-hero .card-inner {
-      min-height: 520px;
+      flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -322,7 +334,7 @@
 
     /* ── Card 2: About / What I Offer ── */
     .card-about .card-inner {
-      min-height: 520px;
+      flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -408,7 +420,6 @@
 
     /* ── Card 3: Plans (Expandable) ── */
     .card-plans .card-inner {
-      min-height: 520px;
       display: flex;
       flex-direction: column;
     }
@@ -509,7 +520,6 @@
 
     /* ── Card 4: Why a Website (Expandable) ── */
     .card-why .card-inner {
-      min-height: 520px;
       display: flex;
       flex-direction: column;
     }
@@ -626,7 +636,6 @@
 
     /* ── Card 5: Work ── */
     .card-work .card-inner {
-      min-height: 520px;
       display: flex;
       flex-direction: column;
     }
@@ -754,7 +763,6 @@
 
     /* ── Card 6: Contact ── */
     .card-contact .card-inner {
-      min-height: 520px;
       display: flex;
       flex-direction: column;
     }
@@ -914,15 +922,14 @@
       :root { --card-w: 88vw; }
       .nav-pill { display: none; }
       .hamburger { display: flex; }
-      .card-inner { padding: 2rem 1.8rem; }
+      .card-inner { padding: 1.6rem 1.6rem; }
       .offer-grid { grid-template-columns: 1fr; }
       .form-row { grid-template-columns: 1fr; }
       .why-stats-grid { grid-template-columns: 1fr 1fr; }
       .work-grid { grid-template-columns: 1fr 1fr; }
       .card-hero-title { font-size: clamp(2.2rem, 8vw, 3.2rem); }
       footer { flex-direction: column; text-align: center; align-items: center; }
-      .slide-counter { bottom: 1.2rem; right: 4vw; }
-      .slider-nav { bottom: 1.2rem; left: 4vw; }
+      .slider-nav { bottom: 1rem; left: 4vw; }
     }
     @media (max-width: 480px) {
       :root { --card-w: 90vw; }
