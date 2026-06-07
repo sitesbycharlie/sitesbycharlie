@@ -65,6 +65,39 @@
     .footer-copy a { color: inherit; }
     @media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: flex; } }
     @media (max-width: 600px) { footer { flex-direction: column; text-align: center; align-items: center; } }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.8rem 1.8rem;
+      font-family: var(--body);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+    .btn-ghost {
+      background: transparent;
+      color: rgba(238,238,238,0.55);
+      border: 1px solid rgba(238,238,238,0.12);
+    }
+    .btn-ghost:hover {
+      color: var(--light);
+      border-color: rgba(238,238,238,0.3);
+      transform: translateY(-2px);
+    }
+    .back-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 5vw;
+    }
   </style>
 </head>
 <body>
@@ -89,6 +122,13 @@
     <a href="/#pricing"  onclick="closeMenu()">Pricing</a>
     <a href="/#why"      onclick="closeMenu()">Why a Website?</a>
     <a href="/#contact"  onclick="closeMenu()">Contact</a>
+  </div>
+
+  <div class="back-wrap">
+    <a href="/" class="btn btn-ghost">
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+      <span>Back</span>
+    </a>
   </div>
 
   <div class="page-wrap">
