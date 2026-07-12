@@ -29,7 +29,7 @@
 
   <style>
     :root {
-      --black:   #0a0a0a;
+      --black:   #000000;
       --crimson: #8E1616;
       --red:     #D84040;
       --light:   #EEEEEE;
@@ -67,7 +67,7 @@
     }
 
     /* ── Solid Background ── */
-    body { background: #0a0a0a; }
+    body { background: #000000; }
 
     /* ── Progress Bar ── */
     #progress-bar {
@@ -247,7 +247,7 @@
       scroll-snap-align: center;
       scroll-snap-stop: always;
       border: 1px solid rgba(238,238,238,0.07);
-      background: rgba(14,14,14,0.85);
+      background: rgba(0,0,0,0.85);
       backdrop-filter: blur(20px);
       border-radius: 20px;
       overflow: hidden;
@@ -307,6 +307,7 @@
       text-transform: uppercase;
       color: var(--red);
       margin-bottom: 2.5rem;
+      text-align: center;
     }
     .card-hero-title {
       font-family: var(--serif);
@@ -315,6 +316,7 @@
       line-height: 1.05;
       color: var(--light);
       margin-bottom: 1.5rem;
+      text-align: center;
     }
     .card-hero-title em {
       font-style: italic;
@@ -324,20 +326,15 @@
       font-size: 0.97rem;
       color: var(--muted);
       max-width: 420px;
-      margin-bottom: 2.5rem;
+      margin: 0 auto 2.5rem;
+      text-align: center;
     }
     .card-hero-bottom {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       flex-wrap: wrap;
       gap: 1rem;
-    }
-    .card-hero-meta {
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      color: rgba(238,238,238,0.25);
-      text-transform: uppercase;
     }
 
     /* ── Card 2: About / What I Offer ── */
@@ -353,6 +350,7 @@
       text-transform: uppercase;
       color: var(--red);
       margin-bottom: 1.2rem;
+      text-align: center;
     }
     .card-title {
       font-family: var(--serif);
@@ -361,6 +359,7 @@
       line-height: 1.1;
       color: var(--light);
       margin-bottom: 1.8rem;
+      text-align: center;
     }
     .card-title em { font-style: italic; color: var(--red); }
     .offer-top {
@@ -407,7 +406,7 @@
     .offer-item-head {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       margin-bottom: 1.3rem;
     }
     .offer-icon {
@@ -426,6 +425,9 @@
       border-color: var(--crimson);
     }
     .offer-index {
+      position: absolute;
+      top: 1.4rem;
+      right: 1.6rem;
       font-family: var(--serif);
       font-size: 2.4rem;
       font-weight: 300;
@@ -440,12 +442,14 @@
       font-weight: 600;
       color: var(--light);
       margin-bottom: 0.6rem;
+      text-align: center;
     }
     .offer-desc {
       font-size: 0.85rem;
       color: rgba(238,238,238,0.48);
       line-height: 1.6;
       margin-bottom: 1.4rem;
+      text-align: center;
     }
     .offer-features {
       display: flex;
@@ -461,7 +465,9 @@
       line-height: 1.5;
       display: flex;
       align-items: flex-start;
+      justify-content: center;
       gap: 0.6rem;
+      text-align: left;
     }
     .offer-features li::before {
       content: '✓';
@@ -474,6 +480,7 @@
     .offer-pills {
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
       gap: 0.5rem;
     }
     .pill {
@@ -500,11 +507,13 @@
       font-size: 0.93rem;
       color: var(--muted);
       margin-bottom: 1.8rem;
+      text-align: center;
     }
     .plan-toggles {
       display: flex;
       gap: 0.5rem;
       margin-bottom: 1.5rem;
+      justify-content: center;
     }
     .plan-tab {
       padding: 0.45rem 1.1rem;
@@ -545,11 +554,13 @@
       font-weight: 300;
       color: var(--light);
       margin-bottom: 0.4rem;
+      text-align: center;
     }
     .plan-tagline {
       font-size: 0.82rem;
       color: rgba(238,238,238,0.38);
       margin-bottom: 1.5rem;
+      text-align: center;
     }
     .plan-rule {
       width: 100%;
@@ -566,6 +577,8 @@
     .plan-row {
       display: flex;
       align-items: flex-start;
+      justify-content: center;
+      text-align: left;
       gap: 0.75rem;
       font-size: 0.86rem;
       color: rgba(238,238,238,0.6);
@@ -588,6 +601,7 @@
       color: rgba(238,238,238,0.65);
       line-height: 1.6;
       margin-bottom: 1.5rem;
+      text-align: center;
     }
     .plan-callout strong { color: var(--light); }
 
@@ -775,7 +789,7 @@
     .work-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(5,0,0,0.92);
+      background: rgba(0,0,0,0.92);
       border-radius: 14px;
       display: flex;
       flex-direction: column;
@@ -844,6 +858,7 @@
     .contact-meta {
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: 0.6rem;
       margin-bottom: 1.8rem;
     }
@@ -904,7 +919,7 @@
     .form-group input::placeholder,
     .form-group textarea::placeholder { color: rgba(238,238,238,0.15); }
     .form-group textarea { resize: vertical; min-height: 90px; }
-    .form-group select option { background: #111; }
+    .form-group select option { background: #000000; }
     .form-status {
       font-size: 0.8rem;
       margin-top: 0.4rem;
@@ -1120,7 +1135,6 @@
                   <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
                 </button>
               </div>
-              <span class="card-hero-meta">Dublin · Ireland</span>
             </div>
           </div>
         </div>
