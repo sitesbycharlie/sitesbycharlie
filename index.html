@@ -424,18 +424,6 @@
       background: var(--crimson);
       border-color: var(--crimson);
     }
-    .offer-index {
-      position: absolute;
-      top: 1.4rem;
-      right: 1.6rem;
-      font-family: var(--serif);
-      font-size: 2.4rem;
-      font-weight: 300;
-      color: rgba(238,238,238,0.06);
-      line-height: 1;
-      transition: color 0.3s;
-    }
-    .offer-item:hover .offer-index { color: rgba(216,64,64,0.18); }
     .offer-name {
       font-family: var(--serif);
       font-size: 1.2rem;
@@ -451,13 +439,20 @@
       margin-bottom: 1.4rem;
       text-align: center;
     }
-    .offer-features {
+    .offer-features-wrap {
       display: flex;
-      flex-direction: column;
-      gap: 0.65rem;
+      justify-content: center;
       padding-top: 1.2rem;
       border-top: 1px solid var(--border);
       margin-top: auto;
+    }
+    .offer-features {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.65rem;
+      width: fit-content;
+      max-width: 100%;
     }
     .offer-features li {
       font-size: 0.8rem;
@@ -465,7 +460,6 @@
       line-height: 1.5;
       display: flex;
       align-items: flex-start;
-      justify-content: center;
       gap: 0.6rem;
       text-align: left;
     }
@@ -1026,10 +1020,10 @@
       .offer-item { padding: 1.1rem 1rem; }
       .offer-item-head { margin-bottom: 0.7rem; }
       .offer-icon { width: 32px; height: 32px; }
-      .offer-index { font-size: 1.6rem; }
       .offer-name { font-size: 0.85rem; margin-bottom: 0.4rem; }
       .offer-desc { font-size: 0.73rem; margin-bottom: 0.8rem; }
-      .offer-features { gap: 0.45rem; padding-top: 0.8rem; }
+      .offer-features-wrap { padding-top: 0.8rem; }
+      .offer-features { gap: 0.45rem; }
       .offer-features li { font-size: 0.68rem; }
       .offer-pills { gap: 0.4rem; }
       .pill { font-size: 0.58rem; padding: 0.25rem 0.6rem; }
@@ -1149,30 +1143,32 @@
                     <div class="offer-icon">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
                     </div>
-                    <span class="offer-index">01</span>
                   </div>
                   <p class="offer-name">Website Design</p>
                   <p class="offer-desc">Fully custom site, handed over to you completely. No monthly fees, no strings — all yours.</p>
-                  <ul class="offer-features">
-                    <li>Custom layout &amp; branding</li>
-                    <li>Mobile-first &amp; fast-loading</li>
-                    <li>Yours to keep — no lock-in</li>
-                  </ul>
+                  <div class="offer-features-wrap">
+                    <ul class="offer-features">
+                      <li>Custom layout &amp; branding</li>
+                      <li>Mobile-first &amp; fast-loading</li>
+                      <li>Yours to keep — no lock-in</li>
+                    </ul>
+                  </div>
                 </div>
                 <div class="offer-item">
                   <div class="offer-item-head">
                     <div class="offer-icon">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
                     </div>
-                    <span class="offer-index">02</span>
                   </div>
                   <p class="offer-name">Design & Management</p>
                   <p class="offer-desc">I build it and keep it running — updates, support, and everything in between.</p>
-                  <ul class="offer-features">
-                    <li>Ongoing updates &amp; fixes</li>
-                    <li>Direct support when you need it</li>
-                    <li>Performance &amp; security monitoring</li>
-                  </ul>
+                  <div class="offer-features-wrap">
+                    <ul class="offer-features">
+                      <li>Ongoing updates &amp; fixes</li>
+                      <li>Direct support when you need it</li>
+                      <li>Performance &amp; security monitoring</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1333,6 +1329,17 @@
                 <div class="work-overlay">
                   <p class="work-overlay-desc">A warm, welcoming café with a beautiful online home to match.</p>
                   <a href="https://theblueberrytearooms.ie" target="_blank" rel="noopener" class="work-overlay-btn">Visit site →</a>
+                </div>
+              </div>
+              <div class="work-card">
+                <div class="work-face">
+                  <img src="kasspt-logo.png" alt="KassPT" class="work-logo" />
+                  <p class="work-name">KassPT</p>
+                  <p class="work-url">kasspt.ie</p>
+                </div>
+                <div class="work-overlay">
+                  <p class="work-overlay-desc">Personal training in Dublin — a bold, energetic site built to convert visitors into clients.</p>
+                  <a href="https://www.kasspt.ie" target="_blank" rel="noopener" class="work-overlay-btn">Visit site →</a>
                 </div>
               </div>
               <div class="work-card work-card--empty">
