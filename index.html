@@ -398,6 +398,11 @@
       font-size: 0.72rem;
       padding: 0.45rem 1rem;
     }
+    .hero-contact {
+      display: flex;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
 
     /* ── Card 2: About / What I Offer ── */
     .card-about .card-inner {
@@ -984,6 +989,139 @@
     }
     .form-status.success { color: #72c992; }
 
+    /* ── Stepper (multi-step contact form) ── */
+    .stepper {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .stepper-indicator-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.8rem;
+      padding: 0 0.2rem;
+    }
+    .stepper-indicator {
+      position: relative;
+      cursor: pointer;
+      outline: none;
+    }
+    .stepper-indicator[data-locked="true"] { pointer-events: none; }
+    .stepper-indicator-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.9rem;
+      height: 1.9rem;
+      border-radius: 50%;
+      background: rgba(238,238,238,0.05);
+      border: 1px solid var(--border);
+      color: rgba(238,238,238,0.4);
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: background 0.3s, border-color 0.3s, color 0.3s, transform 0.3s;
+    }
+    .stepper-indicator.active .stepper-indicator-inner {
+      background: var(--crimson);
+      border-color: var(--crimson);
+      color: var(--light);
+      transform: scale(1.08);
+    }
+    .stepper-indicator.complete .stepper-indicator-inner {
+      background: var(--crimson);
+      border-color: var(--crimson);
+      color: var(--light);
+    }
+    .stepper-check {
+      width: 0.9rem;
+      height: 0.9rem;
+    }
+    .stepper-connector {
+      flex: 1;
+      height: 2px;
+      margin: 0 0.6rem;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+    }
+    .stepper-connector-inner {
+      position: absolute;
+      inset: 0;
+      width: 0%;
+      background: linear-gradient(90deg, var(--crimson), var(--red));
+      transition: width 0.4s var(--ease);
+    }
+    .stepper-connector.complete .stepper-connector-inner { width: 100%; }
+
+    .stepper-content { position: relative; flex: 1; }
+    .step-panel { display: none; }
+    .step-panel.active { display: block; animation: fadeIn 0.3s var(--ease); }
+    .step-title {
+      font-family: var(--serif);
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: var(--light);
+      margin-bottom: 1.2rem;
+      text-align: center;
+    }
+
+    .stepper-footer {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-top: 1.6rem;
+      gap: 0.8rem;
+    }
+    .stepper-footer.has-back { justify-content: space-between; }
+    .stepper-back {
+      background: transparent;
+      border: 1px solid rgba(238,238,238,0.12);
+      color: rgba(238,238,238,0.55);
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.8rem 1.6rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .stepper-back:hover {
+      color: var(--light);
+      border-color: rgba(238,238,238,0.3);
+    }
+
+    .form-success {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 1rem;
+      padding: 1rem 0;
+      animation: fadeIn 0.4s var(--ease);
+    }
+    .form-success-check {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--crimson), var(--red));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(142,22,22,0.45);
+    }
+    .form-success-title {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--light);
+      max-width: 320px;
+    }
+
     /* ── Card 7: Testimonial ── */
     .card-testimonial .card-inner {
       display: flex;
@@ -1172,6 +1310,8 @@
       .card-hero-sub { font-size: 0.88rem; margin-bottom: 1.5rem; }
       .hero-pills { gap: 0.45rem; margin-bottom: 1.5rem; }
       .hero-pills .pill { font-size: 0.62rem; padding: 0.35rem 0.8rem; }
+      .hero-contact { margin-bottom: 1.2rem; }
+      .hero-contact .contact-meta-item { font-size: 0.76rem; }
 
       /* Services — keep 2-col but compact */
       .offer-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 1rem; }
@@ -1295,6 +1435,12 @@
                 <span class="pill">Mobile Responsive</span>
                 <span class="pill">SEO-Ready</span>
                 <span class="pill">Ongoing Support</span>
+              </div>
+              <div class="hero-contact">
+                <a href="mailto:sitesbycharlie@gmail.com" class="contact-meta-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+                  sitesbycharlie@gmail.com
+                </a>
               </div>
             </div>
             <div class="card-hero-bottom">
@@ -1533,44 +1679,78 @@
         <!-- CARD 6: CONTACT -->
         <div class="slide-card card-contact" data-index="5">
           <div class="card-inner">
-            <h2 class="card-title">Your website<br><em>starts here.</em></h2>
-            <div class="contact-meta">
-              <a href="mailto:sitesbycharlie@gmail.com" class="contact-meta-item">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-                sitesbycharlie@gmail.com
-              </a>
-              <a href="https://www.instagram.com/charlie_garcia1/" target="_blank" rel="noopener" class="contact-meta-item">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
-                @Charlie_Garcia1
-              </a>
-            </div>
+            <h2 class="card-title">What would your<br>dream <em>website look like?</em></h2>
             <form class="contact-form" id="contactForm" action="https://formspree.io/f/mwvrpyya" method="POST" novalidate>
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="name">Your Name</label>
-                  <input type="text" id="name" name="name" placeholder="e.g. Aoife Murphy" required />
+              <div class="stepper" id="formStepper">
+                <div class="stepper-indicator-row" id="stepperIndicatorRow">
+                  <div class="stepper-indicator active" data-step="1">
+                    <span class="stepper-indicator-inner"><span class="stepper-number">1</span></span>
+                  </div>
+                  <div class="stepper-connector" data-connector="1"><span class="stepper-connector-inner"></span></div>
+                  <div class="stepper-indicator" data-step="2">
+                    <span class="stepper-indicator-inner"><span class="stepper-number">2</span></span>
+                  </div>
+                  <div class="stepper-connector" data-connector="2"><span class="stepper-connector-inner"></span></div>
+                  <div class="stepper-indicator" data-step="3">
+                    <span class="stepper-indicator-inner"><span class="stepper-number">3</span></span>
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label for="email">Email Address</label>
-                  <input type="email" id="email" name="email" placeholder="you@example.com" required />
+
+                <div class="stepper-content">
+                  <div class="step-panel active" data-step="1">
+                    <p class="step-title">Let's start with you</p>
+                    <div class="form-row">
+                      <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" placeholder="e.g. Aoife Murphy" required />
+                      </div>
+                      <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" required />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="step-panel" data-step="2">
+                    <p class="step-title">What service are you interested in?</p>
+                    <div class="form-group">
+                      <label for="plan">Interested In</label>
+                      <select id="plan" name="plan">
+                        <option value="" disabled selected>Select a plan…</option>
+                        <option value="Own It Outright">Own It Outright</option>
+                        <option value="Managed By Charlie">Managed By Charlie</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="step-panel" data-step="3">
+                    <p class="step-title">Anything else?</p>
+                    <div class="form-group">
+                      <label for="message">Message</label>
+                      <textarea id="message" name="message" placeholder="Tell me about yourself and your business…" required></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="stepper-footer" id="stepperFooter">
+                  <button type="button" class="stepper-back" id="stepperBack">Back</button>
+                  <button type="button" class="btn btn-primary" id="stepperNext">
+                    <span>Next</span>
+                    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+                  </button>
+                  <button type="submit" class="btn btn-primary" id="stepperSubmit" style="display:none;">
+                    <span>Send</span>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+                  </button>
                 </div>
               </div>
-              <div class="form-group">
-                <label for="plan">Interested In</label>
-                <select id="plan" name="plan">
-                  <option value="" disabled selected>Select a plan…</option>
-                  <option value="Own It Outright">Own It Outright</option>
-                  <option value="Managed By Charlie">Managed By Charlie</option>
-                </select>
+
+              <div class="form-success" id="formSuccess" style="display:none;">
+                <div class="form-success-check">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--light)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <p class="form-success-title" id="formSuccessTitle">Thanks! I'll be in touch soon!</p>
+                <button type="button" class="stepper-back" id="formSuccessReset">Send another message</button>
               </div>
-              <div class="form-group">
-                <label for="message">Message <span style="opacity:0.35">(optional)</span></label>
-                <textarea id="message" name="message" placeholder="Tell me a little about your project…"></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary btn-full">
-                <span>Send</span>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
-              </button>
+
               <p class="form-status" id="formStatus"></p>
             </form>
           </div>
@@ -1629,11 +1809,6 @@
   <footer>
     <a href="#" class="footer-logo">Sites<span>By</span>Charlie</a>
     <p class="footer-copy">&copy; 2026 Sites By Charlie &nbsp;·&nbsp; <a href="/privacypolicy" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">Privacy Policy</a></p>
-    <div class="footer-social">
-      <a href="https://www.instagram.com/charlie_garcia1/" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
-      </a>
-    </div>
   </footer>
 
   <script>
@@ -1848,18 +2023,31 @@
       e.preventDefault();
       const name = form.name.value.trim();
       const email = form.email.value.trim();
+      const message = form.message.value.trim();
       status.className = 'form-status';
       if (!name || !email) { status.textContent = 'Please fill in your name and email.'; return; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { status.textContent = 'Please enter a valid email address.'; return; }
+      if (!message) { status.textContent = 'Please add a short message before sending.'; return; }
       const btn = form.querySelector('button[type="submit"]');
       btn.disabled = true;
       btn.querySelector('span').textContent = 'Sending…';
+      const firstName = name.split(' ')[0];
       fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
         .then(res => {
           if (res.ok) {
-            status.textContent = "✓ Message received — I'll be in touch soon!";
-            status.className = 'form-status success';
+            const stepperEl = document.getElementById('formStepper');
+            const successEl = document.getElementById('formSuccess');
+            const successTitle = document.getElementById('formSuccessTitle');
+            if (stepperEl && successEl && successTitle) {
+              successTitle.textContent = `Thanks, ${firstName}! I'll be in touch soon!`;
+              stepperEl.style.display = 'none';
+              successEl.style.display = 'flex';
+            } else {
+              status.textContent = "✓ Message received — I'll be in touch soon!";
+              status.className = 'form-status success';
+            }
             form.reset();
+            window.resetFormStepper?.();
           } else {
             status.textContent = 'Something went wrong — please email me directly.';
           }
@@ -1870,6 +2058,86 @@
           btn.querySelector('span').textContent = 'Send';
         });
     });
+
+    /* ── Multi-step contact form (vanilla port of React Bits' Stepper) ── */
+    (function () {
+      const stepper = document.getElementById('formStepper');
+      if (!stepper) return;
+      const panels = Array.from(stepper.querySelectorAll('.step-panel'));
+      const indicators = Array.from(stepper.querySelectorAll('.stepper-indicator'));
+      const connectors = Array.from(stepper.querySelectorAll('.stepper-connector'));
+      const backBtn = document.getElementById('stepperBack');
+      const nextBtn = document.getElementById('stepperNext');
+      const submitBtn = document.getElementById('stepperSubmit');
+      const footer = document.getElementById('stepperFooter');
+      const stepStatus = document.getElementById('formStatus');
+      const totalSteps = panels.length;
+      let current = 1;
+
+      const checkIcon = '<svg class="stepper-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>';
+
+      function render() {
+        panels.forEach(p => p.classList.toggle('active', parseInt(p.dataset.step) === current));
+        indicators.forEach(ind => {
+          const step = parseInt(ind.dataset.step);
+          ind.classList.toggle('active', step === current);
+          ind.classList.toggle('complete', step < current);
+          ind.dataset.locked = step > current ? 'true' : 'false';
+          const inner = ind.querySelector('.stepper-indicator-inner');
+          inner.innerHTML = step < current ? checkIcon : `<span class="stepper-number">${step}</span>`;
+        });
+        connectors.forEach(c => {
+          const idx = parseInt(c.dataset.connector);
+          c.classList.toggle('complete', idx < current);
+        });
+        footer.classList.toggle('has-back', current > 1);
+        backBtn.style.display = current > 1 ? 'inline-flex' : 'none';
+        nextBtn.style.display = current < totalSteps ? 'inline-flex' : 'none';
+        submitBtn.style.display = current === totalSteps ? 'inline-flex' : 'none';
+        stepStatus.textContent = '';
+        stepStatus.className = 'form-status';
+      }
+
+      function goTo(step) {
+        current = Math.max(1, Math.min(totalSteps, step));
+        render();
+      }
+
+      function validateStep(step) {
+        if (step === 1) {
+          const name = document.getElementById('name').value.trim();
+          const email = document.getElementById('email').value.trim();
+          if (!name || !email) { stepStatus.textContent = 'Please fill in your name and email.'; return false; }
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { stepStatus.textContent = 'Please enter a valid email address.'; return false; }
+        }
+        return true;
+      }
+
+      nextBtn.addEventListener('click', () => {
+        if (!validateStep(current)) return;
+        goTo(current + 1);
+      });
+      backBtn.addEventListener('click', () => goTo(current - 1));
+      indicators.forEach(ind => {
+        ind.addEventListener('click', () => {
+          const step = parseInt(ind.dataset.step);
+          if (step < current) goTo(step);
+        });
+      });
+
+      window.resetFormStepper = () => goTo(1);
+      render();
+
+      const successResetBtn = document.getElementById('formSuccessReset');
+      const successEl = document.getElementById('formSuccess');
+      if (successResetBtn && successEl) {
+        successResetBtn.addEventListener('click', () => {
+          successEl.style.display = 'none';
+          stepper.style.display = 'flex';
+          goTo(1);
+        });
+      }
+    })();
 
     /* ── Testimonial video ── */
     (function () {
