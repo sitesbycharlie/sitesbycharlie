@@ -386,6 +386,18 @@
       flex-wrap: wrap;
       gap: 1rem;
     }
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.65rem;
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+    }
+    .hero-pills .pill {
+      font-size: 0.72rem;
+      padding: 0.45rem 1rem;
+    }
 
     /* ── Card 2: About / What I Offer ── */
     .card-about .card-inner {
@@ -1158,6 +1170,8 @@
       .card-hero-title { font-size: clamp(2rem, 7.5vw, 3rem); }
       .card-eyebrow { margin-bottom: 1rem; }
       .card-hero-sub { font-size: 0.88rem; margin-bottom: 1.5rem; }
+      .hero-pills { gap: 0.45rem; margin-bottom: 1.5rem; }
+      .hero-pills .pill { font-size: 0.62rem; padding: 0.35rem 0.8rem; }
 
       /* Services — keep 2-col but compact */
       .offer-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 1rem; }
@@ -1272,9 +1286,16 @@
           <div class="card-inner">
             <div>
               <h1 class="card-hero-title">
-                A website that works<br>as hard as <em>you do.</em>
+                Great businesses<br>deserve <em>great websites.</em>
               </h1>
-              <p class="card-hero-sub">Clean, fast, custom-built for Irish businesses. If your current site isn't bringing in customers, it's already costing you them.</p>
+              <p class="card-hero-sub">Custom-built for Irish businesses ready to grow. Simple, unique, SEO-backed, and made to turn visitors into customers.</p>
+              <div class="hero-pills">
+                <span class="pill">Custom Design</span>
+                <span class="pill">Custom Domain</span>
+                <span class="pill">Mobile Responsive</span>
+                <span class="pill">SEO-Ready</span>
+                <span class="pill">Ongoing Support</span>
+              </div>
             </div>
             <div class="card-hero-bottom">
               <div style="display:flex;gap:0.8rem;flex-wrap:wrap;">
@@ -1336,6 +1357,8 @@
               <span class="pill">3–5 Days Build</span>
               <span class="pill">No Templates</span>
               <span class="pill">Clean Code</span>
+              <span class="pill">SEO-Ready</span>
+              <span class="pill">Custom Domain</span>
             </div>
           </div>
         </div>
