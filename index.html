@@ -26,6 +26,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Varela+Round&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
   <style>
     :root {
@@ -107,25 +108,74 @@
     .nav-logo span { color: var(--red); }
     .nav-pill {
       display: flex;
-      gap: 0.2rem;
+      align-items: stretch;
       background: rgba(0,0,0,0.6);
       border: 1px solid var(--border);
       backdrop-filter: blur(12px);
       padding: 0.3rem 0.4rem;
       border-radius: 100px;
     }
-    .nav-pill a {
+    .pill-list {
+      list-style: none;
+      display: flex;
+      align-items: stretch;
+      gap: 0.2rem;
+      margin: 0;
+      padding: 0;
+    }
+    .pill-list > li { display: flex; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       font-size: 0.68rem;
+      font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
+      line-height: 0;
       color: rgba(238,238,238,0.45);
       padding: 0.38rem 0.85rem;
       border-radius: 100px;
-      transition: color 0.2s, background 0.2s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
     }
-    .nav-pill a:hover, .nav-pill a.active {
+    .pill.is-active { background: rgba(255,255,255,0.07); }
+    .pill.is-active .pill-label { color: var(--light); font-weight: 700; }
+    .pill .hover-circle {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--crimson), var(--red));
+      z-index: 1;
+      display: block;
+      pointer-events: none;
+      will-change: transform;
+    }
+    .pill .label-stack {
+      position: relative;
+      display: inline-block;
+      line-height: 1;
+      z-index: 2;
+    }
+    .pill .pill-label {
+      position: relative;
+      z-index: 2;
+      display: inline-block;
+      line-height: 1;
+      will-change: transform;
+      transition: color 0.2s;
+    }
+    .pill .pill-label-hover {
+      position: absolute;
+      left: 0;
+      top: 0;
       color: var(--light);
-      background: rgba(255,255,255,0.07);
+      z-index: 3;
+      display: inline-block;
+      will-change: transform, opacity;
     }
     .hamburger {
       display: none;
@@ -1187,13 +1237,15 @@
   <nav id="navbar">
     <a href="#" class="nav-logo">Sites<span>By</span>Charlie</a>
     <div class="nav-pill">
-      <a href="#" data-slide="0">Home</a>
-      <a href="#" data-slide="1">Services</a>
-      <a href="#" data-slide="2">Plans</a>
-      <a href="#" data-slide="3">Why</a>
-      <a href="#" data-slide="4">Work</a>
-      <a href="#" data-slide="5">Contact</a>
-      <a href="#" data-slide="6">Testimonial</a>
+      <ul class="pill-list" role="menubar" id="navPillList">
+        <li role="none"><a role="menuitem" href="#" data-slide="0" class="pill is-active" aria-label="Home"><span class="hover-circle" aria-hidden="true"></span><span class="label-stack"><span class="pill-label">Home</span><span class="pill-label-hover" aria-hidden="true">Home</span></span></a></li>
+        <li role="none"><a role="menuitem" href="#" data-slide="1" class="pill" aria-label="Services"><span class="hover-circle" aria-hidden="true"></span><span class="label-stack"><span class="pill-label">Services</span><span class="pill-label-hover" aria-hidden="true">Services</span></span></a></li>
+        <li role="none"><a role="menuitem" href="#" data-slide="2" class="pill" aria-label="Plans"><span class="hover-circle" aria-hidden="true"></span><span class="label-stack"><span class="pill-label">Plans</span><span class="pill-label-hover" aria-hidden="true">Plans</span></span></a></li>
+        <li role="none"><a role="menuitem" href="#" data-slide="3" class="pill" aria-label="Why"><span class="hover-circle" aria-hidden="true"></span><span class="label-stack"><span class="pill-label">Why</span><span class="pill-label-hover" aria-hidden="true">Why</span></span></a></li>
+        <li role="none"><a role="menuitem" href="#" data-slide="4" class="pill" aria-label="Work"><span class="hover-circle" aria-hidden="true"></span><span class="label-stack"><span class="pill-label">Work</span><span class="pill-label-hover" aria-hidden="true">Work</span></span></a></li>
+        <li role="none"><a role="menuitem" href="#" data-slide="5" class="pill" aria-label="Contact"><span class="hover-circle" aria-hidden="true"></span><span class="label-stack"><span class="pill-label">Contact</span><span class="pill-label-hover" aria-hidden="true">Contact</span></span></a></li>
+        <li role="none"><a role="menuitem" href="#" data-slide="6" class="pill" aria-label="Testimonial"><span class="hover-circle" aria-hidden="true"></span><span class="label-stack"><span class="pill-label">Testimonial</span><span class="pill-label-hover" aria-hidden="true">Testimonial</span></span></a></li>
+      </ul>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>
@@ -1227,7 +1279,7 @@
             <div class="card-hero-bottom">
               <div style="display:flex;gap:0.8rem;flex-wrap:wrap;">
                 <button class="btn btn-primary" onclick="goToSlide(5)">
-                  <span>Let's build something</span>
+                  <span>Let's create something together</span>
                   <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
                 </button>
               </div>
@@ -1493,7 +1545,7 @@
                 <textarea id="message" name="message" placeholder="Tell me a little about your project…"></textarea>
               </div>
               <button type="submit" class="btn btn-primary btn-full">
-                <span>Send Message</span>
+                <span>Send</span>
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
               </button>
               <p class="form-status" id="formStatus"></p>
@@ -1593,7 +1645,7 @@
       btnNext.disabled = idx === TOTAL - 1;
       if (counterCurrent) counterCurrent.textContent = idx + 1;
       cards.forEach((c, i) => c.classList.toggle('active', i === idx));
-      document.querySelectorAll('.nav-pill a').forEach((a, i) => a.classList.toggle('active', i === idx));
+      document.querySelectorAll('.nav-pill a').forEach((a, i) => a.classList.toggle('is-active', i === idx));
       const pct = (wrap.scrollLeft / ((TOTAL - 1) * cardWidth())) * 100;
       progressBar.style.width = Math.max(0, Math.min(100, pct)) + '%';
     }
@@ -1616,6 +1668,69 @@
         goToSlide(parseInt(a.dataset.slide));
       });
     });
+
+    /* ── Pill Nav — hover-circle animation (ported from React Bits' PillNav, vanilla + GSAP) ── */
+    (function () {
+      if (typeof gsap === 'undefined') return;
+      const ease = 'power3.out';
+      const pills = Array.from(document.querySelectorAll('#navPillList .pill'));
+      const circleRefs = [];
+      const tlRefs = [];
+      const activeTweenRefs = [];
+
+      function layout() {
+        pills.forEach((pill, i) => {
+          const circle = pill.querySelector('.hover-circle');
+          if (!circle) return;
+          circleRefs[i] = circle;
+          const rect = pill.getBoundingClientRect();
+          const w = rect.width, h = rect.height;
+          if (!w || !h) return;
+          const R = ((w * w) / 4 + h * h) / (2 * h);
+          const D = Math.ceil(2 * R) + 2;
+          const delta = Math.ceil(R - Math.sqrt(Math.max(0, R * R - (w * w) / 4))) + 1;
+          const originY = D - delta;
+          circle.style.width = `${D}px`;
+          circle.style.height = `${D}px`;
+          circle.style.bottom = `-${delta}px`;
+          gsap.set(circle, { xPercent: -50, scale: 0, transformOrigin: `50% ${originY}px` });
+
+          const label = pill.querySelector('.pill-label');
+          const hoverLabel = pill.querySelector('.pill-label-hover');
+          if (label) gsap.set(label, { y: 0 });
+          if (hoverLabel) gsap.set(hoverLabel, { y: h + 12, opacity: 0 });
+
+          tlRefs[i]?.kill();
+          const tl = gsap.timeline({ paused: true });
+          tl.to(circle, { scale: 1.2, xPercent: -50, duration: 2, ease, overwrite: 'auto' }, 0);
+          if (label) tl.to(label, { y: -(h + 8), duration: 2, ease, overwrite: 'auto' }, 0);
+          if (hoverLabel) {
+            gsap.set(hoverLabel, { y: Math.ceil(h + 100), opacity: 0 });
+            tl.to(hoverLabel, { y: 0, opacity: 1, duration: 2, ease, overwrite: 'auto' }, 0);
+          }
+          tlRefs[i] = tl;
+        });
+      }
+
+      layout();
+      window.addEventListener('resize', layout);
+      if (document.fonts?.ready) document.fonts.ready.then(layout).catch(() => {});
+
+      pills.forEach((pill, i) => {
+        pill.addEventListener('mouseenter', () => {
+          const tl = tlRefs[i];
+          if (!tl) return;
+          activeTweenRefs[i]?.kill();
+          activeTweenRefs[i] = tl.tweenTo(tl.duration(), { duration: 0.3, ease, overwrite: 'auto' });
+        });
+        pill.addEventListener('mouseleave', () => {
+          const tl = tlRefs[i];
+          if (!tl) return;
+          activeTweenRefs[i]?.kill();
+          activeTweenRefs[i] = tl.tweenTo(0, { duration: 0.2, ease, overwrite: 'auto' });
+        });
+      });
+    })();
 
     document.addEventListener('keydown', e => {
       if (e.key === 'ArrowRight') goToSlide(currentIndex() + 1);
@@ -1729,7 +1844,7 @@
         .catch(() => { status.textContent = 'Something went wrong — please email me directly.'; })
         .finally(() => {
           btn.disabled = false;
-          btn.querySelector('span').textContent = 'Send Message';
+          btn.querySelector('span').textContent = 'Send';
         });
     });
 
