@@ -922,6 +922,100 @@
     }
     .form-status.success { color: #72c992; }
 
+    /* ── Card 7: Testimonial ── */
+    .card-testimonial .card-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .testimonial-intro {
+      font-size: 0.93rem;
+      color: var(--muted);
+      max-width: 420px;
+      margin: 0 auto 1.8rem;
+      text-align: center;
+    }
+    .testimonial-video-frame {
+      position: relative;
+      width: min(280px, 68%);
+      aspect-ratio: 9 / 16;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(238,238,238,0.1);
+      background: #000;
+      margin: 0 auto 1.6rem;
+      box-shadow:
+        0 0 0 1px rgba(216,64,64,0.12),
+        0 0 40px rgba(180,30,30,0.16),
+        0 20px 50px rgba(0,0,0,0.5);
+    }
+    .testimonial-video-frame::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 10%; right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(216,64,64,0.6), transparent);
+      z-index: 3;
+    }
+    .testimonial-video-frame video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #000;
+    }
+    .testimonial-play-btn {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.32);
+      cursor: pointer;
+      transition: opacity 0.3s var(--ease);
+      z-index: 2;
+    }
+    .testimonial-play-btn.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .testimonial-play-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: var(--crimson);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(142,22,22,0.55);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .testimonial-play-btn:hover .testimonial-play-icon {
+      background: var(--red);
+      transform: scale(1.08);
+    }
+    .testimonial-play-icon svg { margin-left: 3px; }
+    .testimonial-caption {
+      text-align: center;
+    }
+    .testimonial-name {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--light);
+      margin-bottom: 0.3rem;
+    }
+    .testimonial-role {
+      font-size: 0.78rem;
+      color: rgba(238,238,238,0.45);
+      margin-bottom: 1.2rem;
+    }
+    .testimonial-actions {
+      display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
     /* ── Buttons ── */
     .btn {
       display: inline-flex;
@@ -1059,6 +1153,13 @@
       .contact-meta { margin-bottom: 1rem; gap: 0.4rem; }
       .contact-meta-item { font-size: 0.78rem; }
 
+      /* Testimonial */
+      .testimonial-intro { font-size: 0.82rem; margin-bottom: 1.2rem; }
+      .testimonial-video-frame { width: min(220px, 72%); margin-bottom: 1.2rem; }
+      .testimonial-play-icon { width: 46px; height: 46px; }
+      .testimonial-name { font-size: 1rem; }
+      .testimonial-role { font-size: 0.72rem; margin-bottom: 1rem; }
+
       /* Card titles */
       .card-title { font-size: clamp(1.6rem, 5.5vw, 2.2rem); margin-bottom: 1rem; }
       .card-tag { margin-bottom: 0.6rem; }
@@ -1092,6 +1193,7 @@
       <a href="#" data-slide="3">Why</a>
       <a href="#" data-slide="4">Work</a>
       <a href="#" data-slide="5">Contact</a>
+      <a href="#" data-slide="6">Testimonial</a>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>
@@ -1105,6 +1207,7 @@
     <a href="#" data-slide="3" onclick="goToSlide(3);closeMenu();">Why</a>
     <a href="#" data-slide="4" onclick="goToSlide(4);closeMenu();">Work</a>
     <a href="#" data-slide="5" onclick="goToSlide(5);closeMenu();">Contact</a>
+    <a href="#" data-slide="6" onclick="goToSlide(6);closeMenu();">Testimonial</a>
   </div>
 
   <!-- Slider -->
@@ -1398,6 +1501,40 @@
           </div>
         </div>
 
+        <!-- CARD 7: TESTIMONIAL -->
+        <div class="slide-card card-testimonial" data-index="6">
+          <div class="card-inner">
+            <h2 class="card-title">Hear it from<br><em>Kass.</em></h2>
+            <p class="testimonial-intro">Standing out as an PT can be tough. Kass got a website and watched it turn into new clients and real revenue.</p>
+            <div class="testimonial-video-frame">
+              <video
+                id="kassTestimonialVideo"
+                poster="kass-testimonial-poster.jpg"
+                playsinline
+                preload="metadata"
+                src="kass-testimonial.mp4">
+              </video>
+              <div class="testimonial-play-btn" id="testimonialPlayBtn">
+                <div class="testimonial-play-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--light)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+            </div>
+            <div class="testimonial-caption">
+              <p class="testimonial-name">Kass Diarra</p>
+              <p class="testimonial-role">Founder, KassPT · Dublin</p>
+              <div class="testimonial-actions">
+                <a href="https://www.kasspt.ie" target="_blank" rel="noopener" class="btn btn-primary">
+                  <span>Visit KassPT →</span>
+                </a>
+                <button class="btn btn-primary" onclick="goToSlide(5)">
+                  <span>Get your site built</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div><!-- /slider-track -->
     </div><!-- /slider-track-wrap -->
   </section>
@@ -1429,7 +1566,7 @@
        The browser handles all trackpad momentum, touch swipe,
        and fling physics natively. JS just syncs the UI.
     ── */
-    const TOTAL = 6;
+    const TOTAL = 7;
     const wrap  = document.getElementById('sliderWrap');
     const btnPrev = document.getElementById('btnPrev');
     const btnNext  = document.getElementById('btnNext');
@@ -1596,10 +1733,26 @@
         });
     });
 
+    /* ── Testimonial video ── */
+    (function () {
+      const video = document.getElementById('kassTestimonialVideo');
+      const playBtn = document.getElementById('testimonialPlayBtn');
+      if (!video || !playBtn) return;
+      playBtn.addEventListener('click', () => {
+        video.setAttribute('controls', '');
+        video.play();
+        playBtn.classList.add('hidden');
+      });
+      video.addEventListener('pause', () => {
+        if (video.currentTime > 0 && !video.ended) return;
+      });
+      video.addEventListener('ended', () => {
+        playBtn.classList.remove('hidden');
+        video.removeAttribute('controls');
+      });
+    })();
 
   </script>
-
-
 
 </body>
 </html>
