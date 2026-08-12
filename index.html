@@ -228,43 +228,6 @@
       overflow: hidden;
     }
 
-    /* Slide counter */
-
-
-    /* Navigation arrows */
-    .slider-nav {
-      position: fixed;
-      bottom: 2rem;
-      left: 5vw;
-      display: flex;
-      gap: 0.6rem;
-      z-index: 200;
-    }
-    .slider-arrow {
-      width: 36px;
-      height: 36px;
-      border: 1px solid rgba(238,238,238,0.12);
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(8px);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: rgba(238,238,238,0.4);
-      transition: border-color 0.2s, color 0.2s, background 0.2s;
-    }
-    .slider-arrow:hover {
-      border-color: rgba(216,64,64,0.5);
-      color: var(--light);
-      background: rgba(142,22,22,0.2);
-    }
-    .slider-arrow:disabled {
-      opacity: 0.25;
-      cursor: default;
-      pointer-events: none;
-    }
-
     /* ── Track ── */
     .slider-track-wrap {
       overflow-x: scroll;
@@ -1370,7 +1333,6 @@
       .plans-intro { font-size: 0.82rem; margin-bottom: 1rem; }
 
       footer { flex-direction: column; text-align: center; align-items: center; }
-      .slider-nav { bottom: 1rem; left: 4vw; }
     }
     @media (max-width: 390px) {
       :root { --card-w: 91vw; }
@@ -1389,7 +1351,7 @@
 
   <!-- Nav -->
   <nav id="navbar">
-    <a href="#" class="nav-logo">Sites<span>By</span>Charlie</a>
+    <a href="#" class="nav-logo" onclick="goToSlide(0);return false;" aria-label="Home">Sites<span>By</span>Charlie</a>
     <div class="nav-pill">
       <ul class="pill-list" role="menubar" id="navPillList">
         <li role="none"><a role="menuitem" href="#" data-slide="0" class="pill is-active" aria-label="Home"><span class="hover-circle" aria-hidden="true"></span><span class="label-stack"><span class="pill-label">Home</span><span class="pill-label-hover" aria-hidden="true">Home</span></span></a></li>
@@ -1794,17 +1756,6 @@
     </div><!-- /slider-track-wrap -->
   </section>
 
-  <!-- Slider Nav -->
-  <div class="slider-nav">
-    <button class="slider-arrow" id="btnPrev" aria-label="Previous" disabled>
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4L6 8l4 4"/></svg>
-    </button>
-    <button class="slider-arrow" id="btnNext" aria-label="Next">
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
-    </button>
-  </div>
-
-
   <!-- Footer -->
   <footer>
     <a href="#" class="footer-logo">Sites<span>By</span>Charlie</a>
@@ -1818,8 +1769,6 @@
     ── */
     const TOTAL = 7;
     const wrap  = document.getElementById('sliderWrap');
-    const btnPrev = document.getElementById('btnPrev');
-    const btnNext  = document.getElementById('btnNext');
     const counterCurrent = document.getElementById('counterCurrent');
     const counterTotal   = document.getElementById('counterTotal');
     if (counterTotal) counterTotal.textContent = TOTAL;
@@ -1839,8 +1788,6 @@
 
     function updateUI() {
       const idx = currentIndex();
-      btnPrev.disabled = idx === 0;
-      btnNext.disabled = idx === TOTAL - 1;
       if (counterCurrent) counterCurrent.textContent = idx + 1;
       cards.forEach((c, i) => c.classList.toggle('active', i === idx));
       document.querySelectorAll('.nav-pill a').forEach((a, i) => a.classList.toggle('is-active', i === idx));
@@ -1856,9 +1803,6 @@
       wrap.scrollTo({ left: idx * cardWidth(), behavior: 'smooth' });
     }
     window.goToSlide = goToSlide;
-
-    btnPrev.addEventListener('click', () => goToSlide(currentIndex() - 1));
-    btnNext.addEventListener('click', () => goToSlide(currentIndex() + 1));
 
     document.querySelectorAll('.nav-pill a').forEach(a => {
       a.addEventListener('click', e => {
