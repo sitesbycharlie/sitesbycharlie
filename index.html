@@ -11,13 +11,13 @@
     gtag('js', new Date());
     gtag('config', 'G-GM4WRHLCPD');
   </script>
-  <title>Sites By Charlie — Web Design Ireland</title>
+  <title>Sites By Charlie | Web Design Ireland</title>
   <meta name="description" content="Affordable, custom web design for Irish businesses. Based in Dublin, working nationwide. Simple pricing, fast turnaround, no monthly fees." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://www.sitesbycharlie.ie/" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.sitesbycharlie.ie/" />
-  <meta property="og:title" content="Sites By Charlie — Web Design Ireland" />
+  <meta property="og:title" content="Sites By Charlie | Web Design Ireland" />
   <meta property="og:description" content="Affordable, custom web design for Irish businesses. Based in Dublin, working nationwide." />
   <meta property="og:image" content="https://www.sitesbycharlie.ie/favicon.png" />
   <meta name="twitter:card" content="summary" />
@@ -39,8 +39,8 @@
       --serif:   'DM Sans', sans-serif;
       --sans:    'Varela Round', sans-serif;
       --ease:    cubic-bezier(0.16, 1, 0.3, 1);
-      --card-w:  min(88vw, 680px);
-      --card-gap: 20px;
+      --content-w: min(92vw, 900px);
+      --nav-h: 78px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -56,7 +56,7 @@
     a { color: inherit; text-decoration: none; }
     ul { list-style: none; }
 
-    /* ── Noise ── */
+    /* Noise */
     body::before {
       content: '';
       position: fixed;
@@ -67,10 +67,9 @@
       z-index: 9999;
     }
 
-    /* ── Solid Background ── */
     body { background: #000000; }
 
-    /* ── Progress Bar ── */
+    /* Progress Bar */
     #progress-bar {
       position: fixed;
       top: 0;
@@ -83,7 +82,7 @@
       box-shadow: 0 0 8px rgba(216,64,64,0.6);
     }
 
-    /* ── Nav ── */
+    /* Nav */
     nav {
       position: fixed;
       top: 0;
@@ -94,8 +93,13 @@
       justify-content: space-between;
       align-items: center;
       padding: 1.2rem 5vw;
-      background: transparent;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
     }
+    nav.scrolled { border-bottom-color: var(--border); }
     .nav-logo {
       font-family: var(--serif);
       font-size: 1.2rem;
@@ -216,103 +220,85 @@
     }
     .mobile-menu a:hover { color: var(--light); }
 
-    /* ── Slider Container ── */
-    #slider-section {
-      position: relative;
-      z-index: 1;
-      height: 100dvh;
+    /* Vertical Page Sections */
+    main { position: relative; z-index: 1; }
+    section.panel {
+      width: 100%;
+      padding: 8rem 5vw 6rem;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding: 70px 0 0;
-      overflow: hidden;
-    }
-
-    /* ── Track ── */
-    .slider-track-wrap {
-      overflow-x: scroll;
-      overflow-y: hidden;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      padding: 1rem 0 4rem;
-      cursor: grab;
-      perspective: 1200px;
-      flex: 1;
-      display: flex;
       align-items: center;
-    }
-    .slider-track-wrap:active { cursor: grabbing; }
-    .slider-track-wrap::-webkit-scrollbar { display: none; }
-    .slider-track {
-      display: flex;
-      gap: var(--card-gap);
-      padding: 0 calc((100vw - var(--card-w)) / 2);
-      width: max-content;
-      align-items: stretch;
-    }
-
-    /* ── Cards ── */
-    .slide-card {
-      flex-shrink: 0;
-      width: var(--card-w);
-      height: calc(100dvh - 160px);
-      scroll-snap-align: center;
-      scroll-snap-stop: always;
-      border: 1px solid rgba(238,238,238,0.07);
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(20px);
-      border-radius: 20px;
-      overflow: hidden;
-      transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease), opacity 0.4s var(--ease), transform 0.4s var(--ease);
+      scroll-margin-top: var(--nav-h);
       position: relative;
-      will-change: transform, opacity;
     }
-    .slide-card:not(.active) {
-      opacity: 0.38;
-      transform: scale(0.96) translateY(6px);
-      box-shadow: none;
+    section.panel .panel-inner {
+      width: var(--content-w);
+      max-width: 100%;
     }
-    .slide-card.active {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-      border-color: rgba(216,64,64,0.25);
-      box-shadow:
-        0 0 0 1px rgba(216,64,64,0.12),
-        0 0 40px rgba(180,30,30,0.18),
-        0 0 80px rgba(142,22,22,0.10),
-        0 20px 60px rgba(0,0,0,0.5);
-    }
-    /* Top edge glow line */
-    .slide-card::before {
+    section.panel::before {
       content: '';
       position: absolute;
-      top: 0; left: 10%; right: 10%;
+      top: 0; left: 15%; right: 15%;
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(216,64,64,0.55), transparent);
+      background: linear-gradient(90deg, transparent, rgba(216,64,64,0.35), transparent);
+    }
+    #home::before { display: none; }
+
+    /* Hero */
+    #home {
+      min-height: 100dvh;
+      justify-content: center;
+      padding-top: var(--nav-h);
+      padding-bottom: 3rem;
+      text-align: center;
+    }
+    .hero-rotate-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 1.8rem;
+      font-family: var(--serif);
+      font-size: clamp(1.05rem, 2.2vw, 1.4rem);
+      font-weight: 600;
+      color: rgba(238,238,238,0.75);
+    }
+    .rotating-text {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      height: 1.65em;
+      padding: 0 0.75em;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--crimson), var(--red));
+      color: var(--light);
+      font-weight: 700;
+      white-space: nowrap;
+      transition: width 0.4s var(--ease);
+      box-shadow: 0 6px 20px rgba(142,22,22,0.35);
+      vertical-align: middle;
+    }
+    .rotating-text-item {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       opacity: 0;
-      transition: opacity 0.4s var(--ease);
-      z-index: 2;
+      transform: translateY(100%);
+      transition: transform 0.45s var(--ease), opacity 0.35s var(--ease);
+      white-space: nowrap;
     }
-    .slide-card.active::before { opacity: 1; }
-
-    /* Card inner padding */
-    .card-inner {
-      padding: 3rem 3.5rem;
-      height: 100%;
-      overflow-y: auto;
-      scrollbar-width: none;
-      display: flex;
-      flex-direction: column;
+    .rotating-text-item.is-active {
+      opacity: 1;
+      transform: translateY(0);
     }
-    .card-inner::-webkit-scrollbar { display: none; }
-
-    /* ── Card 1: Hero ── */
-    .card-hero .card-inner {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+    .rotating-text-item.is-leaving {
+      opacity: 0;
+      transform: translateY(-120%);
     }
     .card-eyebrow {
       font-size: 0.65rem;
@@ -324,7 +310,7 @@
     }
     .card-hero-title {
       font-family: var(--serif);
-      font-size: clamp(2.8rem, 5.5vw, 5rem);
+      font-size: clamp(2.6rem, 6.5vw, 5rem);
       font-weight: 300;
       line-height: 1.05;
       color: var(--light);
@@ -342,13 +328,6 @@
       margin: 0 auto 2.5rem;
       text-align: center;
     }
-    .card-hero-bottom {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
     .hero-pills {
       display: flex;
       flex-wrap: wrap;
@@ -364,16 +343,16 @@
     .hero-contact {
       display: flex;
       justify-content: center;
-      margin: 0 auto 1.5rem;
+      margin: 0 auto 2.2rem;
+    }
+    .hero-cta-row {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
-    /* ── Card 2: About / What I Offer ── */
-    .card-about .card-inner {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
+    /* Section headings */
     .card-tag {
       font-size: 0.63rem;
       letter-spacing: 0.2em;
@@ -384,7 +363,7 @@
     }
     .card-title {
       font-family: var(--serif);
-      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 300;
       line-height: 1.1;
       color: var(--light);
@@ -392,16 +371,13 @@
       text-align: center;
     }
     .card-title em { font-style: italic; color: var(--red); }
-    .offer-top {
-      display: flex;
-      flex-direction: column;
-    }
+
+    /* Services */
     .offer-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1.2rem;
-      margin-bottom: 2rem;
-      flex: 1;
+      margin-bottom: 2.2rem;
       align-items: stretch;
     }
     .offer-item {
@@ -522,11 +498,7 @@
       color: rgba(238,238,238,0.7);
     }
 
-    /* ── Card 3: Plans (Expandable) ── */
-    .card-plans .card-inner {
-      display: flex;
-      flex-direction: column;
-    }
+    /* Plans */
     .plans-intro {
       font-size: 0.93rem;
       color: var(--muted);
@@ -563,7 +535,10 @@
     }
     .plan-panels {
       position: relative;
-      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.4rem 2.6rem;
+      background: rgba(255,255,255,0.012);
     }
     .plan-panel {
       display: none;
@@ -629,16 +604,12 @@
     }
     .plan-callout strong { color: var(--light); }
 
-    /* ── Card 4: Why a Website (Expandable) ── */
-    .card-why .card-inner {
-      display: flex;
-      flex-direction: column;
-    }
+    /* Why */
     .why-stats-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
       gap: 0.8rem;
-      margin-bottom: 1.6rem;
+      margin-bottom: 2rem;
     }
     .why-stat {
       border: 1px solid rgba(142,22,22,0.2);
@@ -662,38 +633,35 @@
     }
     .why-stat-num {
       font-family: var(--serif);
-      font-size: 2.4rem;
+      font-size: 2.2rem;
       font-weight: 300;
       color: var(--light);
       line-height: 1;
       margin-bottom: 0.4rem;
     }
     .why-stat-num sup {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: var(--red);
     }
     .why-stat-label {
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       color: rgba(238,238,238,0.48);
       line-height: 1.45;
     }
     .why-points-list {
       display: flex;
       flex-direction: column;
-      gap: 0;
-      flex: 1;
+      border-top: 1px solid var(--border);
     }
     .why-point-item {
       display: flex;
       align-items: flex-start;
       gap: 1rem;
-      padding: 1rem 0;
+      padding: 1.1rem 0;
       border-bottom: 1px solid var(--border);
       cursor: pointer;
       transition: background 0.2s;
-      border-radius: 0;
     }
-    .why-point-item:last-child { border-bottom: none; }
     .why-point-item:hover .why-pt-title { color: var(--light); }
     .why-pt-icon {
       width: 32px;
@@ -745,146 +713,213 @@
       color: var(--red);
     }
 
-    /* ── Card 5: Work ── */
-    .card-work .card-inner {
+    /* Work (inspired by platforms-by-isaiah.vercel.app portfolio cards) */
+    .work-intro {
+      font-size: 0.93rem;
+      color: var(--muted);
+      max-width: 460px;
+      margin: 0 auto 2.4rem;
+      text-align: center;
+    }
+    .work-list {
       display: flex;
       flex-direction: column;
-    }
-    .work-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      flex: 1;
-      align-content: start;
+      gap: 1.1rem;
     }
     .work-card {
-      border: 1px solid rgba(238,238,238,0.08);
-      border-radius: 14px;
-      overflow: hidden;
-      position: relative;
-      min-height: 200px;
-      cursor: pointer;
-      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s var(--ease);
-      background: rgba(0,0,0,0.4);
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: 96px 1fr auto;
       align-items: center;
-      justify-content: center;
+      gap: 1.6rem;
+      border: 1px solid rgba(238,238,238,0.08);
+      border-radius: 18px;
+      padding: 1.6rem 1.8rem;
+      background: rgba(255,255,255,0.012);
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s var(--ease), background 0.3s;
+      position: relative;
     }
     .work-card:hover {
-      border-color: rgba(216,64,64,0.5);
-      box-shadow: 0 0 28px rgba(216,64,64,0.18);
+      border-color: rgba(216,64,64,0.4);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 30px rgba(216,64,64,0.1);
       transform: translateY(-3px);
+      background: rgba(142,22,22,0.035);
     }
-    @media (hover: hover) {
-      .work-card:hover .work-face { opacity: 0; }
-      .work-card:hover .work-overlay { opacity: 1; pointer-events: auto; }
-    }
-    .work-face {
+    .work-logo-wrap {
+      width: 96px;
+      height: 96px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 0.65rem;
-      padding: 1.5rem;
-      transition: opacity 0.3s;
-      text-align: center;
-      width: 100%;
+      justify-content: center;
+      flex-shrink: 0;
     }
-    .work-card.tapped .work-face { opacity: 0; }
     .work-logo {
       width: 64px;
       height: 64px;
       object-fit: contain;
       border-radius: 50%;
-      background: rgba(255,255,255,0.04);
-      padding: 4px;
     }
+    .work-info { min-width: 0; }
+    .work-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #72c992;
+      margin-bottom: 0.55rem;
+    }
+    .work-status .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #72c992;
+      box-shadow: 0 0 8px #72c992;
+    }
+    .work-status.soon { color: rgba(238,238,238,0.35); }
+    .work-status.soon .dot { background: rgba(238,238,238,0.35); box-shadow: none; }
     .work-name {
-      font-size: 0.82rem;
+      font-family: var(--serif);
+      font-size: 1.15rem;
       font-weight: 600;
       color: var(--light);
       line-height: 1.3;
+      margin-bottom: 0.3rem;
     }
     .work-url {
-      font-size: 0.62rem;
+      font-size: 0.72rem;
       color: var(--red);
-      letter-spacing: 0;
+      margin-bottom: 0.5rem;
+      display: block;
     }
-    .work-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.92);
-      border-radius: 14px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 1.2rem;
-      opacity: 0;
-      transition: opacity 0.3s;
-      pointer-events: none;
-      text-align: center;
-    }
-    .work-card.tapped .work-overlay {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .work-overlay-desc {
-      font-size: 0.78rem;
-      color: rgba(238,238,238,0.68);
+    .work-desc {
+      font-size: 0.82rem;
+      color: rgba(238,238,238,0.5);
       line-height: 1.55;
-      margin-bottom: 0.9rem;
+      max-width: 480px;
     }
-    .work-overlay-btn {
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
+    .work-link {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--light);
       background: var(--crimson);
-      border: none;
-      padding: 0.45rem 1.1rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.2s;
-      text-decoration: none;
-      display: inline-block;
+      padding: 0.65rem 1.2rem;
+      border-radius: 8px;
+      transition: background 0.2s, transform 0.2s;
+      white-space: nowrap;
     }
-    .work-overlay-btn:hover { background: var(--red); }
+    .work-link:hover { background: var(--red); transform: translateY(-2px); }
     .work-card--empty {
       border-style: dashed;
-      border-color: rgba(238,238,238,0.07);
-      cursor: default;
+      border-color: rgba(238,238,238,0.1);
+      justify-content: center;
     }
     .work-card--empty:hover {
-      border-color: rgba(238,238,238,0.07);
+      border-color: rgba(238,238,238,0.18);
       box-shadow: none;
       transform: none;
+      background: rgba(255,255,255,0.012);
     }
     .work-plus {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1px dashed rgba(238,238,238,0.12);
+      width: 96px;
+      height: 96px;
+      border-radius: 16px;
+      border: 1px dashed rgba(238,238,238,0.15);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
-      color: rgba(238,238,238,0.15);
-      margin-bottom: 0.5rem;
+      font-size: 1.4rem;
+      color: rgba(238,238,238,0.2);
     }
-    .work-soon { font-size: 0.75rem; color: rgba(238,238,238,0.18); }
+    .work-card--empty .work-name { color: rgba(238,238,238,0.4); }
+    .work-card--empty .work-desc { color: rgba(238,238,238,0.28); }
 
-    /* ── Card 6: Contact ── */
-    .card-contact .card-inner {
-      display: flex;
-      flex-direction: column;
+    /* FAQ */
+    .faq-panel-inner { width: min(92vw, 760px); }
+    .faq-intro {
+      font-size: 0.93rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      text-align: center;
     }
+    .faq-list {
+      border-top: 1px solid var(--border);
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.2rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 1.35rem 0.2rem;
+      text-align: left;
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 600;
+      color: rgba(238,238,238,0.85);
+      transition: color 0.2s;
+    }
+    .faq-question:hover { color: var(--light); }
+    .faq-icon {
+      position: relative;
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+    }
+    .faq-icon::before,
+    .faq-icon::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      background: var(--red);
+      transform: translate(-50%, -50%);
+      transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+    }
+    .faq-icon::before { width: 12px; height: 2px; }
+    .faq-icon::after { width: 2px; height: 12px; }
+    .faq-item.open .faq-icon::after { transform: translate(-50%, -50%) rotate(90deg); opacity: 0; }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s var(--ease), opacity 0.3s var(--ease);
+      opacity: 0;
+    }
+    .faq-answer p {
+      font-size: 0.85rem;
+      color: rgba(238,238,238,0.5);
+      line-height: 1.65;
+      padding: 0 0.2rem 1.5rem;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 300px;
+      opacity: 1;
+    }
+
+    /* Contact */
+    .contact-panel-inner { width: min(92vw, 640px); }
     .contact-meta {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 0.6rem;
-      margin-bottom: 1.8rem;
+      margin-bottom: 2rem;
     }
     .contact-meta-item {
       display: flex;
@@ -900,7 +935,10 @@
       display: flex;
       flex-direction: column;
       gap: 1rem;
-      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.2rem 2.2rem 1.6rem;
+      background: rgba(255,255,255,0.012);
     }
     .form-row {
       display: grid;
@@ -952,91 +990,135 @@
     }
     .form-status.success { color: #72c992; }
 
-    /* ── Stepper (multi-step contact form) ── */
-    .stepper {
+    /* Sentence-style contact form */
+    .sentence-caption {
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(238,238,238,0.35);
+      text-align: center;
+      margin: -1rem 0 2rem;
+    }
+    .contact-form.contact-form--sentence {
+      border: none;
+      background: none;
+      padding: 0;
+      gap: 0;
+    }
+    .sentence-form {
       display: flex;
       flex-direction: column;
-      flex: 1;
+      gap: 0.2rem;
     }
-    .stepper-indicator-row {
-      display: flex;
-      align-items: center;
-      margin-bottom: 1.8rem;
-      padding: 0 0.2rem;
-    }
-    .stepper-indicator {
-      position: relative;
-      cursor: pointer;
-      outline: none;
-    }
-    .stepper-indicator[data-locked="true"] { pointer-events: none; }
-    .stepper-indicator-inner {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 1.9rem;
-      height: 1.9rem;
-      border-radius: 50%;
-      background: rgba(238,238,238,0.05);
-      border: 1px solid var(--border);
-      color: rgba(238,238,238,0.4);
-      font-size: 0.8rem;
-      font-weight: 600;
-      transition: background 0.3s, border-color 0.3s, color 0.3s, transform 0.3s;
-    }
-    .stepper-indicator.active .stepper-indicator-inner {
-      background: var(--crimson);
-      border-color: var(--crimson);
-      color: var(--light);
-      transform: scale(1.08);
-    }
-    .stepper-indicator.complete .stepper-indicator-inner {
-      background: var(--crimson);
-      border-color: var(--crimson);
-      color: var(--light);
-    }
-    .stepper-check {
-      width: 0.9rem;
-      height: 0.9rem;
-    }
-    .stepper-connector {
-      flex: 1;
-      height: 2px;
-      margin: 0 0.6rem;
-      background: var(--border);
-      border-radius: 2px;
-      overflow: hidden;
-      position: relative;
-    }
-    .stepper-connector-inner {
-      position: absolute;
-      inset: 0;
-      width: 0%;
-      background: linear-gradient(90deg, var(--crimson), var(--red));
-      transition: width 0.4s var(--ease);
-    }
-    .stepper-connector.complete .stepper-connector-inner { width: 100%; }
-
-    .stepper-content { position: relative; flex: 1; }
-    .step-panel { display: none; }
-    .step-panel.active { display: block; animation: fadeIn 0.3s var(--ease); }
-    .step-title {
+    .sentence-text {
       font-family: var(--serif);
-      font-size: 1.02rem;
+      font-size: clamp(1.1rem, 2.6vw, 1.55rem);
+      font-weight: 300;
+      line-height: 2;
+      color: rgba(238,238,238,0.82);
+      text-align: left;
+    }
+    .sentence-text--block { margin-top: 0.5rem; margin-bottom: 0.1rem; }
+    .sentence-field {
+      display: inline-flex;
+      vertical-align: baseline;
+      margin: 0 0.15em;
+    }
+    .sentence-field input,
+    .sentence-field select,
+    .sentence-field textarea {
+      font-family: inherit;
+      font-size: inherit;
       font-weight: 600;
       color: var(--light);
-      margin-bottom: 1.2rem;
-      text-align: center;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 0;
     }
-
-    .stepper-footer {
-      display: flex;
-      justify-content: flex-end;
+    .sentence-field input::placeholder,
+    .sentence-field textarea::placeholder {
+      color: rgba(238,238,238,0.3);
+      font-weight: 400;
+    }
+    .sentence-field--boxed input {
+      background: rgba(216,64,64,0.12);
+      border: 1px solid rgba(216,64,64,0.35);
+      border-radius: 6px;
+      padding: 0.05em 0.6em;
+      min-width: 40px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .sentence-field--boxed input:focus {
+      border-color: rgba(216,64,64,0.7);
+      background: rgba(216,64,64,0.18);
+    }
+    .sentence-field--underline input {
+      border-bottom: 2px solid rgba(216,64,64,0.4);
+      padding-bottom: 0.05em;
+      min-width: 40px;
+      transition: border-color 0.2s;
+    }
+    .sentence-field--underline input:focus { border-color: var(--red); }
+    .sentence-field--select { position: relative; padding-right: 1em; }
+    .sentence-field--select select {
+      border-bottom: 2px solid rgba(216,64,64,0.4);
+      padding-bottom: 0.05em;
+      cursor: pointer;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .sentence-field--select::after {
+      content: '';
+      position: absolute;
+      right: 0.1em;
+      top: 45%;
+      width: 6px;
+      height: 6px;
+      border-right: 2px solid var(--red);
+      border-bottom: 2px solid var(--red);
+      transform: translateY(-50%) rotate(45deg);
+      pointer-events: none;
+    }
+    .sentence-field--grow {
+      display: block;
+      width: 100%;
+      margin: 0.3rem 0 1.2rem;
+    }
+    .sentence-field--grow textarea {
+      display: block;
+      width: 100%;
+      font-family: var(--serif);
+      font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+      font-weight: 400;
+      line-height: 1.7;
+      border-bottom: 2px solid rgba(216,64,64,0.35);
+      padding-bottom: 0.3rem;
+      resize: none;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .sentence-field--grow textarea:focus { border-color: var(--red); }
+    .sentence-submit {
+      display: inline-flex;
       align-items: center;
-      margin-top: 1.6rem;
-      gap: 0.8rem;
+      gap: 0.5rem;
+      margin-top: 1.8rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--light);
+      transition: color 0.2s, gap 0.2s;
     }
-    .stepper-footer.has-back { justify-content: space-between; }
+    .sentence-submit:hover { color: var(--red); gap: 0.75rem; }
+    .sentence-submit-dash { color: var(--red); }
+    .sentence-submit:disabled { opacity: 0.5; cursor: default; }
+
     .stepper-back {
       background: transparent;
       border: 1px solid rgba(238,238,238,0.12);
@@ -1057,14 +1139,13 @@
     }
 
     .form-success {
-      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
       gap: 1rem;
-      padding: 1rem 0;
+      padding: 1.6rem 0;
       animation: fadeIn 0.4s var(--ease);
     }
     .form-success-check {
@@ -1085,12 +1166,8 @@
       max-width: 320px;
     }
 
-    /* ── Card 7: Testimonial ── */
-    .card-testimonial .card-inner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+    /* Testimonial */
+    #testimonial .panel-inner { display: flex; flex-direction: column; align-items: center; }
     .testimonial-intro {
       font-size: 0.93rem;
       color: var(--muted);
@@ -1100,7 +1177,7 @@
     }
     .testimonial-video-frame {
       position: relative;
-      width: min(280px, 68%);
+      width: min(280px, 68vw);
       aspect-ratio: 9 / 16;
       border-radius: 20px;
       overflow: hidden;
@@ -1179,7 +1256,7 @@
       flex-wrap: wrap;
       justify-content: center;
     }
-    /* ── Buttons ── */
+    /* Buttons */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -1225,7 +1302,7 @@
     }
     .btn-full { width: 100%; justify-content: center; }
 
-    /* ── Footer ── */
+    /* Footer */
     footer {
       position: relative;
       z-index: 1;
@@ -1240,105 +1317,58 @@
     .footer-logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 700; }
     .footer-logo span { color: var(--red); }
     .footer-copy { font-size: 0.72rem; color: rgba(238,238,238,0.22); letter-spacing: 0.04em; }
-    .footer-social { display: flex; gap: 0.8rem; }
-    .social-link {
-      width: 36px;
-      height: 36px;
-      border: 1px solid rgba(238,238,238,0.08);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(238,238,238,0.35);
-      transition: border-color 0.25s, color 0.25s, background 0.25s;
-    }
-    .social-link:hover {
-      border-color: var(--crimson);
-      background: var(--crimson);
-      color: var(--light);
-    }
 
-    /* ── Responsive ── */
+    /* Responsive */
     @media (max-width: 768px) {
-      :root { --card-w: 88vw; }
       .nav-pill { display: none; }
       .hamburger { display: flex; }
 
-      /* Tighter card padding on mobile */
-      .card-inner { padding: 1.4rem 1.4rem; }
+      section.panel { padding: 5.5rem 6vw 4rem; }
 
       /* Hero */
+      .hero-rotate-row { font-size: 1rem; margin-bottom: 1.4rem; }
+      .rotating-text { height: 1.55em; padding: 0 0.65em; }
       .card-hero-title { font-size: clamp(2rem, 7.5vw, 3rem); }
       .card-eyebrow { margin-bottom: 1rem; }
       .card-hero-sub { font-size: 0.88rem; margin-bottom: 1.5rem; }
       .hero-pills { gap: 0.45rem; margin-bottom: 1.5rem; }
       .hero-pills .pill { font-size: 0.62rem; padding: 0.35rem 0.8rem; }
-      .hero-contact { margin-bottom: 1.2rem; }
+      .hero-contact { margin-bottom: 1.6rem; }
       .hero-contact .contact-meta-item { font-size: 0.76rem; }
 
-      /* Services — keep 2-col but compact */
-      .offer-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 1rem; }
-      .offer-item { padding: 1.1rem 1rem; }
-      .offer-item-head { margin-bottom: 0.7rem; }
-      .offer-icon { width: 32px; height: 32px; }
-      .offer-name { font-size: 0.85rem; margin-bottom: 0.4rem; }
-      .offer-desc { font-size: 0.73rem; margin-bottom: 0.8rem; }
-      .offer-features-wrap { padding-top: 0.8rem; }
-      .offer-features { gap: 0.45rem; }
-      .offer-features li { font-size: 0.68rem; }
-      .offer-pills { gap: 0.4rem; }
-      .pill { font-size: 0.58rem; padding: 0.25rem 0.6rem; }
+      /* Services */
+      .offer-grid { grid-template-columns: 1fr; gap: 0.9rem; margin-bottom: 1.6rem; }
+      .offer-item { padding: 1.4rem 1.3rem; }
 
       /* Plans */
-      .plan-tab { font-size: 0.63rem; padding: 0.38rem 0.8rem; }
+      .plan-panels { padding: 1.6rem 1.4rem; }
       .plan-name { font-size: 1.3rem; }
-      .plan-rows { gap: 0.55rem; }
-      .plan-row { font-size: 0.78rem; }
-      .plan-callout { font-size: 0.75rem; padding: 0.8rem 1rem; margin-bottom: 1rem; }
 
       /* Why */
-      .why-stats-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 1rem; }
-      .why-stat { padding: 0.9rem 0.6rem; }
+      .why-stats-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 1.4rem; }
       .why-stat-num { font-size: 1.8rem; }
       .why-stat-label { font-size: 0.65rem; }
-      .why-pt-title { font-size: 0.85rem; }
-      .why-pt-desc { font-size: 0.75rem; }
 
       /* Work */
-      .work-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
-      .work-card { min-height: 0; height: 155px; }
-      .work-card--empty { height: 155px; }
-      .work-face { padding: 1rem 0.8rem; gap: 0.45rem; }
-      .work-name { font-size: 0.7rem; line-height: 1.3; }
-      .work-url { font-size: 0.56rem; }
-      .work-logo { width: 40px; height: 40px; }
-      .work-overlay-desc { font-size: 0.72rem; margin-bottom: 0.6rem; line-height: 1.4; }
-      .work-overlay-btn { font-size: 0.6rem; padding: 0.4rem 0.8rem; }
+      .work-card { grid-template-columns: 1fr; text-align: center; padding: 1.5rem; gap: 0.9rem; }
+      .work-logo-wrap, .work-plus { margin: 0 auto; }
+      .work-desc { max-width: 100%; }
+      .work-link { justify-self: center; }
 
       /* Contact */
       .form-row { grid-template-columns: 1fr; gap: 0.8rem; }
-      .contact-meta { margin-bottom: 1rem; gap: 0.4rem; }
-      .contact-meta-item { font-size: 0.78rem; }
+      .contact-form { padding: 1.6rem 1.4rem; }
+      .contact-form.contact-form--sentence { padding: 0; }
+      .sentence-text { line-height: 1.85; }
+      .sentence-caption { margin-top: -0.6rem; margin-bottom: 1.5rem; }
 
       /* Testimonial */
-      .testimonial-intro { font-size: 0.82rem; margin-bottom: 1.2rem; }
-      .testimonial-video-frame { width: min(220px, 72%); margin-bottom: 1.2rem; }
+      .testimonial-video-frame { width: min(220px, 72vw); margin-bottom: 1.2rem; }
       .testimonial-play-icon { width: 46px; height: 46px; }
-      .testimonial-name { font-size: 1rem; }
-      .testimonial-role { font-size: 0.72rem; margin-bottom: 1rem; }
 
-      /* Card titles */
-      .card-title { font-size: clamp(1.6rem, 5.5vw, 2.2rem); margin-bottom: 1rem; }
-      .card-tag { margin-bottom: 0.6rem; }
-      .plans-intro { font-size: 0.82rem; margin-bottom: 1rem; }
+      .card-title { font-size: clamp(1.6rem, 6vw, 2.2rem); }
 
       footer { flex-direction: column; text-align: center; align-items: center; }
-    }
-    @media (max-width: 390px) {
-      :root { --card-w: 91vw; }
-      .card-inner { padding: 1.2rem 1.1rem; }
-      .offer-grid { grid-template-columns: 1fr; gap: 0.5rem; }
-      .why-stat-num { font-size: 1.6rem; }
     }
   </style>
 </head>
@@ -1347,20 +1377,19 @@
   <!-- Progress Bar -->
   <div id="progress-bar"></div>
 
-
-
   <!-- Nav -->
   <nav id="navbar">
-    <a href="#" class="nav-logo" onclick="goToSlide(0);return false;" aria-label="Home">Sites<span>By</span>Charlie</a>
+    <a href="#home" class="nav-logo" aria-label="Home">Sites<span>By</span>Charlie</a>
     <div class="nav-pill">
       <ul class="pill-list" role="menubar" id="navPillList">
-        <li role="none"><a role="menuitem" href="#" data-slide="0" class="pill is-active" aria-label="Home"><span class="hover-circle" aria-hidden="true"></span><span class="label-stack"><span class="pill-label">Home</span><span class="pill-label-hover" aria-hidden="true">Home</span></span></a></li>
-        <li role="none"><a role="menuitem" href="#" data-slide="1" class="pill" aria-label="Services"><span class="hover-circle" aria-hidden="true"></span><span class="label-stack"><span class="pill-label">Services</span><span class="pill-label-hover" aria-hidden="true">Services</span></span></a></li>
-        <li role="none"><a role="menuitem" href="#" data-slide="2" class="pill" aria-label="Plans"><span class="hover-circle" aria-hidden="true"></span><span class="label-stack"><span class="pill-label">Plans</span><span class="pill-label-hover" aria-hidden="true">Plans</span></span></a></li>
-        <li role="none"><a role="menuitem" href="#" data-slide="3" class="pill" aria-label="Why"><span class="hover-circle" aria-hidden="true"></span><span class="label-stack"><span class="pill-label">Why</span><span class="pill-label-hover" aria-hidden="true">Why</span></span></a></li>
-        <li role="none"><a role="menuitem" href="#" data-slide="4" class="pill" aria-label="Work"><span class="hover-circle" aria-hidden="true"></span><span class="label-stack"><span class="pill-label">Work</span><span class="pill-label-hover" aria-hidden="true">Work</span></span></a></li>
-        <li role="none"><a role="menuitem" href="#" data-slide="5" class="pill" aria-label="Contact"><span class="hover-circle" aria-hidden="true"></span><span class="label-stack"><span class="pill-label">Contact</span><span class="pill-label-hover" aria-hidden="true">Contact</span></span></a></li>
-        <li role="none"><a role="menuitem" href="#" data-slide="6" class="pill" aria-label="Testimonial"><span class="hover-circle" aria-hidden="true"></span><span class="label-stack"><span class="pill-label">Testimonial</span><span class="pill-label-hover" aria-hidden="true">Testimonial</span></span></a></li>
+        <li role="none"><a role="menuitem" href="#home" data-section="home" class="pill is-active" aria-label="Home"><span class="hover-circle" aria-hidden="true"></span><span class="label-stack"><span class="pill-label">Home</span><span class="pill-label-hover" aria-hidden="true">Home</span></span></a></li>
+        <li role="none"><a role="menuitem" href="#services" data-section="services" class="pill" aria-label="Services"><span class="hover-circle" aria-hidden="true"></span><span class="label-stack"><span class="pill-label">Services</span><span class="pill-label-hover" aria-hidden="true">Services</span></span></a></li>
+        <li role="none"><a role="menuitem" href="#plans" data-section="plans" class="pill" aria-label="Plans"><span class="hover-circle" aria-hidden="true"></span><span class="label-stack"><span class="pill-label">Plans</span><span class="pill-label-hover" aria-hidden="true">Plans</span></span></a></li>
+        <li role="none"><a role="menuitem" href="#work" data-section="work" class="pill" aria-label="Work"><span class="hover-circle" aria-hidden="true"></span><span class="label-stack"><span class="pill-label">Work</span><span class="pill-label-hover" aria-hidden="true">Work</span></span></a></li>
+        <li role="none"><a role="menuitem" href="#contact" data-section="contact" class="pill" aria-label="Contact"><span class="hover-circle" aria-hidden="true"></span><span class="label-stack"><span class="pill-label">Contact</span><span class="pill-label-hover" aria-hidden="true">Contact</span></span></a></li>
+        <li role="none"><a role="menuitem" href="#testimonial" data-section="testimonial" class="pill" aria-label="Testimonial"><span class="hover-circle" aria-hidden="true"></span><span class="label-stack"><span class="pill-label">Testimonial</span><span class="pill-label-hover" aria-hidden="true">Testimonial</span></span></a></li>
+        <li role="none"><a role="menuitem" href="#why" data-section="why" class="pill" aria-label="Why"><span class="hover-circle" aria-hidden="true"></span><span class="label-stack"><span class="pill-label">Why</span><span class="pill-label-hover" aria-hidden="true">Why</span></span></a></li>
+        <li role="none"><a role="menuitem" href="#faq" data-section="faq" class="pill" aria-label="FAQ"><span class="hover-circle" aria-hidden="true"></span><span class="label-stack"><span class="pill-label">FAQ</span><span class="pill-label-hover" aria-hidden="true">FAQ</span></span></a></li>
       </ul>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Toggle menu">
@@ -1369,449 +1398,497 @@
   </nav>
 
   <div class="mobile-menu" id="mobileMenu">
-    <a href="#" data-slide="0" onclick="goToSlide(0);closeMenu();">Home</a>
-    <a href="#" data-slide="1" onclick="goToSlide(1);closeMenu();">Services</a>
-    <a href="#" data-slide="2" onclick="goToSlide(2);closeMenu();">Plans</a>
-    <a href="#" data-slide="3" onclick="goToSlide(3);closeMenu();">Why</a>
-    <a href="#" data-slide="4" onclick="goToSlide(4);closeMenu();">Work</a>
-    <a href="#" data-slide="5" onclick="goToSlide(5);closeMenu();">Contact</a>
-    <a href="#" data-slide="6" onclick="goToSlide(6);closeMenu();">Testimonial</a>
+    <a href="#home" onclick="closeMenu();">Home</a>
+    <a href="#services" onclick="closeMenu();">Services</a>
+    <a href="#plans" onclick="closeMenu();">Plans</a>
+    <a href="#work" onclick="closeMenu();">Work</a>
+    <a href="#contact" onclick="closeMenu();">Contact</a>
+    <a href="#testimonial" onclick="closeMenu();">Testimonial</a>
+    <a href="#why" onclick="closeMenu();">Why</a>
+    <a href="#faq" onclick="closeMenu();">FAQ</a>
   </div>
 
-  <!-- Slider -->
-  <section id="slider-section">
-    <div class="slider-track-wrap" id="sliderWrap">
-      <div class="slider-track" id="sliderTrack">
+  <main>
 
-        <!-- CARD 1: HERO -->
-        <div class="slide-card card-hero active" data-index="0">
-          <div class="card-inner">
-            <div>
-              <h1 class="card-hero-title">
-                Great businesses<br>deserve <em>great websites.</em>
-              </h1>
-              <p class="card-hero-sub">Custom-built for Irish businesses ready to grow. Simple, unique, SEO-backed, and made to turn visitors into customers.</p>
-              <div class="hero-pills">
-                <span class="pill">Custom Design</span>
-                <span class="pill">Custom Domain</span>
-                <span class="pill">Mobile Responsive</span>
-                <span class="pill">SEO-Ready</span>
-                <span class="pill">Ongoing Support</span>
-              </div>
-              <div class="hero-contact">
-                <a href="mailto:sitesbycharlie@gmail.com" class="contact-meta-item">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-                  sitesbycharlie@gmail.com
-                </a>
+    <!-- HOME / HERO -->
+    <section class="panel" id="home">
+      <div class="panel-inner">
+        <div class="hero-rotate-row">
+          <span>Websites for</span>
+          <span class="rotating-text" id="rotatingText"></span>
+        </div>
+        <h1 class="card-hero-title">
+          Unique businesses<br>deserve <em>bespoke websites.</em>
+        </h1>
+        <p class="card-hero-sub">Custom-built for Irish businesses ready to grow. Simple, unique, SEO-backed, and made to turn visitors into customers.</p>
+        <div class="hero-pills">
+          <span class="pill">Custom Design</span>
+          <span class="pill">Custom Domain</span>
+          <span class="pill">Mobile Responsive</span>
+          <span class="pill">SEO-Ready</span>
+          <span class="pill">Ongoing Support</span>
+        </div>
+        <div class="hero-contact">
+          <a href="mailto:sitesbycharlie@gmail.com" class="contact-meta-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+            sitesbycharlie@gmail.com
+          </a>
+        </div>
+        <div class="hero-cta-row">
+          <a href="#contact" class="btn btn-primary">
+            <span>Let's create something together</span>
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v10M4 9l4 4 4-4"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="panel" id="services">
+      <div class="panel-inner">
+        <h2 class="card-title">What I<br><em>offer.</em></h2>
+        <div class="offer-grid">
+          <div class="offer-item">
+            <div class="offer-item-head">
+              <div class="offer-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
               </div>
             </div>
-            <div class="card-hero-bottom">
-              <div style="display:flex;gap:0.8rem;flex-wrap:wrap;">
-                <button class="btn btn-primary" onclick="goToSlide(5)">
-                  <span>Let's create something together</span>
-                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-                </button>
+            <p class="offer-name">Website Design</p>
+            <p class="offer-desc">Fully custom site, handed over to you completely. No monthly fees, no strings attached, all yours.</p>
+            <div class="offer-features-wrap">
+              <ul class="offer-features">
+                <li>Custom layout &amp; branding</li>
+                <li>Mobile-first &amp; fast-loading</li>
+                <li>Yours to keep, no lock-in</li>
+              </ul>
+            </div>
+          </div>
+          <div class="offer-item">
+            <div class="offer-item-head">
+              <div class="offer-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
               </div>
+            </div>
+            <p class="offer-name">Design & Management</p>
+            <p class="offer-desc">I build it and keep it running: updates, support, and everything in between.</p>
+            <div class="offer-features-wrap">
+              <ul class="offer-features">
+                <li>Ongoing updates &amp; fixes</li>
+                <li>Direct support when you need it</li>
+                <li>Performance &amp; security monitoring</li>
+              </ul>
             </div>
           </div>
         </div>
+        <div class="offer-pills">
+          <span class="pill">Custom Design</span>
+          <span class="pill">Mobile Responsive</span>
+          <span class="pill">Fast Turnaround</span>
+          <span class="pill">Full Ownership</span>
+          <span class="pill">Ongoing Support</span>
+          <span class="pill">3 to 5 Days Build</span>
+          <span class="pill">No Templates</span>
+          <span class="pill">Clean Code</span>
+          <span class="pill">SEO-Ready</span>
+          <span class="pill">Custom Domain</span>
+        </div>
+      </div>
+    </section>
 
-        <!-- CARD 2: WHAT I OFFER -->
-        <div class="slide-card card-about" data-index="1">
-          <div class="card-inner">
-            <div class="offer-top">
-              <h2 class="card-title">What I<br><em>offer.</em></h2>
-              <div class="offer-grid">
-                <div class="offer-item">
-                  <div class="offer-item-head">
-                    <div class="offer-icon">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                    </div>
-                  </div>
-                  <p class="offer-name">Website Design</p>
-                  <p class="offer-desc">Fully custom site, handed over to you completely. No monthly fees, no strings — all yours.</p>
-                  <div class="offer-features-wrap">
-                    <ul class="offer-features">
-                      <li>Custom layout &amp; branding</li>
-                      <li>Mobile-first &amp; fast-loading</li>
-                      <li>Yours to keep — no lock-in</li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="offer-item">
-                  <div class="offer-item-head">
-                    <div class="offer-icon">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                    </div>
-                  </div>
-                  <p class="offer-name">Design & Management</p>
-                  <p class="offer-desc">I build it and keep it running — updates, support, and everything in between.</p>
-                  <div class="offer-features-wrap">
-                    <ul class="offer-features">
-                      <li>Ongoing updates &amp; fixes</li>
-                      <li>Direct support when you need it</li>
-                      <li>Performance &amp; security monitoring</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+    <!-- PLANS -->
+    <section class="panel" id="plans">
+      <div class="panel-inner">
+        <h2 class="card-title">Find the right<br><em>plan for you.</em></h2>
+        <p class="plans-intro">Two straightforward options: own it outright or have me handle everything.</p>
+        <div class="plan-toggles">
+          <button class="plan-tab active" data-plan="own">Own It Outright</button>
+          <button class="plan-tab" data-plan="managed">Managed by Charlie</button>
+        </div>
+        <div class="plan-panels">
+          <div class="plan-panel visible" id="plan-own">
+            <p class="plan-name">Own It Outright</p>
+            <p class="plan-tagline">You own everything, forever. No strings attached.</p>
+            <div class="plan-rule"></div>
+            <ul class="plan-rows">
+              <li class="plan-row"><span class="chk">✓</span><span>Fully custom website designed around your brand</span></li>
+              <li class="plan-row"><span class="chk">✓</span><span>Mobile-responsive, fast-loading build</span></li>
+              <li class="plan-row"><span class="chk">✓</span><span>3 to 5 business days build plus a 2-week refinement period</span></li>
+              <li class="plan-row"><span class="chk">✓</span><span><strong>Complete ownership</strong>: all files &amp; code handed over</span></li>
+              <li class="plan-row"><span class="chk">✓</span><span>Full handover with guidance included</span></li>
+            </ul>
+            <div class="plan-callout">
+              Prefer a hands-off approach? The <strong>Managed plan</strong> takes care of everything: updates, support, and ongoing maintenance.
             </div>
-            <div class="offer-pills">
-              <span class="pill">Custom Design</span>
-              <span class="pill">Mobile Responsive</span>
-              <span class="pill">Fast Turnaround</span>
-              <span class="pill">Full Ownership</span>
-              <span class="pill">Ongoing Support</span>
-              <span class="pill">3–5 Days Build</span>
-              <span class="pill">No Templates</span>
-              <span class="pill">Clean Code</span>
-              <span class="pill">SEO-Ready</span>
-              <span class="pill">Custom Domain</span>
+            <a href="#contact" class="btn btn-primary btn-full">
+              <span>Get started</span>
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+          </div>
+          <div class="plan-panel" id="plan-managed">
+            <p class="plan-name">Managed by Charlie</p>
+            <p class="plan-tagline">I build it, I run it, so you can focus on your business.</p>
+            <div class="plan-rule"></div>
+            <ul class="plan-rows">
+              <li class="plan-row"><span class="chk">✓</span><span>All the same design &amp; features as Own It Outright, I keep the code under management so updates and support are seamless</span></li>
+              <li class="plan-row"><span class="chk">✓</span><span><strong>3 revisions per month</strong>: text, images, layout tweaks &amp; more</span></li>
+              <li class="plan-row"><span class="chk">✓</span><span>Priority support, easy to reach, always</span></li>
+              <li class="plan-row"><span class="chk">✓</span><span>Security updates, backups &amp; performance monitoring</span></li>
+              <li class="plan-row"><span class="chk">✓</span><span>Cancel anytime after initial term, no hassle</span></li>
+            </ul>
+            <div class="plan-callout">
+              A dedicated web professional handling everything, so your site stays <strong>fresh, fast, and professional</strong> while you run your business.
+            </div>
+            <a href="#contact" class="btn btn-primary btn-full">
+              <span>Get started</span>
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section class="panel" id="work">
+      <div class="panel-inner">
+        <h2 class="card-title">Sites I've<br><em>built.</em></h2>
+        <p class="work-intro">Real businesses, real websites, live and working hard for them today.</p>
+        <div class="work-list">
+          <div class="work-card">
+            <div class="work-logo-wrap">
+              <img src="michael-roarty-logo.png" alt="Michael Roarty Fitness" class="work-logo" />
+            </div>
+            <div class="work-info">
+              <span class="work-status"><span class="dot"></span>Live</span>
+              <p class="work-name">Michael Roarty Fitness</p>
+              <span class="work-url">michaelroartyfitness.ie</span>
+              <p class="work-desc">Personal training &amp; fitness coaching, built to attract and convert new clients online.</p>
+            </div>
+            <a href="https://www.michaelroartyfitness.ie" target="_blank" rel="noopener" class="work-link">Visit site →</a>
+          </div>
+          <div class="work-card">
+            <div class="work-logo-wrap">
+              <img src="kasspt-logo.png" alt="KassPT" class="work-logo" />
+            </div>
+            <div class="work-info">
+              <span class="work-status"><span class="dot"></span>Live</span>
+              <p class="work-name">KassPT</p>
+              <span class="work-url">kasspt.ie</span>
+              <p class="work-desc">Personal training in Dublin, a bold, energetic site built to convert visitors into clients.</p>
+            </div>
+            <a href="https://www.kasspt.ie" target="_blank" rel="noopener" class="work-link">Visit site →</a>
+          </div>
+          <div class="work-card">
+            <div class="work-logo-wrap">
+              <img src="blueberry-logo.png" alt="The Blueberry Tearooms" class="work-logo" />
+            </div>
+            <div class="work-info">
+              <span class="work-status"><span class="dot"></span>Live</span>
+              <p class="work-name">The Blueberry Tearooms</p>
+              <span class="work-url">theblueberrytearooms.ie</span>
+              <p class="work-desc">A warm, welcoming café with a beautiful online home to match.</p>
+            </div>
+            <a href="https://theblueberrytearooms.ie" target="_blank" rel="noopener" class="work-link">Visit site →</a>
+          </div>
+          <div class="work-card work-card--empty">
+            <div class="work-plus">+</div>
+            <div class="work-info">
+              <span class="work-status soon"><span class="dot"></span>Coming soon</span>
+              <p class="work-name">More coming soon</p>
+              <p class="work-desc">Your business could be the next site featured here.</p>
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- CARD 3: PLANS -->
-        <div class="slide-card card-plans" data-index="2">
-          <div class="card-inner">
-            <h2 class="card-title">Find the right<br><em>plan for you.</em></h2>
-            <p class="plans-intro">Two clear options — own it outright or have me handle everything.</p>
-            <div class="plan-toggles">
-              <button class="plan-tab active" data-plan="own">Own It Outright</button>
-              <button class="plan-tab" data-plan="managed">Managed by Charlie</button>
+    <!-- CONTACT -->
+    <section class="panel" id="contact">
+      <div class="panel-inner contact-panel-inner">
+        <h2 class="card-title">Ready to build your<br>bespoke <em>website?</em></h2>
+        <p class="sentence-caption">Fill in the blanks below.</p>
+        <form class="contact-form contact-form--sentence" id="contactForm" action="https://formspree.io/f/mwvrpyya" method="POST" novalidate>
+          <div class="sentence-form" id="sentenceForm">
+            <p class="sentence-text">
+              Hi, my name is
+              <span class="sentence-field sentence-field--boxed">
+                <input type="text" id="name" name="name" placeholder="your name" required size="1" />
+              </span>
+              and I'm interested in
+              <span class="sentence-field sentence-field--select">
+                <select id="plan" name="plan">
+                  <option value="" disabled selected>choose a plan</option>
+                  <option value="Own It Outright">Own It Outright</option>
+                  <option value="Managed By Charlie">Managed By Charlie</option>
+                </select>
+              </span>.
+            </p>
+            <p class="sentence-text sentence-text--block">
+              Here's what I'm after:
+            </p>
+            <div class="sentence-field sentence-field--grow">
+              <textarea id="message" name="message" placeholder="a new site, a redesign, more customers online…" required rows="1"></textarea>
             </div>
-            <div class="plan-panels">
-              <div class="plan-panel visible" id="plan-own">
-                <p class="plan-name">Own It Outright</p>
-                <p class="plan-tagline">You own everything, forever. No strings attached.</p>
-                <div class="plan-rule"></div>
-                <ul class="plan-rows">
-                  <li class="plan-row"><span class="chk">✓</span><span>Fully custom website designed around your brand</span></li>
-                  <li class="plan-row"><span class="chk">✓</span><span>Mobile-responsive, fast-loading build</span></li>
-                  <li class="plan-row"><span class="chk">✓</span><span>3–5 business days build + 2-week refinement period</span></li>
-                  <li class="plan-row"><span class="chk">✓</span><span><strong>Complete ownership</strong> — all files &amp; code handed over</span></li>
-                  <li class="plan-row"><span class="chk">✓</span><span>Full handover with guidance included</span></li>
-                </ul>
-                <div class="plan-callout">
-                  Prefer a hands-off approach? The <strong>Managed plan</strong> takes care of everything — updates, support, and ongoing maintenance.
-                </div>
-                <button class="btn btn-primary btn-full" onclick="goToSlide(5)">
-                  <span>Get started</span>
-                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-                </button>
-              </div>
-              <div class="plan-panel" id="plan-managed">
-                <p class="plan-name">Managed by Charlie</p>
-                <p class="plan-tagline">I build it, I run it — you focus on your business.</p>
-                <div class="plan-rule"></div>
-                <ul class="plan-rows">
-                  <li class="plan-row"><span class="chk">✓</span><span>All the same design &amp; features as Own It Outright — I keep the code under management so updates and support are seamless</span></li>
-                  <li class="plan-row"><span class="chk">✓</span><span><strong>3 revisions per month</strong> — text, images, layout tweaks &amp; more</span></li>
-                  <li class="plan-row"><span class="chk">✓</span><span>Priority support — easy to reach, always</span></li>
-                  <li class="plan-row"><span class="chk">✓</span><span>Security updates, backups &amp; performance monitoring</span></li>
-                  <li class="plan-row"><span class="chk">✓</span><span>Cancel anytime after initial term — no hassle</span></li>
-                </ul>
-                <div class="plan-callout">
-                  A dedicated web professional handling everything — so your site stays <strong>fresh, fast, and professional</strong> while you run your business.
-                </div>
-                <button class="btn btn-primary btn-full" onclick="goToSlide(5)">
-                  <span>Get started</span>
-                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-                </button>
-              </div>
+            <p class="sentence-text">
+              You can reach me at
+              <span class="sentence-field sentence-field--underline">
+                <input type="email" id="email" name="email" placeholder="your email address" required size="1" />
+              </span>
+              to get things started.
+            </p>
+
+            <button type="submit" class="sentence-submit" id="sentenceSubmit">
+              <span class="sentence-submit-dash">—</span><span>Send info</span>
+            </button>
+          </div>
+
+          <div class="form-success" id="formSuccess" style="display:none;">
+            <div class="form-success-check">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--light)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <p class="form-success-title" id="formSuccessTitle">Thanks! I'll be in touch soon!</p>
+            <button type="button" class="stepper-back" id="formSuccessReset">Send another message</button>
+          </div>
+
+          <p class="form-status" id="formStatus"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- TESTIMONIAL -->
+    <section class="panel" id="testimonial">
+      <div class="panel-inner">
+        <h2 class="card-title">Hear it from<br><em>Kass.</em></h2>
+        <p class="testimonial-intro">Standing out as an PT can be tough. Kass got a website and watched it turn into new clients and real revenue.</p>
+        <div class="testimonial-video-frame">
+          <video
+            id="kassTestimonialVideo"
+            poster="kass-testimonial-poster.jpg"
+            playsinline
+            preload="metadata"
+            src="kass-testimonial.mp4">
+          </video>
+          <div class="testimonial-play-btn" id="testimonialPlayBtn">
+            <div class="testimonial-play-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--light)"><path d="M8 5v14l11-7z"/></svg>
             </div>
           </div>
         </div>
+        <div class="testimonial-caption">
+          <p class="testimonial-name">Kass Diarra</p>
+          <p class="testimonial-role">Founder, KassPT · Dublin</p>
+          <div class="testimonial-actions">
+            <a href="https://www.kasspt.ie" target="_blank" rel="noopener" class="btn btn-primary">
+              <span>Visit KassPT →</span>
+            </a>
+            <a href="#contact" class="btn btn-primary">
+              <span>Get your site built</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <!-- CARD 4: WHY A WEBSITE -->
-        <div class="slide-card card-why" data-index="3">
-          <div class="card-inner">
-            <h2 class="card-title">Why have your<br>own <em>website?</em></h2>
-            <div class="why-stats-grid">
-              <div class="why-stat">
-                <div class="why-stat-num">75<sup>%</sup></div>
-                <p class="why-stat-label">of users judge credibility by website design</p>
-              </div>
-              <div class="why-stat">
-                <div class="why-stat-num">81<sup>%</sup></div>
-                <p class="why-stat-label">of consumers research online before buying</p>
-              </div>
-              <div class="why-stat">
-                <div class="why-stat-num">57<sup>%</sup></div>
-                <p class="why-stat-label">won't recommend a business with a poor mobile site</p>
-              </div>
-              <div class="why-stat">
-                <div class="why-stat-num">62<sup>%</sup></div>
-                <p class="why-stat-label">spend more time on a well-designed site</p>
-              </div>
+    <!-- WHY -->
+    <section class="panel" id="why">
+      <div class="panel-inner">
+        <h2 class="card-title">Why have your<br>own <em>website?</em></h2>
+        <div class="why-stats-grid">
+          <div class="why-stat">
+            <div class="why-stat-num">75<sup>%</sup></div>
+            <p class="why-stat-label">of users judge credibility by website design</p>
+          </div>
+          <div class="why-stat">
+            <div class="why-stat-num">81<sup>%</sup></div>
+            <p class="why-stat-label">of consumers research online before buying</p>
+          </div>
+          <div class="why-stat">
+            <div class="why-stat-num">57<sup>%</sup></div>
+            <p class="why-stat-label">won't recommend a business with a poor mobile site</p>
+          </div>
+          <div class="why-stat">
+            <div class="why-stat-num">62<sup>%</sup></div>
+            <p class="why-stat-label">spend more time on a well-designed site</p>
+          </div>
+        </div>
+        <div class="why-points-list">
+          <div class="why-point-item">
+            <div class="why-pt-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
             </div>
-            <div class="why-points-list">
-              <div class="why-point-item">
-                <div class="why-pt-icon">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                </div>
-                <div class="why-pt-content">
-                  <p class="why-pt-title">Open for business, 24/7</p>
-                  <p class="why-pt-desc">Your site never sleeps — customers can find you and get in touch at any hour.</p>
-                </div>
-                <svg class="why-pt-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
-              </div>
-              <div class="why-point-item">
-                <div class="why-pt-icon">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                </div>
-                <div class="why-pt-content">
-                  <p class="why-pt-title">Build trust before they even call</p>
-                  <p class="why-pt-desc">A professional site signals legitimacy — often the difference between a lead choosing you or a competitor.</p>
-                </div>
-                <svg class="why-pt-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
-              </div>
-              <div class="why-point-item">
-                <div class="why-pt-icon">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-                </div>
-                <div class="why-pt-content">
-                  <p class="why-pt-title">Get found on Google</p>
-                  <p class="why-pt-desc">A well-built site puts you on the map when locals search for your type of business.</p>
-                </div>
-                <svg class="why-pt-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
-              </div>
-              <div class="why-point-item">
-                <div class="why-pt-icon">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                </div>
-                <div class="why-pt-content">
-                  <p class="why-pt-title">Better ROI than any ad spend</p>
-                  <p class="why-pt-desc">A great website keeps delivering results for years — far better ROI than ads or flyers.</p>
-                </div>
-                <svg class="why-pt-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
-              </div>
+            <div class="why-pt-content">
+              <p class="why-pt-title">Open for business, 24/7</p>
+              <p class="why-pt-desc">Your site never sleeps, customers can find you and get in touch at any hour.</p>
+            </div>
+            <svg class="why-pt-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
+          </div>
+          <div class="why-point-item">
+            <div class="why-pt-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            </div>
+            <div class="why-pt-content">
+              <p class="why-pt-title">Build trust before they even call</p>
+              <p class="why-pt-desc">A professional site signals legitimacy, often the difference between a lead choosing you or a competitor.</p>
+            </div>
+            <svg class="why-pt-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
+          </div>
+          <div class="why-point-item">
+            <div class="why-pt-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            </div>
+            <div class="why-pt-content">
+              <p class="why-pt-title">Get found on Google</p>
+              <p class="why-pt-desc">A well-built site puts you on the map when locals search for your type of business.</p>
+            </div>
+            <svg class="why-pt-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
+          </div>
+          <div class="why-point-item">
+            <div class="why-pt-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div class="why-pt-content">
+              <p class="why-pt-title">Better ROI than any ad spend</p>
+              <p class="why-pt-desc">A great website keeps delivering results for years, far better ROI than ads or flyers.</p>
+            </div>
+            <svg class="why-pt-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="panel" id="faq">
+      <div class="panel-inner faq-panel-inner">
+        <h2 class="card-title">Frequently asked<br><em>questions.</em></h2>
+        <p class="faq-intro">In case you missed anything and had some more questions.</p>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>How much does a website cost?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-answer">
+              <p>It depends on the plan you choose. Own It Outright is a one-off cost with everything handed over to you. Managed by Charlie spreads it out with ongoing support included. Get in touch and I'll give you a straight answer based on what you need.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>How long does it take to build my site?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-answer">
+              <p>Most sites are built within 3 to 5 business days, followed by a 2-week refinement period where we fine-tune the details together before it goes live.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>Do I need to know anything technical?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-answer">
+              <p>Not at all. You tell me about your business, I handle the design, build, and setup. On the Managed plan I also take care of updates and hosting so you never have to touch the technical side.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>What if I already have a website?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-answer">
+              <p>No problem, I can rebuild it properly, keeping what's working (your branding, content, images) and fixing what isn't, whether that's slow load times, a design that looks dated, or a site that just isn't bringing in customers. I'll also help you carry over your domain so there's no downtime or lost traffic during the switch.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>Will my website work on mobile?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-answer">
+              <p>Yes, every site is built mobile-first and fully responsive, so it looks and works great on phones, tablets, and desktops from day one.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>Is my information secure?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-answer">
+              <p>Yes. Any details you share with me stay private and are only ever used to build and manage your site. Your data stays yours, always.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>Will this actually help my business?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-answer">
+              <p>For most businesses, yes. A big share of customers check you out online before ever getting in touch, and if your site loads slowly, looks unprofessional, or isn't mobile-friendly, you're losing them before they even reach out. A fast, well-designed site builds trust, keeps you visible on Google, and turns more of those visitors into actual enquiries. It won't replace good service or a strong product, but it removes one of the biggest reasons people quietly go with a competitor instead.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>What if I want changes after my site is live?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-answer">
+              <p>On Own It Outright, the files are yours and you're free to bring in anyone to make changes. On Managed by Charlie, you get 3 revisions a month included, so updates are just a message away.</p>
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- CARD 5: WORK -->
-        <div class="slide-card card-work" data-index="4">
-          <div class="card-inner">
-            <h2 class="card-title">Sites I've<br><em>built.</em></h2>
-            <div class="work-grid">
-              <div class="work-card">
-                <div class="work-face">
-                  <img src="michael-roarty-logo.png" alt="Michael Roarty Fitness" class="work-logo" />
-                  <p class="work-name">Michael Roarty Fitness</p>
-                  <p class="work-url">michaelroartyfitness.ie</p>
-                </div>
-                <div class="work-overlay">
-                  <p class="work-overlay-desc">Personal training &amp; fitness coaching — built to attract and convert new clients online.</p>
-                  <a href="https://www.michaelroartyfitness.ie" target="_blank" rel="noopener" class="work-overlay-btn">Visit site →</a>
-                </div>
-              </div>
-              <div class="work-card">
-                <div class="work-face">
-                  <img src="blueberry-logo.png" alt="The Blueberry Tearooms" class="work-logo" />
-                  <p class="work-name">The Blueberry Tearooms</p>
-                  <p class="work-url">theblueberrytearooms.ie</p>
-                </div>
-                <div class="work-overlay">
-                  <p class="work-overlay-desc">A warm, welcoming café with a beautiful online home to match.</p>
-                  <a href="https://theblueberrytearooms.ie" target="_blank" rel="noopener" class="work-overlay-btn">Visit site →</a>
-                </div>
-              </div>
-              <div class="work-card">
-                <div class="work-face">
-                  <img src="kasspt-logo.png" alt="KassPT" class="work-logo" />
-                  <p class="work-name">KassPT</p>
-                  <p class="work-url">kasspt.ie</p>
-                </div>
-                <div class="work-overlay">
-                  <p class="work-overlay-desc">Personal training in Dublin — a bold, energetic site built to convert visitors into clients.</p>
-                  <a href="https://www.kasspt.ie" target="_blank" rel="noopener" class="work-overlay-btn">Visit site →</a>
-                </div>
-              </div>
-              <div class="work-card work-card--empty">
-                <div class="work-face">
-                  <div class="work-plus">+</div>
-                  <p class="work-soon">More coming soon</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- CARD 6: CONTACT -->
-        <div class="slide-card card-contact" data-index="5">
-          <div class="card-inner">
-            <h2 class="card-title">Ready to build your<br>dream <em>website?</em></h2>
-            <form class="contact-form" id="contactForm" action="https://formspree.io/f/mwvrpyya" method="POST" novalidate>
-              <div class="stepper" id="formStepper">
-                <div class="stepper-indicator-row" id="stepperIndicatorRow">
-                  <div class="stepper-indicator active" data-step="1">
-                    <span class="stepper-indicator-inner"><span class="stepper-number">1</span></span>
-                  </div>
-                  <div class="stepper-connector" data-connector="1"><span class="stepper-connector-inner"></span></div>
-                  <div class="stepper-indicator" data-step="2">
-                    <span class="stepper-indicator-inner"><span class="stepper-number">2</span></span>
-                  </div>
-                  <div class="stepper-connector" data-connector="2"><span class="stepper-connector-inner"></span></div>
-                  <div class="stepper-indicator" data-step="3">
-                    <span class="stepper-indicator-inner"><span class="stepper-number">3</span></span>
-                  </div>
-                </div>
-
-                <div class="stepper-content">
-                  <div class="step-panel active" data-step="1">
-                    <p class="step-title">Let's start with you</p>
-                    <div class="form-row">
-                      <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" name="name" placeholder="e.g. Aoife Murphy" required />
-                      </div>
-                      <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" placeholder="you@example.com" required />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="step-panel" data-step="2">
-                    <p class="step-title">What service are you interested in?</p>
-                    <div class="form-group">
-                      <label for="plan">Interested In</label>
-                      <select id="plan" name="plan">
-                        <option value="" disabled selected>Select a plan…</option>
-                        <option value="Own It Outright">Own It Outright</option>
-                        <option value="Managed By Charlie">Managed By Charlie</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="step-panel" data-step="3">
-                    <p class="step-title">Anything else?</p>
-                    <div class="form-group">
-                      <label for="message">Message</label>
-                      <textarea id="message" name="message" placeholder="Tell me about yourself and your business…" required></textarea>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="stepper-footer" id="stepperFooter">
-                  <button type="button" class="stepper-back" id="stepperBack">Back</button>
-                  <button type="button" class="btn btn-primary" id="stepperNext">
-                    <span>Next</span>
-                    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-                  </button>
-                  <button type="submit" class="btn btn-primary" id="stepperSubmit" style="display:none;">
-                    <span>Send</span>
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
-                  </button>
-                </div>
-              </div>
-
-              <div class="form-success" id="formSuccess" style="display:none;">
-                <div class="form-success-check">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--light)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
-                </div>
-                <p class="form-success-title" id="formSuccessTitle">Thanks! I'll be in touch soon!</p>
-                <button type="button" class="stepper-back" id="formSuccessReset">Send another message</button>
-              </div>
-
-              <p class="form-status" id="formStatus"></p>
-            </form>
-          </div>
-        </div>
-
-        <!-- CARD 7: TESTIMONIAL -->
-        <div class="slide-card card-testimonial" data-index="6">
-          <div class="card-inner">
-            <h2 class="card-title">Hear it from<br><em>Kass.</em></h2>
-            <p class="testimonial-intro">Standing out as an PT can be tough. Kass got a website and watched it turn into new clients and real revenue.</p>
-            <div class="testimonial-video-frame">
-              <video
-                id="kassTestimonialVideo"
-                poster="kass-testimonial-poster.jpg"
-                playsinline
-                preload="metadata"
-                src="kass-testimonial.mp4">
-              </video>
-              <div class="testimonial-play-btn" id="testimonialPlayBtn">
-                <div class="testimonial-play-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--light)"><path d="M8 5v14l11-7z"/></svg>
-                </div>
-              </div>
-            </div>
-            <div class="testimonial-caption">
-              <p class="testimonial-name">Kass Diarra</p>
-              <p class="testimonial-role">Founder, KassPT · Dublin</p>
-              <div class="testimonial-actions">
-                <a href="https://www.kasspt.ie" target="_blank" rel="noopener" class="btn btn-primary">
-                  <span>Visit KassPT →</span>
-                </a>
-                <button class="btn btn-primary" onclick="goToSlide(5)">
-                  <span>Get your site built</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div><!-- /slider-track -->
-    </div><!-- /slider-track-wrap -->
-  </section>
+  </main>
 
   <!-- Footer -->
   <footer>
-    <a href="#" class="footer-logo">Sites<span>By</span>Charlie</a>
-    <p class="footer-copy">&copy; 2026 Sites By Charlie &nbsp;·&nbsp; <a href="/privacypolicy" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">Privacy Policy</a></p>
+    <a href="#home" class="footer-logo">Sites<span>By</span>Charlie</a>
+    <p class="footer-copy">&copy; 2026 Sites By Charlie &nbsp;·&nbsp; <a href="/privacypolicy.html" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">Privacy Policy</a></p>
   </footer>
 
   <script>
-    /* ── SLIDER — native scroll-snap ──
-       The browser handles all trackpad momentum, touch swipe,
-       and fling physics natively. JS just syncs the UI.
-    ── */
-    const TOTAL = 7;
-    const wrap  = document.getElementById('sliderWrap');
-    const counterCurrent = document.getElementById('counterCurrent');
-    const counterTotal   = document.getElementById('counterTotal');
-    if (counterTotal) counterTotal.textContent = TOTAL;
-    const progressBar    = document.getElementById('progress-bar');
-    const cards = document.querySelectorAll('.slide-card');
-
-    // counterTotal handled above
-
-    function cardWidth() {
-      // card width + gap
-      return cards[0].offsetWidth + 20;
-    }
-
-    function currentIndex() {
-      return Math.round(wrap.scrollLeft / cardWidth());
-    }
-
-    function updateUI() {
-      const idx = currentIndex();
-      if (counterCurrent) counterCurrent.textContent = idx + 1;
-      cards.forEach((c, i) => c.classList.toggle('active', i === idx));
-      document.querySelectorAll('.nav-pill a').forEach((a, i) => a.classList.toggle('is-active', i === idx));
-      const pct = (wrap.scrollLeft / ((TOTAL - 1) * cardWidth())) * 100;
+    /* Scroll progress bar */
+    const progressBar = document.getElementById('progress-bar');
+    function updateProgress() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
       progressBar.style.width = Math.max(0, Math.min(100, pct)) + '%';
     }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
 
-    // Sync UI on every scroll frame — native scroll fires this at display refresh rate
-    wrap.addEventListener('scroll', updateUI, { passive: true });
-
-    function goToSlide(n) {
-      const idx = Math.max(0, Math.min(TOTAL - 1, n));
-      wrap.scrollTo({ left: idx * cardWidth(), behavior: 'smooth' });
+    /* Nav background on scroll */
+    const navEl = document.getElementById('navbar');
+    function updateNavBg() {
+      navEl.classList.toggle('scrolled', window.scrollY > 20);
     }
-    window.goToSlide = goToSlide;
+    window.addEventListener('scroll', updateNavBg, { passive: true });
+    updateNavBg();
 
-    document.querySelectorAll('.nav-pill a').forEach(a => {
-      a.addEventListener('click', e => {
-        e.preventDefault();
-        goToSlide(parseInt(a.dataset.slide));
+    /* Active section tracking via IntersectionObserver */
+    const sections = Array.from(document.querySelectorAll('main section.panel'));
+    const navPills = Array.from(document.querySelectorAll('#navPillList .pill'));
+    const mobileLinks = Array.from(document.querySelectorAll('.mobile-menu a'));
+
+    function setActiveSection(id) {
+      navPills.forEach(p => p.classList.toggle('is-active', p.dataset.section === id));
+      mobileLinks.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === '#' + id));
+    }
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      let best = null;
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (!best || entry.intersectionRatio > best.intersectionRatio) best = entry;
+        }
       });
-    });
+      if (best) setActiveSection(best.target.id);
+    }, { threshold: [0.25, 0.4, 0.6], rootMargin: '-80px 0px -40% 0px' });
 
-    /* ── Pill Nav — hover-circle animation (ported from React Bits' PillNav, vanilla + GSAP) ── */
+    sections.forEach(sec => sectionObserver.observe(sec));
+
+    /* Pill Nav — hover-circle animation (ported from React Bits' PillNav, vanilla + GSAP) */
     (function () {
       if (typeof gsap === 'undefined') return;
       const ease = 'power3.out';
@@ -1874,48 +1951,92 @@
       });
     })();
 
-    document.addEventListener('keydown', e => {
-      if (e.key === 'ArrowRight') goToSlide(currentIndex() + 1);
-      if (e.key === 'ArrowLeft')  goToSlide(currentIndex() - 1);
-    });
+    /* Rotating Text — vanilla port of React Bits' RotatingText (no framer-motion) */
+    (function () {
+      const el = document.getElementById('rotatingText');
+      if (!el) return;
+      const words = ['Everyone', 'Coaches & Trainers', 'Personal Brands', 'Creators'];
+      const wordPause = 1500;   // Coaches & Trainers / Personal Brands / Creators
+      const everyoneFirstPause = 2000; // the very first "Everyone" on load
+      const everyonePause = 3000;      // every time it comes back around
+      let idx = 0;
+      let isFirstEveryone = true;
 
-    // Re-anchor on resize so snap position stays correct
-    window.addEventListener('resize', () => {
-      const idx = currentIndex();
-      wrap.scrollTo({ left: idx * cardWidth(), behavior: 'instant' });
-    });
+      // Hidden sizer used purely to measure each word's natural width —
+      // the visible items are absolutely positioned for the slide animation,
+      // so their own scrollWidth can't be trusted for sizing the box.
+      const sizer = document.createElement('span');
+      sizer.style.cssText = 'position:absolute; visibility:hidden; height:0; overflow:hidden; white-space:nowrap; pointer-events:none; top:0; left:0;';
+      el.appendChild(sizer);
 
-    updateUI(); // init
+      function setWidthForText(text) {
+        sizer.textContent = text;
+        const w = sizer.offsetWidth;
+        const cs = getComputedStyle(el);
+        const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+        el.style.width = Math.ceil(w + padX) + 'px';
+      }
 
-    /* ── Scroll-driven card parallax ──
-       As the track scrolls, each card gets a subtle
-       translateY and rotateY nudge based on its distance
-       from centre — gives a natural depth feel. */
-    function applyParallax() {
-      const wrapRect  = wrap.getBoundingClientRect();
-      const wrapCx    = wrapRect.left + wrapRect.width / 2;
+      function makeItem(text, startClass) {
+        const span = document.createElement('span');
+        span.className = 'rotating-text-item' + (startClass ? ' ' + startClass : '');
+        span.textContent = text;
+        return span;
+      }
 
-      cards.forEach(card => {
-        const rect = card.getBoundingClientRect();
-        const cardCx = rect.left + rect.width / 2;
-        const dist   = (cardCx - wrapCx) / wrapRect.width; // -1 to 1
+      // initial item
+      let current = makeItem(words[0], 'is-active');
+      el.appendChild(current);
+      setWidthForText(words[0]);
 
-        // Inactive cards drift down slightly and rotate; active stays flat
-        const isActive = card.classList.contains('active');
-        if (!isActive) {
-          const ty = Math.abs(dist) * 10;        // up to 10px down
-          const ry = dist * 4;                   // up to 4deg rotation
-          card.style.transform = `scale(0.96) translateY(${6 + ty}px) rotateY(${ry}deg)`;
-        } else {
-          card.style.transform = 'scale(1) translateY(0) rotateY(0deg)';
+      // Re-measure once the web font has actually finished loading, and on
+      // resize — the very first measurement can happen before DM Sans is
+      // ready, which is what made the initial box size look off.
+      function remeasureCurrent() { setWidthForText(words[idx]); }
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(remeasureCurrent).catch(() => {});
+      }
+      window.addEventListener('resize', remeasureCurrent);
+
+      function stepOnce() {
+        idx = (idx + 1) % words.length;
+        const next = makeItem(words[idx]);
+        el.appendChild(next);
+        setWidthForText(words[idx]);
+        // force reflow so the entering state is applied before transitioning
+        void next.offsetWidth;
+        current.classList.add('is-leaving');
+        current.classList.remove('is-active');
+        next.classList.add('is-active');
+        const old = current;
+        current = next;
+        setTimeout(() => { old.remove(); }, 500);
+      }
+
+      /* Rhythm: Everyone (2s the first time, 3s every time after) →
+         Coaches & Trainers (1.5s) → Personal Brands (1.5s) → Creators (1.5s)
+         → back to Everyone, looping smoothly forever. */
+      function delayForCurrentWord() {
+        if (words[idx] === 'Everyone') {
+          const d = isFirstEveryone ? everyoneFirstPause : everyonePause;
+          isFirstEveryone = false;
+          return d;
         }
-      });
-    }
+        return wordPause;
+      }
 
-    wrap.addEventListener('scroll', applyParallax, { passive: true });
-    applyParallax();
+      function loop() {
+        const delay = delayForCurrentWord();
+        setTimeout(() => {
+          stepOnce();
+          loop();
+        }, delay);
+      }
 
-    /* ── Plan Tabs ── */
+      loop();
+    })();
+
+    /* Plan Tabs */
     document.querySelectorAll('.plan-tab').forEach(tab => {
       tab.addEventListener('click', () => {
         document.querySelectorAll('.plan-tab').forEach(t => t.classList.remove('active'));
@@ -1925,7 +2046,7 @@
       });
     });
 
-    /* ── Why accordion ── */
+    /* Why accordion */
     document.querySelectorAll('.why-point-item').forEach(item => {
       item.addEventListener('click', () => {
         const isOpen = item.classList.contains('open');
@@ -1934,18 +2055,15 @@
       });
     });
 
-    /* ── Work card tap (mobile) ── */
-    document.querySelectorAll('.work-card:not(.work-card--empty)').forEach(card => {
-      card.addEventListener('click', e => {
-        if (window.innerWidth > 768) return;
-        if (e.target.closest('.work-overlay-btn')) return;
-        const isTapped = card.classList.contains('tapped');
-        document.querySelectorAll('.work-card').forEach(c => c.classList.remove('tapped'));
-        if (!isTapped) card.classList.add('tapped');
+    /* FAQ accordion */
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        item.classList.toggle('open');
       });
     });
 
-    /* ── Mobile Menu ── */
+    /* Mobile Menu */
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     hamburger.addEventListener('click', () => {
@@ -1960,7 +2078,7 @@
     }
     window.closeMenu = closeMenu;
 
-    /* ── Contact Form ── */
+    /* Contact Form */
     const form = document.getElementById('contactForm');
     const status = document.getElementById('formStatus');
     form.addEventListener('submit', e => {
@@ -1974,116 +2092,105 @@
       if (!message) { status.textContent = 'Please add a short message before sending.'; return; }
       const btn = form.querySelector('button[type="submit"]');
       btn.disabled = true;
-      btn.querySelector('span').textContent = 'Sending…';
+      btn.querySelector('span:last-child').textContent = 'Sending…';
       const firstName = name.split(' ')[0];
       fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
         .then(res => {
           if (res.ok) {
-            const stepperEl = document.getElementById('formStepper');
+            const sentenceEl = document.getElementById('sentenceForm');
             const successEl = document.getElementById('formSuccess');
             const successTitle = document.getElementById('formSuccessTitle');
-            if (stepperEl && successEl && successTitle) {
+            if (sentenceEl && successEl && successTitle) {
               successTitle.textContent = `Thanks, ${firstName}! I'll be in touch soon!`;
-              stepperEl.style.display = 'none';
+              sentenceEl.style.display = 'none';
               successEl.style.display = 'flex';
             } else {
-              status.textContent = "✓ Message received — I'll be in touch soon!";
+              status.textContent = "✓ Message received, I'll be in touch soon!";
               status.className = 'form-status success';
             }
             form.reset();
-            window.resetFormStepper?.();
+            window.resetSentenceForm?.();
           } else {
-            status.textContent = 'Something went wrong — please email me directly.';
+            status.textContent = 'Something went wrong, please email me directly.';
           }
         })
-        .catch(() => { status.textContent = 'Something went wrong — please email me directly.'; })
+        .catch(() => { status.textContent = 'Something went wrong, please email me directly.'; })
         .finally(() => {
           btn.disabled = false;
-          btn.querySelector('span').textContent = 'Send';
+          btn.querySelector('span:last-child').textContent = 'Send info';
         });
     });
 
-    /* ── Multi-step contact form (vanilla port of React Bits' Stepper) ── */
+    /* Sentence-style contact form — autosizing inline fields */
     (function () {
-      const stepper = document.getElementById('formStepper');
-      if (!stepper) return;
-      const panels = Array.from(stepper.querySelectorAll('.step-panel'));
-      const indicators = Array.from(stepper.querySelectorAll('.stepper-indicator'));
-      const connectors = Array.from(stepper.querySelectorAll('.stepper-connector'));
-      const backBtn = document.getElementById('stepperBack');
-      const nextBtn = document.getElementById('stepperNext');
-      const submitBtn = document.getElementById('stepperSubmit');
-      const footer = document.getElementById('stepperFooter');
-      const stepStatus = document.getElementById('formStatus');
-      const totalSteps = panels.length;
-      let current = 1;
+      const sentenceForm = document.getElementById('sentenceForm');
+      if (!sentenceForm) return;
 
-      const checkIcon = '<svg class="stepper-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>';
+      // Shared hidden measurer for the boxed/underlined text inputs
+      const measurer = document.createElement('span');
+      measurer.style.cssText = 'position:absolute; visibility:hidden; white-space:pre; top:-9999px; left:-9999px; pointer-events:none;';
+      document.body.appendChild(measurer);
 
-      function render() {
-        panels.forEach(p => p.classList.toggle('active', parseInt(p.dataset.step) === current));
-        indicators.forEach(ind => {
-          const step = parseInt(ind.dataset.step);
-          ind.classList.toggle('active', step === current);
-          ind.classList.toggle('complete', step < current);
-          ind.dataset.locked = step > current ? 'true' : 'false';
-          const inner = ind.querySelector('.stepper-indicator-inner');
-          inner.innerHTML = step < current ? checkIcon : `<span class="stepper-number">${step}</span>`;
-        });
-        connectors.forEach(c => {
-          const idx = parseInt(c.dataset.connector);
-          c.classList.toggle('complete', idx < current);
-        });
-        footer.classList.toggle('has-back', current > 1);
-        backBtn.style.display = current > 1 ? 'inline-flex' : 'none';
-        nextBtn.style.display = current < totalSteps ? 'inline-flex' : 'none';
-        submitBtn.style.display = current === totalSteps ? 'inline-flex' : 'none';
-        stepStatus.textContent = '';
-        stepStatus.className = 'form-status';
-      }
-
-      function goTo(step) {
-        current = Math.max(1, Math.min(totalSteps, step));
-        render();
-      }
-
-      function validateStep(step) {
-        if (step === 1) {
-          const name = document.getElementById('name').value.trim();
-          const email = document.getElementById('email').value.trim();
-          if (!name || !email) { stepStatus.textContent = 'Please fill in your name and email.'; return false; }
-          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { stepStatus.textContent = 'Please enter a valid email address.'; return false; }
+      function autosizeInput(input) {
+        function resize() {
+          const cs = getComputedStyle(input);
+          measurer.style.font = cs.font;
+          measurer.style.fontFamily = cs.fontFamily;
+          measurer.style.fontSize = cs.fontSize;
+          measurer.style.fontWeight = cs.fontWeight;
+          measurer.style.letterSpacing = cs.letterSpacing;
+          const text = input.value || input.placeholder || '';
+          measurer.textContent = text;
+          const padX = parseFloat(cs.paddingLeft || 0) + parseFloat(cs.paddingRight || 0) + parseFloat(cs.borderLeftWidth || 0) + parseFloat(cs.borderRightWidth || 0);
+          input.style.width = Math.max(30, Math.ceil(measurer.offsetWidth + padX + 6)) + 'px';
         }
-        return true;
+        input.addEventListener('input', resize);
+        window.addEventListener('resize', resize);
+        resize();
       }
 
-      nextBtn.addEventListener('click', () => {
-        if (!validateStep(current)) return;
-        goTo(current + 1);
-      });
-      backBtn.addEventListener('click', () => goTo(current - 1));
-      indicators.forEach(ind => {
-        ind.addEventListener('click', () => {
-          const step = parseInt(ind.dataset.step);
-          if (step < current) goTo(step);
-        });
-      });
+      function autoGrowTextarea(el) {
+        function resize() {
+          el.style.height = 'auto';
+          el.style.height = el.scrollHeight + 'px';
+        }
+        el.addEventListener('input', resize);
+        window.addEventListener('resize', resize);
+        resize();
+      }
 
-      window.resetFormStepper = () => goTo(1);
-      render();
+      const nameInput = document.getElementById('name');
+      const emailInput = document.getElementById('email');
+      const messageArea = document.getElementById('message');
+      if (nameInput) autosizeInput(nameInput);
+      if (emailInput) autosizeInput(emailInput);
+      if (messageArea) autoGrowTextarea(messageArea);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+          if (nameInput) nameInput.dispatchEvent(new Event('input'));
+          if (emailInput) emailInput.dispatchEvent(new Event('input'));
+          if (messageArea) messageArea.dispatchEvent(new Event('input'));
+        }).catch(() => {});
+      }
+
+      window.resetSentenceForm = () => {
+        if (nameInput) nameInput.dispatchEvent(new Event('input'));
+        if (emailInput) emailInput.dispatchEvent(new Event('input'));
+        if (messageArea) { messageArea.style.height = 'auto'; messageArea.dispatchEvent(new Event('input')); }
+      };
 
       const successResetBtn = document.getElementById('formSuccessReset');
       const successEl = document.getElementById('formSuccess');
       if (successResetBtn && successEl) {
         successResetBtn.addEventListener('click', () => {
           successEl.style.display = 'none';
-          stepper.style.display = 'flex';
-          goTo(1);
+          sentenceForm.style.display = 'flex';
+          window.resetSentenceForm?.();
         });
       }
     })();
 
-    /* ── Testimonial video ── */
+    /* Testimonial video */
     (function () {
       const video = document.getElementById('kassTestimonialVideo');
       const playBtn = document.getElementById('testimonialPlayBtn');
