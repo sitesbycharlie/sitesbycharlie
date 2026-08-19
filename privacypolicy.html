@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Privacy Policy — Sites By Charlie</title>
-  <meta name="description" content="Privacy Policy for Sites By Charlie. Learn how we handle your personal data in accordance with GDPR." />
+  <meta name="description" content="Privacy Policy for Sites By Charlie. Learn how I handle your personal data in accordance with GDPR." />
   <meta name="robots" content="noindex, follow" />
   <link rel="icon" type="image/png" href="favicon.png" sizes="512x512" />
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
@@ -23,8 +23,23 @@
       --ease:    cubic-bezier(0.16, 1, 0.3, 1);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { background: var(--black); color: var(--light); font-family: var(--body); font-weight: 400; line-height: 1.75; overflow-x: hidden; }
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+    body {
+      background: var(--black);
+      color: var(--light);
+      font-family: var(--body);
+      font-weight: 400;
+      line-height: 1.75;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-y: contain;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      min-height: 100dvh;
+    }
     a { color: var(--red); text-decoration: underline; text-underline-offset: 3px; }
     a:hover { color: var(--light); }
     ul { list-style: none; }
@@ -37,12 +52,12 @@
     .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -3px; width: 0; height: 1px; background: var(--red); transition: width 0.3s var(--ease); }
     .nav-links a:hover { color: var(--light); }
     .nav-links a:hover::after { width: 100%; }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
     .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--light); transition: transform 0.3s var(--ease), opacity 0.3s; }
     .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-    .mobile-menu { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.97); z-index: 99; flex-direction: column; justify-content: center; align-items: center; gap: 2.5rem; }
+    .mobile-menu { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.97); z-index: 99; flex-direction: column; justify-content: center; align-items: center; gap: 2.5rem; -webkit-overflow-scrolling: touch; }
     .mobile-menu.open { display: flex; }
     .mobile-menu a { font-family: var(--heading); font-size: 2.2rem; font-weight: 400; color: var(--light); text-decoration: none; letter-spacing: 0.04em; transition: color 0.25s; }
     .mobile-menu a:hover { color: var(--red); }
@@ -54,7 +69,7 @@
     .last-updated { font-size: 0.8rem; color: rgba(238,238,238,0.35); margin-bottom: 3rem; }
     .policy-section { margin-bottom: 3rem; }
     .policy-section h2 { font-family: var(--heading); font-size: 1.2rem; font-weight: 600; color: var(--light); margin-bottom: 0.9rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(238,238,238,0.08); }
-    .policy-section p { color: rgba(238,238,238,0.62); font-size: 0.95rem; margin-bottom: 0.9rem; }
+    .policy-section p { color: rgba(238,238,238,0.62); font-size: 0.95rem; margin-bottom: 0.9rem; word-break: break-word; }
     .policy-section p:last-child { margin-bottom: 0; }
     .policy-section ul { color: rgba(238,238,238,0.62); font-size: 0.95rem; padding-left: 1.4rem; display: flex; flex-direction: column; gap: 0.45rem; list-style: disc; }
     .policy-section strong { color: var(--light); font-weight: 600; }
@@ -63,8 +78,6 @@
     .footer-logo span { color: var(--red); }
     .footer-copy { font-size: 0.74rem; color: rgba(238,238,238,0.26); letter-spacing: 0.04em; }
     .footer-copy a { color: inherit; }
-    @media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: flex; } }
-    @media (max-width: 600px) { footer { flex-direction: column; text-align: center; align-items: center; } }
     .btn {
       display: inline-flex;
       align-items: center;
@@ -98,6 +111,31 @@
       margin: 0 auto;
       padding: 0 5vw;
     }
+
+    /* Tablet */
+    @media (max-width: 900px) {
+      .page-wrap { padding: 4rem 6vw 5.5rem; }
+      .policy-section { margin-bottom: 2.4rem; }
+    }
+    /* Mobile nav */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+    /* Small phones */
+    @media (max-width: 600px) {
+      footer { flex-direction: column; text-align: center; align-items: center; }
+      nav { padding: 1.2rem 6vw; }
+      .page-wrap { padding: 3.2rem 6vw 4.5rem; }
+      .page-title { line-height: 1.15; }
+      .divider { margin: 1.4rem 0 2rem; }
+      .last-updated { margin-bottom: 2.2rem; }
+      .policy-section h2 { font-size: 1.05rem; margin-bottom: 0.7rem; }
+      .policy-section p,
+      .policy-section ul { font-size: 0.9rem; }
+      .policy-section ul { padding-left: 1.2rem; }
+      .back-wrap { padding: 0 6vw; }
+    }
   </style>
 </head>
 <body>
@@ -105,9 +143,9 @@
   <nav>
     <a href="/" class="nav-logo">Sites<span>By</span>Charlie</a>
     <ul class="nav-links">
-      <li><a href="/#about">About</a></li>
       <li><a href="/#services">Services</a></li>
-      <li><a href="/#pricing">Pricing</a></li>
+      <li><a href="/#plans">Plans</a></li>
+      <li><a href="/#work">Work</a></li>
       <li><a href="/#why">Why a Website?</a></li>
       <li><a href="/#contact">Contact</a></li>
     </ul>
@@ -117,9 +155,9 @@
   </nav>
 
   <div class="mobile-menu" id="mobileMenu">
-    <a href="/#about"    onclick="closeMenu()">About</a>
     <a href="/#services" onclick="closeMenu()">Services</a>
-    <a href="/#pricing"  onclick="closeMenu()">Pricing</a>
+    <a href="/#plans"    onclick="closeMenu()">Plans</a>
+    <a href="/#work"     onclick="closeMenu()">Work</a>
     <a href="/#why"      onclick="closeMenu()">Why a Website?</a>
     <a href="/#contact"  onclick="closeMenu()">Contact</a>
   </div>
@@ -135,56 +173,56 @@
     <p class="page-tag">Legal</p>
     <h1 class="page-title">Privacy <em>Policy.</em></h1>
     <div class="divider"></div>
-    <p class="last-updated">Last updated: March 2026</p>
+    <p class="last-updated">Last updated: August 2026</p>
 
     <div class="policy-section">
-      <h2>Who we are</h2>
-      <p>This website is operated by <strong>Sites By Charlie</strong>, a web design service based in Dublin, Ireland. If you have any questions about this policy, you can contact us at <a href="mailto:sitesbycharlie@gmail.com">sitesbycharlie@gmail.com</a>.</p>
+      <h2>Who I am</h2>
+      <p>This website is run by me, trading as <strong>Sites By Charlie</strong>, a one-person web design service based in Dublin, Ireland. If you have any questions about this policy, you can contact me at <a href="mailto:sitesbycharlie@gmail.com">sitesbycharlie@gmail.com</a>.</p>
     </div>
 
     <div class="policy-section">
-      <h2>What data we collect</h2>
-      <p>We only collect personal data that you voluntarily provide through the contact form on this website. This may include:</p>
+      <h2>What data I collect</h2>
+      <p>I only collect personal data that you voluntarily provide through the contact form on this website. This may include:</p>
       <ul>
         <li>Your name</li>
         <li>Your email address</li>
-        <li>Your mobile number (optional)</li>
+        <li>Which plan you're interested in, if you select one</li>
         <li>Any message or project details you choose to share</li>
       </ul>
-      <p>We do not collect any data automatically. This website uses no analytics tools, tracking pixels, advertising cookies, or any other passive data collection.</p>
+      <p>I don't collect any data automatically. This website uses no tracking pixels, advertising cookies, or any other passive data collection beyond standard Google Analytics page-view tracking.</p>
     </div>
 
     <div class="policy-section">
-      <h2>How we use your data</h2>
-      <p>The information you submit via the contact form is used solely to respond to your enquiry and communicate with you about your project. We will never use your details for unsolicited marketing, and we will never sell or share your data with third parties for commercial purposes.</p>
+      <h2>How I use your data</h2>
+      <p>The information you submit via the contact form is used solely to respond to your enquiry and communicate with you about your project. I will never use your details for unsolicited marketing, and I will never sell or share your data with third parties for commercial purposes.</p>
     </div>
 
     <div class="policy-section">
       <h2>How your data is stored</h2>
-      <p>Contact form submissions are processed and stored by <strong>Formspree</strong> (formspree.io), a third-party form handling service. Formspree stores your submission on their servers in order to deliver it to us. You can read Formspree's own privacy policy at <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener">formspree.io/legal/privacy-policy</a>.</p>
-      <p>We do not operate our own database or server-side storage of your personal information.</p>
+      <p>Contact form submissions are processed and stored by <strong>Formspree</strong> (formspree.io), a third-party form handling service. Formspree stores your submission on their servers in order to deliver it to me. You can read Formspree's own privacy policy at <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener">formspree.io/legal/privacy-policy</a>.</p>
+      <p>I don't operate my own database or server-side storage of your personal information.</p>
     </div>
 
     <div class="policy-section">
       <h2>Cookies</h2>
-      <p>This website does not set any first-party cookies. Formspree may set a functional cookie in order to process contact form submissions — this is strictly necessary for the form to operate and does not track you across other websites.</p>
+      <p>This website does not set any first-party cookies of its own. Formspree may set a functional cookie in order to process contact form submissions, this is strictly necessary for the form to operate and does not track you across other websites. Google Analytics may also set cookies to measure anonymous page-view traffic.</p>
     </div>
 
     <div class="policy-section">
       <h2>Your rights under GDPR</h2>
       <p>As someone based in or dealing with businesses in Ireland, you have rights under the General Data Protection Regulation (GDPR), including:</p>
       <ul>
-        <li><strong>The right to access</strong> — you can request a copy of any personal data we hold about you</li>
-        <li><strong>The right to erasure</strong> — you can ask us to delete your personal data</li>
-        <li><strong>The right to rectification</strong> — you can ask us to correct inaccurate data</li>
-        <li><strong>The right to object</strong> — you can object to how we process your data</li>
+        <li><strong>The right to access</strong>, you can request a copy of any personal data I hold about you</li>
+        <li><strong>The right to erasure</strong>, you can ask me to delete your personal data</li>
+        <li><strong>The right to rectification</strong>, you can ask me to correct inaccurate data</li>
+        <li><strong>The right to object</strong>, you can object to how I process your data</li>
       </ul>
-      <p>To exercise any of these rights, please contact us at <a href="mailto:sitesbycharlie@gmail.com">sitesbycharlie@gmail.com</a> and we will respond within 30 days.</p>
+      <p>To exercise any of these rights, please contact me at <a href="mailto:sitesbycharlie@gmail.com">sitesbycharlie@gmail.com</a> and I will respond within 30 days.</p>
     </div>
 
     <div class="policy-section">
       <h2>Changes to this policy</h2>
-      <p>We may update this privacy policy from time to time. Any changes will be reflected on this page with an updated date at the top. We recommend checking back occasionally if you have an ongoing relationship with us.</p>
+      <p>I may update this privacy policy from time to time. Any changes will be reflected on this page with an updated date at the top. I recommend checking back occasionally if you have an ongoing relationship with me.</p>
     </div>
 
     <div class="policy-section">
@@ -195,7 +233,7 @@
 
   <footer>
     <a href="/" class="footer-logo">Sites<span>By</span>Charlie</a>
-    <p class="footer-copy">&copy; 2026 Sites By Charlie &nbsp;·&nbsp; <a href="/privacypolicy" style="text-decoration:underline; text-underline-offset:3px;">Privacy Policy</a></p>
+    <p class="footer-copy">&copy; 2026 Sites By Charlie &nbsp;·&nbsp; <a href="/privacypolicy.html" style="text-decoration:underline; text-underline-offset:3px;">Privacy Policy</a></p>
   </footer>
 
   <script>
