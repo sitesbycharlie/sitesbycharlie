@@ -27,6 +27,27 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Varela+Round&display=swap" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Sites By Charlie",
+    "image": "https://www.sitesbycharlie.ie/favicon.png",
+    "url": "https://www.sitesbycharlie.ie/",
+    "email": "sitesbycharlie@gmail.com",
+    "description": "Affordable, custom web design for Irish businesses. Based in Dublin, working nationwide. Simple pricing, fast turnaround, no monthly fees.",
+    "areaServed": {
+      "@type": "Country",
+      "name": "Ireland"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Dublin",
+      "addressCountry": "IE"
+    },
+    "priceRange": "€€"
+  }
+  </script>
 
   <style>
     :root {
@@ -1612,11 +1633,11 @@
             <p class="sentence-text">
               Hi, my name is
               <span class="sentence-field sentence-field--boxed">
-                <input type="text" id="name" name="name" placeholder="your name" required size="1" />
+                <input type="text" id="name" name="name" placeholder="your name" aria-label="Your name" required size="1" />
               </span>
               and I'm interested in
               <span class="sentence-field sentence-field--select">
-                <select id="plan" name="plan">
+                <select id="plan" name="plan" aria-label="Which plan you're interested in">
                   <option value="" disabled selected>choose a plan</option>
                   <option value="Own It Outright">Own It Outright</option>
                   <option value="Managed By Charlie">Managed By Charlie</option>
@@ -1627,12 +1648,12 @@
               Here's what I'm after:
             </p>
             <div class="sentence-field sentence-field--grow">
-              <textarea id="message" name="message" placeholder="a new site, a redesign, more customers online…" required rows="1"></textarea>
+              <textarea id="message" name="message" placeholder="a new site, a redesign, more customers online…" aria-label="What you're after" required rows="1"></textarea>
             </div>
             <p class="sentence-text">
               You can reach me at
               <span class="sentence-field sentence-field--underline">
-                <input type="email" id="email" name="email" placeholder="your email address" required size="1" />
+                <input type="email" id="email" name="email" placeholder="your email address" aria-label="Your email address" required size="1" />
               </span>
               to get things started.
             </p>
