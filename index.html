@@ -2434,9 +2434,31 @@
         flip.appendChild(back);
         card.appendChild(flip);
 
+      });
+
+      var allCards = Array.from(document.querySelectorAll('.work-card:not(.work-card--empty)'));
+      var resetTimer = null;
+
+      function resetAll() {
+        allCards.forEach(function(c) { c.classList.remove('flipped'); });
+      }
+
+      function startResetTimer() {
+        clearTimeout(resetTimer);
+        resetTimer = setTimeout(resetAll, 5000);
+      }
+
+      allCards.forEach(function(card) {
         card.addEventListener('click', function(e) {
           if (e.target.closest('a')) return;
-          card.classList.toggle('flipped');
+          var isFlipped = card.classList.contains('flipped');
+          resetAll();
+          if (!isFlipped) {
+            card.classList.add('flipped');
+            startResetTimer();
+          } else {
+            clearTimeout(resetTimer);
+          }
         });
       });
     })();
