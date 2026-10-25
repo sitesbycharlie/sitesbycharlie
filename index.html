@@ -1249,22 +1249,127 @@
 
     /* Testimonial */
     #testimonial .panel-inner { display: flex; flex-direction: column; align-items: center; }
+    #testimonial { --frame-w: min(280px, 68vw); }
+    .t-name-swap {
+      display: inline-block;
+      transition: opacity 0.35s var(--ease), transform 0.35s var(--ease), filter 0.35s var(--ease);
+    }
+    .t-name-swap.is-out { opacity: 0; transform: translateY(10px); filter: blur(4px); }
+
+    /* Client switcher */
+    .t-switch {
+      position: relative;
+      display: inline-flex;
+      padding: 4px;
+      margin: 0 auto 0.4rem;
+      border-radius: 999px;
+      border: 1px solid rgba(238,238,238,0.1);
+      background: rgba(238,238,238,0.03);
+    }
+    .t-tab {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1px;
+      min-width: 118px;
+      padding: 0.5rem 1.2rem 0.6rem;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: rgba(238,238,238,0.5);
+      font-family: var(--serif);
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.2;
+      cursor: pointer;
+      overflow: hidden;
+      transition: color 0.3s var(--ease);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .t-tab small {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+    .t-tab.is-active { color: var(--light); }
+    .t-tab:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+    /* playback progress along the bottom of each tab */
+    .t-tab::after {
+      content: '';
+      position: absolute;
+      left: 22%; right: 22%; bottom: 5px;
+      height: 2px;
+      border-radius: 2px;
+      background: rgba(238,238,238,0.85);
+      transform-origin: left;
+      transform: scaleX(var(--p, 0));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .t-tab.is-playing::after { opacity: 1; }
+    .t-tab-indicator {
+      position: absolute;
+      top: 4px; bottom: 4px; left: 4px;
+      border-radius: 999px;
+      background: var(--crimson);
+      box-shadow: 0 6px 20px rgba(142,22,22,0.45);
+      transition: transform 0.5s var(--ease), width 0.5s var(--ease);
+    }
+
     .testimonial-intro {
       font-size: 0.93rem;
       color: var(--muted);
       max-width: 420px;
-      margin: 0 auto 1.8rem;
+      min-height: 3.2em;
+      margin: 0 auto 0.6rem;
       text-align: center;
+      transition: opacity 0.35s var(--ease);
     }
+    .testimonial-intro.is-out, .testimonial-caption.is-out { opacity: 0; }
+
+    /* Carousel: native scroll-snap so swipe feels like the phone's own */
+    .t-carousel {
+      position: relative;
+      width: 100vw;
+      margin-inline: calc(50% - 50vw);
+    }
+    .t-track {
+      display: flex;
+      gap: 1.4rem;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      padding: 1.2rem calc(50% - var(--frame-w) / 2) 1.4rem;
+      -webkit-overflow-scrolling: touch;
+    }
+    .t-track::-webkit-scrollbar { display: none; }
+    .t-slide {
+      flex: 0 0 var(--frame-w);
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
+      transform: scale(0.86);
+      opacity: 0.32;
+      filter: saturate(0.4);
+      transition: transform 0.6s var(--ease), opacity 0.6s var(--ease), filter 0.6s var(--ease);
+      cursor: pointer;
+    }
+    .t-slide.is-active { transform: none; opacity: 1; filter: none; cursor: default; }
+    .t-slide:not(.is-active) .testimonial-play-icon { transform: scale(0.8); background: rgba(238,238,238,0.14); box-shadow: none; }
+
     .testimonial-video-frame {
       position: relative;
-      width: min(280px, 68vw);
+      width: 100%;
       aspect-ratio: 9 / 16;
       border-radius: 20px;
       overflow: hidden;
       border: 1px solid rgba(238,238,238,0.1);
       background: #000;
-      margin: 0 auto 1.6rem;
       box-shadow:
         0 0 0 1px rgba(216,64,64,0.12),
         0 0 40px rgba(180,30,30,0.16),
@@ -1285,6 +1390,23 @@
       display: block;
       background: #000;
     }
+    .t-slide-label {
+      position: absolute;
+      left: 12px; bottom: 12px;
+      z-index: 2;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      font-family: var(--serif);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--light);
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .testimonial-video-frame.is-playing .t-slide-label { opacity: 0; }
     .testimonial-play-btn {
       position: absolute;
       inset: 0;
@@ -1296,10 +1418,7 @@
       transition: opacity 0.3s var(--ease);
       z-index: 2;
     }
-    .testimonial-play-btn.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
+    .testimonial-play-btn.hidden { opacity: 0; pointer-events: none; }
     .testimonial-play-icon {
       width: 58px;
       height: 58px;
@@ -1309,15 +1428,49 @@
       align-items: center;
       justify-content: center;
       box-shadow: 0 8px 24px rgba(142,22,22,0.55);
-      transition: background 0.2s, transform 0.2s;
+      transition: background 0.2s, transform 0.3s var(--ease);
     }
-    .testimonial-play-btn:hover .testimonial-play-icon {
+    .t-slide.is-active .testimonial-play-btn:hover .testimonial-play-icon {
       background: var(--red);
       transform: scale(1.08);
     }
     .testimonial-play-icon svg { margin-left: 3px; }
+
+    /* Arrows (desktop / mouse only) */
+    .t-arrow {
+      position: absolute;
+      top: 50%;
+      z-index: 4;
+      width: 44px; height: 44px;
+      margin-top: -22px;
+      border-radius: 50%;
+      border: 1px solid rgba(238,238,238,0.14);
+      background: rgba(0,0,0,0.6);
+      color: var(--light);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, opacity 0.3s;
+    }
+    .t-arrow:hover { background: var(--crimson); border-color: var(--crimson); }
+    .t-arrow:disabled { opacity: 0; pointer-events: none; }
+    .t-arrow--prev { left: calc(50% - var(--frame-w) * 1.5 - 1.4rem - 56px); }
+    .t-arrow--next { right: calc(50% - var(--frame-w) * 1.5 - 1.4rem - 56px); }
+    @media (hover: none), (max-width: 768px) { .t-arrow { display: none; } }
+
+    .t-swipe-hint {
+      display: none;
+      font-size: 0.72rem;
+      color: rgba(238,238,238,0.4);
+      margin: -0.4rem 0 1rem;
+      letter-spacing: 0.04em;
+      transition: opacity 0.4s;
+    }
+    .t-swipe-hint.is-gone { opacity: 0; }
+    @media (hover: none), (max-width: 768px) { .t-swipe-hint { display: block; } }
+
     .testimonial-caption {
       text-align: center;
+      transition: opacity 0.35s var(--ease);
     }
     .testimonial-name {
       font-family: var(--serif);
@@ -1336,6 +1489,10 @@
       gap: 0.7rem;
       flex-wrap: wrap;
       justify-content: center;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .t-slide, .t-tab-indicator, .t-name-swap { transition: none; }
+      .t-track { scroll-behavior: auto; }
     }
     /* Buttons */
     .btn {
@@ -1444,7 +1601,9 @@
       .sentence-caption { margin-top: -0.6rem; margin-bottom: 1.5rem; }
 
       /* Testimonial */
-      .testimonial-video-frame { width: min(220px, 72vw); margin-bottom: 1.2rem; }
+      #testimonial { --frame-w: min(240px, 64vw); }
+      .t-track { gap: 1rem; padding-top: 0.8rem; padding-bottom: 1rem; }
+      .t-tab { min-width: 104px; padding: 0.45rem 1rem 0.55rem; font-size: 0.85rem; }
       .testimonial-play-icon { width: 46px; height: 46px; }
 
       .card-title { font-size: clamp(1.6rem, 6vw, 2.2rem); }
@@ -1829,27 +1988,61 @@
     <!-- TESTIMONIAL -->
     <section class="panel" id="testimonial">
       <div class="panel-inner">
-        <h2 class="card-title reveal">Hear it from<br><em>Kass.</em></h2>
-        <p class="testimonial-intro">Standing out as an PT can be tough. Kass got a website and watched it turn into new clients and real revenue.</p>
-        <div class="testimonial-video-frame reveal">
-          <video
-            id="kassTestimonialVideo"
-            poster="kass-testimonial-poster.jpg"
-            playsinline
-            preload="metadata"
-            src="kass-testimonial.mp4">
-          </video>
-          <div class="testimonial-play-btn" id="testimonialPlayBtn">
-            <div class="testimonial-play-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--light)"><path d="M8 5v14l11-7z"/></svg>
+        <h2 class="card-title reveal">Hear it from<br><em class="t-name-swap" id="tName">Kass.</em></h2>
+
+        <div class="t-switch reveal" role="tablist" aria-label="Choose a client testimonial">
+          <span class="t-tab-indicator" aria-hidden="true"></span>
+          <button class="t-tab is-active" role="tab" aria-selected="true" aria-controls="tSlide0" data-index="0">Kass<small>KassPT</small></button>
+          <button class="t-tab" role="tab" aria-selected="false" aria-controls="tSlide1" data-index="1">Michael<small>MRF</small></button>
+        </div>
+
+
+        <div class="t-carousel reveal">
+          <button class="t-arrow t-arrow--prev" type="button" aria-label="Previous testimonial">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <div class="t-track" id="tTrack">
+            <div class="t-slide is-active" id="tSlide0" role="tabpanel" aria-label="Kass Diarra, KassPT"
+                 data-name="Kass."
+                 data-person="Kass Diarra"
+                 data-role="Founder, KassPT · Dublin"
+                 data-link="https://www.kasspt.ie"
+                 data-link-label="Visit KassPT →">
+              <div class="testimonial-video-frame">
+                <video playsinline preload="metadata" poster="kass-testimonial-poster.jpg" src="kass-testimonial.mp4"></video>
+                <span class="t-slide-label">Kass · KassPT</span>
+                <div class="testimonial-play-btn" aria-label="Play Kass's testimonial" role="button" tabindex="0">
+                  <div class="testimonial-play-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="var(--light)"><path d="M8 5v14l11-7z"/></svg></div>
+                </div>
+              </div>
+            </div>
+            <div class="t-slide" id="tSlide1" role="tabpanel" aria-label="Michael Roarty, MRF"
+                 data-name="Michael."
+                 data-person="Michael Roarty"
+                 data-role="Founder, MRF · Donegal"
+                 data-link="https://www.michaelroartyfitness.ie"
+                 data-link-label="Visit MRF →">
+              <div class="testimonial-video-frame">
+                <video playsinline preload="metadata" poster="mrf-testimonial-poster.jpg" src="mrf-testimonial.mp4"></video>
+                <span class="t-slide-label">Michael · MRF</span>
+                <div class="testimonial-play-btn" aria-label="Play Michael's testimonial" role="button" tabindex="0">
+                  <div class="testimonial-play-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="var(--light)"><path d="M8 5v14l11-7z"/></svg></div>
+                </div>
+              </div>
             </div>
           </div>
+          <button class="t-arrow t-arrow--next" type="button" aria-label="Next testimonial">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
         </div>
-        <div class="testimonial-caption">
-          <p class="testimonial-name">Kass Diarra</p>
-          <p class="testimonial-role">Founder, KassPT · Dublin</p>
+
+        <p class="t-swipe-hint" id="tHint">Swipe to hear from Michael →</p>
+
+        <div class="testimonial-caption" id="tCaption">
+          <p class="testimonial-name" id="tPerson">Kass Diarra</p>
+          <p class="testimonial-role" id="tRole">Founder, KassPT · Dublin</p>
           <div class="testimonial-actions">
-            <a href="https://www.kasspt.ie" target="_blank" rel="noopener" class="btn btn-primary">
+            <a href="https://www.kasspt.ie" target="_blank" rel="noopener" class="btn btn-primary" id="tLink">
               <span>Visit KassPT →</span>
             </a>
             <a href="#contact" class="btn btn-primary">
@@ -2381,23 +2574,139 @@
       }
     })();
 
-    /* Testimonial video */
+    /* Testimonial carousel */
     (function () {
-      const video = document.getElementById('kassTestimonialVideo');
-      const playBtn = document.getElementById('testimonialPlayBtn');
-      if (!video || !playBtn) return;
-      playBtn.addEventListener('click', () => {
-        video.setAttribute('controls', '');
-        video.play();
-        playBtn.classList.add('hidden');
+      const track = document.getElementById('tTrack');
+      if (!track) return;
+      const slides = Array.from(track.querySelectorAll('.t-slide'));
+      const tabs = Array.from(document.querySelectorAll('.t-tab'));
+      const indicator = document.querySelector('.t-tab-indicator');
+      const prev = document.querySelector('.t-arrow--prev');
+      const next = document.querySelector('.t-arrow--next');
+      const nameEl = document.getElementById('tName');
+      const captionEl = document.getElementById('tCaption');
+      const personEl = document.getElementById('tPerson');
+      const roleEl = document.getElementById('tRole');
+      const linkEl = document.getElementById('tLink');
+      const hint = document.getElementById('tHint');
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let active = 0;
+      let swapTimer;
+
+      function moveIndicator() {
+        const t = tabs[active];
+        indicator.style.width = t.offsetWidth + 'px';
+        indicator.style.transform = 'translateX(' + (t.offsetLeft - 4) + 'px)';
+      }
+
+      function resetVideo(slide) {
+        const v = slide.querySelector('video');
+        const btn = slide.querySelector('.testimonial-play-btn');
+        if (!v.paused) v.pause();
+        v.removeAttribute('controls');
+        btn.classList.remove('hidden');
+        slide.querySelector('.testimonial-video-frame').classList.remove('is-playing');
+      }
+
+      function setActive(i) {
+        if (i === active) return;
+        resetVideo(slides[active]);
+        tabs[active].classList.remove('is-playing');
+        active = i;
+        slides.forEach((s, n) => s.classList.toggle('is-active', n === i));
+        tabs.forEach((t, n) => {
+          t.classList.toggle('is-active', n === i);
+          t.setAttribute('aria-selected', n === i ? 'true' : 'false');
+        });
+        moveIndicator();
+        prev.disabled = i === 0;
+        next.disabled = i === slides.length - 1;
+        if (i > 0 && hint) hint.classList.add('is-gone');
+
+        const d = slides[i].dataset;
+        [nameEl, captionEl].forEach(el => el.classList.add('is-out'));
+        clearTimeout(swapTimer);
+        swapTimer = setTimeout(() => {
+          nameEl.textContent = d.name;
+          personEl.textContent = d.person;
+          roleEl.textContent = d.role;
+          linkEl.href = d.link;
+          linkEl.querySelector('span').textContent = d.linkLabel;
+          [nameEl, captionEl].forEach(el => el.classList.remove('is-out'));
+        }, reduce ? 0 : 220);
+      }
+
+      function goTo(i) {
+        i = Math.max(0, Math.min(slides.length - 1, i));
+        const s = slides[i];
+        track.scrollTo({
+          left: s.offsetLeft - (track.clientWidth - s.offsetWidth) / 2,
+          behavior: reduce ? 'auto' : 'smooth'
+        });
+        setActive(i);
+      }
+
+      /* Work out which slide is centred while the user swipes */
+      let ticking = false;
+      track.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const mid = track.scrollLeft + track.clientWidth / 2;
+          let best = 0, bestDist = Infinity;
+          slides.forEach((s, n) => {
+            const d = Math.abs(s.offsetLeft + s.offsetWidth / 2 - mid);
+            if (d < bestDist) { bestDist = d; best = n; }
+          });
+          setActive(best);
+          ticking = false;
+        });
+      }, { passive: true });
+
+      tabs.forEach(t => t.addEventListener('click', () => goTo(+t.dataset.index)));
+      prev.addEventListener('click', () => goTo(active - 1));
+      next.addEventListener('click', () => goTo(active + 1));
+      track.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight') { e.preventDefault(); goTo(active + 1); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(active - 1); }
       });
-      video.addEventListener('pause', () => {
-        if (video.currentTime > 0 && !video.ended) return;
+
+      slides.forEach((slide, n) => {
+        const v = slide.querySelector('video');
+        const btn = slide.querySelector('.testimonial-play-btn');
+        const frame = slide.querySelector('.testimonial-video-frame');
+        const play = () => {
+          if (n !== active) { goTo(n); return; }   /* tapping a side card brings it to the centre */
+          v.setAttribute('controls', '');
+          v.play();
+          btn.classList.add('hidden');
+          frame.classList.add('is-playing');
+          tabs[n].classList.add('is-playing');
+        };
+        btn.addEventListener('click', play);
+        btn.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(); } });
+        slide.addEventListener('click', e => { if (n !== active && !btn.contains(e.target)) goTo(n); });
+        v.addEventListener('timeupdate', () => {
+          if (v.duration) tabs[n].style.setProperty('--p', (v.currentTime / v.duration).toFixed(3));
+        });
+        v.addEventListener('ended', () => {
+          resetVideo(slide);
+          tabs[n].classList.remove('is-playing');
+          tabs[n].style.setProperty('--p', 0);
+          if (n < slides.length - 1) setTimeout(() => goTo(n + 1), 500);  /* queue up the next story */
+        });
       });
-      video.addEventListener('ended', () => {
-        playBtn.classList.remove('hidden');
-        video.removeAttribute('controls');
-      });
+
+      /* Pause if the section scrolls out of view */
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(entries => {
+          entries.forEach(en => { if (!en.isIntersecting) slides.forEach(s => { const v = s.querySelector('video'); if (!v.paused) v.pause(); }); });
+        }, { threshold: 0.15 }).observe(track);
+      }
+
+      prev.disabled = true;
+      requestAnimationFrame(moveIndicator);
+      window.addEventListener('resize', () => { moveIndicator(); goTo(active); });
     })();
 
   </script>
